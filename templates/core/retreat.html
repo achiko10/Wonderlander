@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}{% if lang == 'ge' %}ბალი - ტრანსფორმაციული მოგზაურობა{% else %}Bali - Transformational Journey{% endif %} - Wonderlander{% endblock %}
+{% block content %}
+
+<section class="page-hero retreat-hero">
+  <div class="page-hero-content">
+    <div class="section-badge">🏝️ {% if lang == 'ge' %}ბალი · 11-20 სექტემბერი{% else %}Bali · Sept 11-20{% endif %}</div>
+    <h1 class="page-hero-title">
+      {% if lang == 'ge' %}ტრანსფორმაციული<br>მოგზაურობა{% else %}Transformational<br>Journey{% endif %}
+    </h1>
+    <p class="page-hero-subtitle">
+      {% if lang == 'ge' %}10 დღე ღმერთების კუნძულზე — გარეთ და შიგნით მოგზაურობა{% else %}10 days on the Island of Gods — a journey outward and inward{% endif %}
+    </p>
+    <div class="retreat-prices">
+      <div class="retreat-price-card">
+        <div class="retreat-price-label">Early Bird</div>
+        <div class="retreat-price-value">2000$</div>
+      </div>
+      <div class="retreat-price-card main-price">
+        <div class="retreat-price-label">{% if lang == 'ge' %}ჩვეულებრივი{% else %}Regular{% endif %}</div>
+        <div class="retreat-price-value">2555$</div>
+        <div class="retreat-price-note">{% if lang == 'ge' %}ავიაბილეთების გარეშე{% else %}Excl. flights{% endif %}</div>
+      </div>
+    </div>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
+      {% if lang == 'ge' %}ადგილის დაჯავშნა 🔥{% else %}Reserve Your Spot 🔥{% endif %}
+    </a>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="includes-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2 class="section-title">💫 {% if lang == 'ge' %}ღირებულებაში შედის{% else %}What's Included{% endif %}</h2>
+    </div>
+    <div class="includes-grid">
+      {% if retreat and retreat.includes_ge %}
+        {% if lang == 'ge' %}
+          {% for line in retreat.includes_ge.splitlines %}{% if line %}<div class="include-item fade-in">💫 {{ line }}</div>{% endif %}{% endfor %}
+        {% else %}
+          {% for line in retreat.includes_en.splitlines %}{% if line %}<div class="include-item fade-in">💫 {{ line }}</div>{% endif %}{% endfor %}
+        {% endif %}
+      {% else %}
+        <div class="include-item fade-in">🏨 {% if lang == 'ge' %}სასტუმროში განთავსება{% else %}Hotel accommodation{% endif %}</div>
+        <div class="include-item fade-in">🥗 {% if lang == 'ge' %}ორჯერადი ჯანსაღი კვება{% else %}Twice-daily healthy meals{% endif %}</div>
+        <div class="include-item fade-in">☕ {% if lang == 'ge' %}ულიმიტო ყავა/ჩაი{% else %}Unlimited coffee/tea{% endif %}</div>
+        <div class="include-item fade-in">🧘 {% if lang == 'ge' %}ყოველდღიური ვორქშოფები{% else %}Daily workshops{% endif %}</div>
+        <div class="include-item fade-in">🌅 {% if lang == 'ge' %}იოგა და მედიტაცია{% else %}Yoga and meditation{% endif %}</div>
+        <div class="include-item fade-in">🔥 {% if lang == 'ge' %}კუნდალინის 4 სესია (ჩვეულ. ფასი 250$){% else %}4 Kundalini sessions (reg. $250 each){% endif %}</div>
+        <div class="include-item fade-in">💃 {% if lang == 'ge' %}ექსტაზური ცეკვა / ბგერითი თერაპია{% else %}Ecstatic dance / sound healing{% endif %}</div>
+        <div class="include-item fade-in">📸 {% if lang == 'ge' %}ფოტო/ვიდეო გადაღება{% else %}Photo/video coverage{% endif %}</div>
+        <div class="include-item fade-in">🎯 {% if lang == 'ge' %}ინდივიდუალური სესია გურანდასთან{% else %}Individual session with Guranda{% endif %}</div>
+        <div class="include-item fade-in">🎁 {% if lang == 'ge' %}ონლაინ კურსი „ფემინური სიმდიდრე"{% else %}Online course "Feminine Wealth"{% endif %}</div>
+        <div class="include-item fade-in">📹 {% if lang == 'ge' %}2 ზუმ შეხვედრა (მანამდე და შემდეგ){% else %}2 Zoom meetings (before & after){% endif %}</div>
+        <div class="include-item fade-in">🌡️ {% if lang == 'ge' %}სადჰუს დაფებზე დგომა (ლურსმნები){% else %}Sadhu board therapy{% endif %}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section class="program-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2 class="section-title">📆 {% if lang == 'ge' %}პროგრამა{% else %}Program{% endif %}</h2>
+      <p class="section-subtitle">{% if lang == 'ge' %}11-20 სექტემბერი, ბალი{% else %}September 11-20, Bali{% endif %}</p>
+    </div>
+    <div class="accordion">
+      {% if days %}
+        {% for day in days %}
+        <div class="accordion-item fade-in">
+          <button class="accordion-btn" onclick="toggleAccordion(this)">
+            <span class="acc-day">{{ day.date_label }}</span>
+            <span class="acc-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</span>
+            <span class="acc-arrow">▼</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              {% if lang == 'ge' %}{{ day.content_ge|linebreaksbr }}{% else %}{{ day.content_en|linebreaksbr }}{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">11 სექ</span><span class="acc-title">ადაპტაცია — მსუბუქი იოგა, მედიტაცია, სტრესის მოხსნა, გაცნობის საკრალური წრე</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">ადაპტაცია — მსუბუქი იოგა, მედიტაცია, სტრესის მოხსნა, გაცნობის საკრალური წრე</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">12 სექ</span><span class="acc-title">ფუძის ჩაკრა — დამიწება, შიშების დამუშავება, სადჰუს დაფა</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">ფუძის ჩაკრა — დამიწება, შიშების დამუშავება, სადჰუს დაფა</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">13 სექ</span><span class="acc-title">საკრალური ჩაკრა — კრეატიულობა, ემოციები, კუნდალინი, ექსტაზური ცეკვა</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">საკრალური ჩაკრა — კრეატიულობა, ემოციები, კუნდალინი, ექსტაზური ცეკვა</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">14 სექ</span><span class="acc-title">მზის წნული — პიროვნული ძალა, ჰიპნოთერაპია, ცეცხლის რიტუალი</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">მზის წნული — პიროვნული ძალა, ჰიპნოთერაპია, ცეცხლის რიტუალი</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">15 სექ</span><span class="acc-title">გულის ჩაკრა — კუნდალინი, კაკაოს ცერემონია, მადლიერება</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">გულის ჩაკრა — კუნდალინი, კაკაოს ცერემონია, მადლიერება</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">16 სექ</span><span class="acc-title">ყელის ჩაკრა — ავთენტურობა, დრამა თერაპია, ხმის ვიბრაცია</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">ყელის ჩაკრა — ავთენტურობა, დრამა თერაპია, ხმის ვიბრაცია</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">17 სექ</span><span class="acc-title">მესამე თვალი — ინტუიცია, კუნდალინი, მანიფესტაცია</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">მესამე თვალი — ინტუიცია, კუნდალინი, მანიფესტაცია</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">18 სექ</span><span class="acc-title">გვირგვინი — ინტეგრაცია, კოსმიური ქორწილი, ბოლო ღამის ცეკვა</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">გვირგვინი — ინტეგრაცია, კოსმიური ქორწილი, ბოლო ღამის ცეკვა</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">19 სექ</span><span class="acc-title">თავისუფალი დღე — შოპინგი, ტურები, ინტეგრაცია</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">თავისუფალი დღე — შოპინგი, ტურები, ინტეგრაცია</div></div></div>
+        <div class="accordion-item fade-in"><button class="accordion-btn" onclick="toggleAccordion(this)"><span class="acc-day">20 სექ</span><span class="acc-title">გამგზავრება — ჩექაუთი</span><span class="acc-arrow">▼</span></button><div class="accordion-content"><div class="accordion-body">გამგზავრება — ჩექაუთი</div></div></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section class="application-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2 class="section-title">🔥 {% if lang == 'ge' %}გამოაგზავნე განაცხადი{% else %}Apply Now{% endif %}</h2>
+      <p class="section-subtitle">{% if lang == 'ge' %}ადგილები შეზღუდულია{% else %}Spots are limited{% endif %}</p>
+    </div>
+    <div class="contact-form-wrap fade-in">
+      <div id="retreat-form-container">
+        <form hx-post="{% url 'submit_lead' %}" hx-target="#retreat-form-container" hx-swap="innerHTML" class="contact-form">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="form-group">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary btn-full">
+            {% if lang == 'ge' %}განაცხადის გაგზავნა 🏝️{% else %}Submit Application 🏝️{% endif %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

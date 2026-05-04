@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Wonderlander Wellness - {% if lang == 'ge' %}გურანდა ლაზარაშვილი{% else %}Guranda Lazarashvili{% endif %}{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Wonderlander Wellness</div>
+    <h1 class="hero-title">
+      {% if lang == 'ge' %}
+        საკუთარ თავთან<br><em>ჰარმონიული</em> ურთიერთობა
+      {% else %}
+        <em>Harmonious</em> Relationship<br>with Yourself
+      {% endif %}
+    </h1>
+    <p class="hero-subtitle">
+      {% if lang == 'ge' %}
+        გამარჯობა. პირველ რიგში, მადლობა ნდობისთვის ☀️<br>
+        ერთადერთი ადამიანი, ვინც დაბადებიდან სიკვდილამდე შენთანაა — ეს შენი საკუთარი თავია 💆‍♀️
+      {% else %}
+        Hello. Thank you for your trust ☀️<br>
+        The only person who is with you from birth to death is your own self 💆‍♀️
+      {% endif %}
+    </p>
+    <div class="hero-actions">
+      <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
+        {% if lang == 'ge' %}სესიაზე ჩაწერა ❣️{% else %}Book a Session ❣️{% endif %}
+      </a>
+      <a href="#services" class="btn btn-outline btn-lg">
+        {% if lang == 'ge' %}სერვისები{% else %}Services{% endif %}
+      </a>
+    </div>
+    <div class="hero-credentials">
+      <span>🎓 MD</span>
+      <span>🧠 NLP</span>
+      <span>🌿 Holistic</span>
+      <span>🔥 Kundalini</span>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator">
+    <span></span>
+  </div>
+</section>
+
+<!-- INTRO SECTION -->
+<section class="intro-section">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-text fade-in">
+        <h2 class="section-title">
+          {% if lang == 'ge' %}რატომ ჩემთან?{% else %}Why Work with Me?{% endif %}
+        </h2>
+        <p>
+          {% if lang == 'ge' %}
+            სტანდარტული ფსიქოთერაპიისგან განსხვავებით, შედეგებს ვიღებთ <strong>10ჯერ უფრო სწრაფად</strong>. 
+            პრობლემათა უმრავლესობის გადაჭრა/მიზნების მიღწევა ხდება <strong>1-5 სესიაში</strong> 🤗
+          {% else %}
+            Unlike standard psychotherapy, we achieve results <strong>10x faster</strong>. 
+            Most problems are resolved/goals achieved in <strong>1-5 sessions</strong> 🤗
+          {% endif %}
+        </p>
+        <p>
+          {% if lang == 'ge' %}
+            სესიაზე დამღლელი საუბრების მაგივრად, ვიყენებთ უნიკალურ მეთოდოლოგიას — 
+            ფსიქო-სომატიკა, NLP, ჰიპნოთერაპია, კუნდალინი აქტივაცია, EFT, არტ თერაპია.
+          {% else %}
+            Instead of exhausting conversations, we use unique methodology — 
+            Psycho-somatics, NLP, Hypnotherapy, Kundalini Activation, EFT, Art Therapy.
+          {% endif %}
+        </p>
+        <div class="method-tags">
+          <span class="tag">ფსიქო-სომატიკა</span>
+          <span class="tag">NLP</span>
+          <span class="tag">ჰიპნოთერაპია</span>
+          <span class="tag">კუნდალინი</span>
+          <span class="tag">EFT</span>
+          <span class="tag">არტ თერაპია</span>
+          <span class="tag">იოგა</span>
+          <span class="tag">მედიტაცია</span>
+        </div>
+      </div>
+      <div class="intro-stats fade-in">
+        <div class="stat-card">
+          <div class="stat-number">10x</div>
+          <div class="stat-label">{% if lang == 'ge' %}უფრო სწრაფი შედეგი{% else %}Faster Results{% endif %}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1-5</div>
+          <div class="stat-label">{% if lang == 'ge' %}სესია მიზნისთვის{% else %}Sessions to Goal{% endif %}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">7</div>
+          <div class="stat-label">{% if lang == 'ge' %}ენერგეტ. ცენტრი{% else %}Energy Centers{% endif %}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">💎</div>
+          <div class="stat-label">{% if lang == 'ge' %}სამოქმ. გეგმა{% else %}Action Plan{% endif %}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-badge">✦ {% if lang == 'ge' %}სერვისები{% else %}Services{% endif %}</div>
+      <h2 class="section-title">
+        {% if lang == 'ge' %}ინვესტიცია საკუთარ თავში{% else %}Invest in Yourself{% endif %}
+      </h2>
+    </div>
+
+    <div class="services-grid">
+      {% if services %}
+        {% for service in services %}
+        <div class="service-card fade-in">
+          <div class="service-icon">{{ service.icon }}</div>
+          <h3 class="service-title">
+            {% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}
+          </h3>
+          <p class="service-desc">
+            {% if lang == 'ge' %}{{ service.description_ge }}{% else %}{{ service.description_en }}{% endif %}
+          </p>
+          <div class="service-footer">
+            <div class="service-price">{{ service.price }}</div>
+            {% if service.duration %}
+            <div class="service-duration">⏱ {{ service.duration }}</div>
+            {% endif %}
+          </div>
+          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">
+            {% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}
+          </a>
+        </div>
+        {% endfor %}
+      {% else %}
+        <!-- Default services if none in DB -->
+        <div class="service-card fade-in">
+          <div class="service-icon">💆‍♀️</div>
+          <h3 class="service-title">{% if lang == 'ge' %}ინდივიდუალური სესია{% else %}Individual Session{% endif %}</h3>
+          <p class="service-desc">{% if lang == 'ge' %}ჰოლისტიკური სესია — ფსიქო-სომატიკა, NLP, ჰიპნოთერაპია. შედეგი 1-5 სესიაში.{% else %}Holistic session — psycho-somatics, NLP, hypnotherapy. Results in 1-5 sessions.{% endif %}</p>
+          <div class="service-footer">
+            <div class="service-price">111€</div>
+            <div class="service-duration">⏱ 60 წთ</div>
+          </div>
+          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+        </div>
+        <div class="service-card fade-in featured">
+          <div class="card-badge">{% if lang == 'ge' %}პოპულარული{% else %}Popular{% endif %}</div>
+          <div class="service-icon">🔥</div>
+          <h3 class="service-title">{% if lang == 'ge' %}სრული პაკეტი — 5 სესია{% else %}Full Package — 5 Sessions{% endif %}</h3>
+          <p class="service-desc">{% if lang == 'ge' %}5 კვირა, 5 სესია. ყველაზე ეფექტური გზა ღრმა ტრანსფორმაციისთვის.{% else %}5 weeks, 5 sessions. The most effective path to deep transformation.{% endif %}</p>
+          <div class="service-footer">
+            <div class="service-price">455€</div>
+            <div class="service-duration">💸 {% if lang == 'ge' %}დაზოგე 100€{% else %}Save 100€{% endif %}</div>
+          </div>
+          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-icon">🌊</div>
+          <h3 class="service-title">{% if lang == 'ge' %}კუნდალინი აქტივაცია{% else %}Kundalini Activation{% endif %}</h3>
+          <p class="service-desc">{% if lang == 'ge' %}სასიცოცხლო ენერგიის გამოღვიძება. ონლაინ ან ოფლაინ.{% else %}Awakening life force energy. Online or offline.{% endif %}</p>
+          <div class="service-footer">
+            <div class="service-price">222€ / 255€</div>
+            <div class="service-duration">🌐 {% if lang == 'ge' %}ონლ. / ოფლ.{% else %}Online / Offline{% endif %}</div>
+          </div>
+          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-icon">🚀</div>
+          <h3 class="service-title">{% if lang == 'ge' %}1-თვიანი მენტორობა{% else %}1-Month Mentoring{% endif %}</h3>
+          <p class="service-desc">{% if lang == 'ge' %}კვირაში 2 შეხვედრა + ყოველდღიური მხარდაჭერა. გარანტირებული შედეგი.{% else %}2 sessions/week + daily support. Guaranteed results.{% endif %}</p>
+          <div class="service-footer">
+            <div class="service-price">1111€</div>
+            <div class="service-duration">✅ {% if lang == 'ge' %}გარანტია{% else %}Guaranteed{% endif %}</div>
+          </div>
+          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- CHAKRAS SECTION -->
+<section class="chakras-section" id="chakras">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-badge">🧩 {% if lang == 'ge' %}ენერგეტიკული ცენტრები{% else %}Energy Centers{% endif %}</div>
+      <h2 class="section-title">
+        {% if lang == 'ge' %}რა მდგომარეობის დროს მომმართოთ?{% else %}When Should You Contact Me?{% endif %}
+      </h2>
+      <p class="section-subtitle">
+        {% if lang == 'ge' %}დააჭირეთ ჩაკრას, რომელშიც პრობლემას გრძნობთ{% else %}Click on the chakra where you feel the issue{% endif %}
+      </p>
+    </div>
+
+    <div class="chakras-grid">
+      {% if chakras %}
+        {% for chakra in chakras %}
+        <div class="chakra-card fade-in" style="--chakra-color: {{ chakra.color }}">
+          <div class="chakra-icon">{{ chakra.icon }}</div>
+          <div class="chakra-number">{{ chakra.number }}</div>
+          <h3 class="chakra-name">
+            {% if lang == 'ge' %}{{ chakra.name_ge }}{% else %}{{ chakra.name_en }}{% endif %}
+          </h3>
+          <div class="chakra-theme">
+            {% if lang == 'ge' %}{{ chakra.theme_ge }}{% else %}{{ chakra.theme_en }}{% endif %}
+          </div>
+          <div class="chakra-conditions">
+            {% if lang == 'ge' %}{{ chakra.conditions_ge|linebreaksbr }}{% else %}{{ chakra.conditions_en|linebreaksbr }}{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <!-- Static chakras if none in DB -->
+        {% with chakra_data="1|ფუძე|🔴|#dc2626|უსაფრთხოება, სტაბილურობა, მატერიალური სიმყარე|პანიკური შეტევები · ფობიები · ქრონიკული შიშები · კუნთოვანი ბლოკები · გაჭედილობა,2|საკრალური|🟠|#ea580c|ემოციური წონასწორობა, სიამოვნება|მიჯაჭვულობები · ადიქციები · შფოთვა · ემოციური ტრავმები · კრეატიულობის დეფიციტი,3|მზის წნული|🟡|#ca8a04|პიროვნული ძალა, თავდაჯერებულობა|თვითშეფასება · ბრაზი · მსხვერპლის მდგომარეობა · კონფლიქტი საკუთარ თავთან,4|გული|💚|#16a34a|სიყვარული, თანაგრძნობა|ტოქსიკური ურთიერთობები · სიყვარულის შიში · ემოციური ტკივილი · უნდობლობა,5|ყელი|🔵|#2563eb|გამოხატულობა, კომუნიკაცია|თვითგამოხატვა · საზღვრების დაცვა · ავთენტურობა · „არა“-ს თქმა,6|მესამე თვალი|🟣|#7c3aed|ინტუიცია, სიბრძნე|დეპრესია · ინტუიციასთან კავშირის ნაკლებობა · მიმართულების დაკარგვა,7|გვირგვინი|⚪|#6b7280|სულიერი კავშირი, ცნობიერება|დაკარგულობა · ეგზისტენციური კრიზისი · სულიერი სიმშვიდის ძიება" %}
+        {% for item in chakra_data|cut:","  %}
+        {% endfor %}
+        <!-- Hardcoded fallback -->
+        <div class="chakra-card fade-in" style="--chakra-color:#dc2626"><div class="chakra-icon">🔴</div><div class="chakra-number">1</div><h3 class="chakra-name">ფუძე</h3><div class="chakra-theme">უსაფრთხოება, სტაბილურობა</div><div class="chakra-conditions">პანიკური შეტევები<br>ფობიები<br>ქრონიკული შიშები<br>კუნთოვანი ბლოკები</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#ea580c"><div class="chakra-icon">🟠</div><div class="chakra-number">2</div><h3 class="chakra-name">საკრალური</h3><div class="chakra-theme">ემოციები, სიამოვნება</div><div class="chakra-conditions">მიჯაჭვულობები<br>ადიქციები<br>ემოციური ტრავმები<br>შფოთვა</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#ca8a04"><div class="chakra-icon">🟡</div><div class="chakra-number">3</div><h3 class="chakra-name">მზის წნული</h3><div class="chakra-theme">პიროვნული ძალა</div><div class="chakra-conditions">თვითშეფასება<br>ბრაზი<br>მსხვერპლის მდგომარეობა</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#16a34a"><div class="chakra-icon">💚</div><div class="chakra-number">4</div><h3 class="chakra-name">გული</h3><div class="chakra-theme">სიყვარული, კავშირი</div><div class="chakra-conditions">ტოქსიკური ურთიერთობები<br>სიყვარულის შიში<br>ემოციური ტკივილი</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#2563eb"><div class="chakra-icon">🔵</div><div class="chakra-number">5</div><h3 class="chakra-name">ყელი</h3><div class="chakra-theme">გამოხატულობა, კომუნიკაცია</div><div class="chakra-conditions">თვითგამოხატვა<br>„არა"-ს თქმა<br>საზღვრების დაცვა</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#7c3aed"><div class="chakra-icon">🟣</div><div class="chakra-number">6</div><h3 class="chakra-name">მესამე თვალი</h3><div class="chakra-theme">ინტუიცია, სიბრძნე</div><div class="chakra-conditions">დეპრესია<br>მიმართულების დაკარგვა<br>მენტალური ბარიერები</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#9333ea"><div class="chakra-icon">👑</div><div class="chakra-number">7</div><h3 class="chakra-name">გვირგვინი</h3><div class="chakra-theme">სულიერი კავშირი</div><div class="chakra-conditions">ეგზისტენციური კრიზისი<br>იკიგაის ძიება<br>შინაგანი სიმშვიდე</div></div>
+        {% endwith %}
+      {% endif %}
+    </div>
+
+    <div class="chakras-cta fade-in">
+      <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
+        {% if lang == 'ge' %}სესიაზე ჩაწერა ❣️{% else %}Book a Session ❣️{% endif %}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap fade-in">
+        <div class="about-image-placeholder">
+          <span>G</span>
+          <div class="about-credentials-badge">MD · NLP · KAF</div>
+        </div>
+      </div>
+      <div class="about-text fade-in">
+        <div class="section-badge">✦ {% if lang == 'ge' %}ჩემს შესახებ{% else %}About Me{% endif %}</div>
+        <h2 class="section-title">{% if lang == 'ge' %}გურანდა ლაზარაშვილი{% else %}Guranda Lazarashvili{% endif %}</h2>
+        <p>
+          {% if site_settings and site_settings.about_text_ge and lang == 'ge' %}
+            {{ site_settings.about_text_ge|linebreaksbr }}
+          {% elif site_settings and site_settings.about_text_en and lang == 'en' %}
+            {{ site_settings.about_text_en|linebreaksbr }}
+          {% else %}
+            {% if lang == 'ge' %}
+              სესიებს უძღვება გურანდა ლაზარაშვილი — დიპლომირებული მედიკოსი, ფსიქოლოგი, 
+              ჰიპნოთერაპევტი, NLP-თერაპევტი, ველნეს ქოუჩი, პიროვნული განვითარების მენტორი 
+              და კუნდალინი აქტივაციის ფასილიტატორი.
+            {% else %}
+              Sessions are led by Guranda Lazarashvili — certified medical doctor, psychologist, 
+              hypnotherapist, NLP therapist, wellness coach, personal development mentor 
+              and Kundalini Activation facilitator.
+            {% endif %}
+          {% endif %}
+        </p>
+        <div class="credentials-list">
+          <div class="credential">🎓 {% if lang == 'ge' %}დიპლომირებული მედიკოსი (MD){% else %}Certified Medical Doctor (MD){% endif %}</div>
+          <div class="credential">🧠 {% if lang == 'ge' %}ფსიქოლოგი & NLP-თერაპევტი{% else %}Psychologist & NLP Therapist{% endif %}</div>
+          <div class="credential">🌀 {% if lang == 'ge' %}ჰიპნოთერაპევტი{% else %}Hypnotherapist{% endif %}</div>
+          <div class="credential">🔥 {% if lang == 'ge' %}კუნდალინი აქტივაციის ფასილიტატორი{% else %}Kundalini Activation Facilitator{% endif %}</div>
+          <div class="credential">🌿 {% if lang == 'ge' %}ველნეს ქოუჩი{% else %}Wellness Coach{% endif %}</div>
+          <div class="credential">💎 {% if lang == 'ge' %}პიროვნული განვითარების მენტორი{% else %}Personal Development Mentor{% endif %}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK CONTACT SECTION -->
+<section class="quick-contact-section" id="quick-contact">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-badge">❣️ {% if lang == 'ge' %}ჩაწერა{% else %}Book Now{% endif %}</div>
+      <h2 class="section-title">
+        {% if lang == 'ge' %}დაიწყე ტრანსფორმაცია{% else %}Start Your Transformation{% endif %}
+      </h2>
+    </div>
+    <div class="contact-form-wrap fade-in">
+      <div id="form-container">
+        <form hx-post="{% url 'submit_lead' %}" hx-target="#form-container" hx-swap="innerHTML" class="contact-form">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="form-group">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<span class="form-error">{{ field.errors.0 }}</span>{% endif %}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-primary btn-full">
+            {% if lang == 'ge' %}გამოგზავნა ✨{% else %}Send ✨{% endif %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

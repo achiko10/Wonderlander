@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% block title %}{% if lang == 'ge' %}ფემინური სიმდიდრე{% else %}Feminine Wealth{% endif %} - Wonderlander{% endblock %}
+{% block content %}
+
+<section class="page-hero course-hero">
+  <div class="page-hero-content">
+    <div class="section-badge">💎 {% if lang == 'ge' %}კურსი{% else %}Course{% endif %}</div>
+    <h1 class="page-hero-title">{% if lang == 'ge' %}ფემინური სიმდიდრე{% else %}Feminine Wealth{% endif %}</h1>
+    <p class="page-hero-subtitle">
+      {% if lang == 'ge' %}ტრანსფორმაციული მოგზაურობა ფულის ფსიქოლოგიასა და ფემინური ძალის გამოღვიძებაში{% else %}A transformational journey into money psychology and awakening feminine power{% endif %}
+    </p>
+    <div class="countdown-wrap">
+      <div class="countdown-label">⏰ {% if lang == 'ge' %}დარჩა:{% else %}Offer ends in:{% endif %}</div>
+      <div class="countdown" id="countdown">
+        <div class="cd-block"><span id="cd-h">24</span><small>{% if lang == 'ge' %}სთ{% else %}h{% endif %}</small></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><span id="cd-m">00</span><small>{% if lang == 'ge' %}წთ{% else %}m{% endif %}</small></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><span id="cd-s">00</span><small>{% if lang == 'ge' %}წმ{% else %}s{% endif %}</small></div>
+      </div>
+      <div class="discount-code">{% if lang == 'ge' %}ფასდაკლების კოდი:{% else %}Discount code:{% endif %} <strong>888</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="course-intro">
+  <div class="container">
+    <div class="course-intro-grid">
+      <div class="fade-in">
+        <h2>{% if lang == 'ge' %}შენ გრძნობ...{% else %}You feel...{% endif %}</h2>
+        <ul class="feeling-list">
+          {% if lang == 'ge' %}
+          <li>💭 თუ მეტს იმუშავებ — ბოლოს თავს უსაფრთხოდ იგრძნობ?</li>
+          <li>🌀 ყველაფერი გაქვს, მაგრამ შინაგანად სიცარიელეს გრძნობ?</li>
+          <li>😮‍💨 გადაღლილხარ, მაგრამ „გაძლებ"?</li>
+          <li>🌺 გინდა ფული, მაგრამ სხვა გზით — რბილი, ბედნიერი გზით?</li>
+          {% else %}
+          <li>💭 If you work more, will you finally feel safe?</li>
+          <li>🌀 You have everything but still feel empty inside?</li>
+          <li>😮‍💨 You are exhausted but you "cope"?</li>
+          <li>🌺 You want money but a different way — softer, happier?</li>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="fade-in">
+        {% if course %}
+          <p>{% if lang == 'ge' %}{{ course.description_ge|linebreaksbr }}{% else %}{{ course.description_en|linebreaksbr }}{% endif %}</p>
+        {% else %}
+          <p>
+            {% if lang == 'ge' %}
+            ეს კურსი არის ტრანსფორმაციული მოგზაურობა, რომელიც აერთიანებს ფულის ფსიქოლოგიას, 
+            ენერგეტიკულ პრაქტიკებსა და ფემინური საიდუმლოებების გაღვიძებას, ასევე პასუხისმგებლობას, 
+            სტრუქტურასა და ქმედით ნაბიჯებს სიმდიდრისკენ.
+            {% else %}
+            This course is a transformational journey combining money psychology, 
+            energetic practices and awakening feminine secrets, as well as responsibility, 
+            structure and action steps toward wealth.
+            {% endif %}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="what-you-learn">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2 class="section-title">✨ {% if lang == 'ge' %}რას ისწავლი?{% else %}What You'll Learn{% endif %}</h2>
+    </div>
+    <div class="learn-grid">
+      {% if course and course.what_you_learn_ge %}
+        <div class="fade-in">{% if lang == 'ge' %}{{ course.what_you_learn_ge|linebreaksbr }}{% else %}{{ course.what_you_learn_en|linebreaksbr }}{% endif %}</div>
+      {% else %}
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}ფემინურ და მასკულინურ ენერგიებს შორის ბალანსის შექმნა{% else %}Creating balance between feminine and masculine energies{% endif %}</div>
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}სხეულის, გონების და სულის მეშვეობით ფულის ენერგიასთან მუშაობა{% else %}Working with money energy through body, mind and soul{% endif %}</div>
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}საკუთარ თავში რწმენის, თავდაჯერებულობისა და თვითღირებულების გაძლიერება{% else %}Strengthening self-belief, confidence and self-worth{% endif %}</div>
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}შენი პროდუქტის ენერგეტიკული და პრაქტიკული გამოხატვა{% else %}Energetic and practical expression of your product{% endif %}</div>
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}ურთიერთობების ფსიქოლოგია და გაყიდვების ფემინური ალქიმია{% else %}Psychology of relationships and feminine alchemy of sales{% endif %}</div>
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}NLP ტექნიკები შემზღუდავი რწმენებისგან გასათავისუფლებლად{% else %}NLP techniques to release limiting beliefs{% endif %}</div>
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}მანიფესტაციის ეფექტური მეთოდები + არტ თერაპია{% else %}Effective manifestation methods + Art Therapy{% endif %}</div>
+        <div class="learn-item fade-in">✨ {% if lang == 'ge' %}სომატური ტექნიკები ენერგიის ასამაღლებლად{% else %}Somatic techniques to raise your energy{% endif %}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2 class="section-title">💸 {% if lang == 'ge' %}პაკეტები{% else %}Packages{% endif %}</h2>
+      <p class="section-subtitle">{% if lang == 'ge' %}მხოლოდ 24 საათის განმავლობაში ფასდაკლებით{% else %}Discount available for 24 hours only{% endif %}</p>
+    </div>
+    <div class="packages-grid">
+      {% if packages %}
+        {% for pkg in packages %}
+        <div class="package-card fade-in {% if pkg.is_featured %}featured{% endif %}">
+          {% if pkg.is_featured %}<div class="card-badge">⭐ {% if lang == 'ge' %}პოპულარული{% else %}Popular{% endif %}</div>{% endif %}
+          <h3>{% if lang == 'ge' %}{{ pkg.name_ge }}{% else %}{{ pkg.name_en }}{% endif %}</h3>
+          <div class="package-price">{{ pkg.price }}</div>
+          <ul class="package-features">
+            {% if lang == 'ge' %}
+              {% for line in pkg.features_ge.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
+            {% else %}
+              {% for line in pkg.features_en.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
+            {% endif %}
+          </ul>
+          <a href="{% url 'contact' %}" class="btn {% if pkg.is_featured %}btn-primary{% else %}btn-outline{% endif %} btn-full">
+            {% if lang == 'ge' %}შეუერთდი{% else %}Join Now{% endif %}
+          </a>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="package-card fade-in">
+          <h3>Premium</h3>
+          <div class="package-price">777 ₾</div>
+          <ul class="package-features">
+            <li>📚 {% if lang == 'ge' %}სასწავლო მასალა{% else %}Study materials{% endif %}</li>
+            <li>🎥 {% if lang == 'ge' %}4 ონლაინ ზუმ შეხვედრა{% else %}4 online Zoom meetings{% endif %}</li>
+            <li>💬 {% if lang == 'ge' %}უკუკავშირების ჩათი{% else %}Feedback chat{% endif %}</li>
+            <li>👥 {% if lang == 'ge' %}თანამოაზრეების წრე{% else %}Community circle{% endif %}</li>
+          </ul>
+          <a href="{% url 'contact' %}" class="btn btn-outline btn-full">{% if lang == 'ge' %}შეუერთდი{% else %}Join{% endif %}</a>
+        </div>
+        <div class="package-card fade-in featured">
+          <div class="card-badge">⭐ VIP</div>
+          <h3>VIP</h3>
+          <div class="package-price">1111 ₾</div>
+          <ul class="package-features">
+            <li>✅ {% if lang == 'ge' %}Premium პაკეტის ყველაფერი{% else %}Everything in Premium{% endif %}</li>
+            <li>🎯 {% if lang == 'ge' %}ინდივიდუალური მენტორობა{% else %}Individual mentoring{% endif %}</li>
+            <li>🌀 {% if lang == 'ge' %}2 ჰიპნოთერაპიის სესია{% else %}2 hypnotherapy sessions{% endif %}</li>
+            <li>🛡️ {% if lang == 'ge' %}გარანტირებული შედეგი{% else %}Guaranteed results{% endif %}</li>
+            <li>💰 {% if lang == 'ge' %}110% თანხის დაბრუნების გარანტია{% else %}110% money-back guarantee{% endif %}</li>
+          </ul>
+          <a href="{% url 'contact' %}" class="btn btn-primary btn-full">{% if lang == 'ge' %}შეუერთდი{% else %}Join{% endif %}</a>
+        </div>
+      {% endif %}
+    </div>
+    <div class="guarantee-note fade-in">
+      ⚠️ {% if lang == 'ge' %}100% თანხის დაბრუნების გარანტია — თუ კურსი შენთვის არ ამუშავდა, გიბრუნებ გადახდილი თანხის 110%-ს 💰{% else %}100% money-back guarantee — if the course doesn't work for you, I return 110% of your payment 💰{% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- BONUSES -->
+<section class="bonuses-section">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2 class="section-title">🌺 {% if lang == 'ge' %}ბონუსები{% else %}Bonuses{% endif %}</h2>
+    </div>
+    <div class="bonuses-grid">
+      <div class="bonus-card fade-in">
+        <div class="bonus-icon">🎁</div>
+        <h4>{% if lang == 'ge' %}ჩემი იკიგაი{% else %}My Ikigai{% endif %}</h4>
+        <p>{% if lang == 'ge' %}ბედნიერების ხელოვნება{% else %}The Art of Happiness{% endif %}</p>
+        <div class="bonus-value">333 ₾</div>
+      </div>
+      <div class="bonus-card fade-in">
+        <div class="bonus-icon">🎁</div>
+        <h4>{% if lang == 'ge' %}ფინანსური თავისუფლება{% else %}Financial Freedom{% endif %}</h4>
+        <p>{% if lang == 'ge' %}სრული კურსი{% else %}Full course{% endif %}</p>
+        <div class="bonus-value">555 ₾</div>
+      </div>
+      <div class="bonus-card fade-in">
+        <div class="bonus-icon">🎁</div>
+        <h4>{% if lang == 'ge' %}ფემინური სიმდიდრის კოდები{% else %}Feminine Wealth Codes{% endif %}</h4>
+        <p>{% if lang == 'ge' %}სრული კურსი{% else %}Full course{% endif %}</p>
+        <div class="bonus-value">1500 ₾</div>
+      </div>
+      <div class="bonus-card fade-in highlight">
+        <div class="bonus-icon">🎟️</div>
+        <h4>{% if lang == 'ge' %}ყოველთვიური ვაუჩერი{% else %}Monthly Voucher{% endif %}</h4>
+        <p>{% if lang == 'ge' %}100 ₾ × 12 თვე{% else %}100 ₾ × 12 months{% endif %}</p>
+        <div class="bonus-value">1200 ₾</div>
+      </div>
+    </div>
+    <div class="total-value fade-in">
+      <span>{% if lang == 'ge' %}ჯამური ღირებულება:{% else %}Total value:{% endif %}</span>
+      <strong>2688 ₾</strong>
+      <span class="your-price">{% if lang == 'ge' %}შენი ფასი:{% else %}Your price:{% endif %} <strong class="gold">777 ₾ / 1111 ₾</strong></span>
+    </div>
+    <div class="cta-center fade-in">
+      <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
+        {% if lang == 'ge' %}დარეგისტრირდი ახლავე ❣️{% else %}Register Now ❣️{% endif %}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_head %}
+<style>
+.countdown { display:flex; gap:8px; align-items:center; margin:16px 0; }
+.cd-block { background:rgba(255,255,255,0.15); border-radius:8px; padding:8px 16px; text-align:center; }
+.cd-block span { font-size:2rem; font-weight:700; display:block; }
+.cd-block small { font-size:.7rem; opacity:.8; }
+.cd-sep { font-size:2rem; font-weight:700; }
+</style>
+<script>
+(function(){
+  var end = new Date();
+  end.setHours(end.getHours() + 24);
+  function tick(){
+    var diff = end - new Date();
+    if(diff <= 0){ clearInterval(t); return; }
+    var h = Math.floor(diff/3600000);
+    var m = Math.floor((diff%3600000)/60000);
+    var s = Math.floor((diff%60000)/1000);
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  var t = setInterval(tick, 1000);
+})();
+</script>
+{% endblock %}
