@@ -302,5 +302,21 @@ input:focus, textarea:focus { outline: none; border-color: var(--gold); backgrou
 .total-value .gold { color: var(--gold); font-size: 2rem; }
 .cta-center { text-align: center; margin-top: 40px; }
 
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Add delays for elements inside a grid or specific wrappers to create a cascading effect */
+.fade-in:nth-child(1) { animation-delay: 0.1s; }
+.fade-in:nth-child(2) { animation-delay: 0.2s; }
+.fade-in:nth-child(3) { animation-delay: 0.3s; }
+.fade-in:nth-child(4) { animation-delay: 0.4s; }
+.fade-in:nth-child(5) { animation-delay: 0.5s; }
 
