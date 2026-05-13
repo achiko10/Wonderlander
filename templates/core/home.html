@@ -118,27 +118,30 @@
     <div class="services-grid">
       {% if services %}
         {% for service in services %}
-        <div class="service-card fade-in">
-          <div class="service-icon">{{ service.icon }}</div>
-          <h3 class="service-title">
-            {% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}
-          </h3>
-          <p class="service-desc">
-            {% if lang == 'ge' %}{{ service.description_ge }}{% else %}{{ service.description_en }}{% endif %}
-          </p>
-          <div class="service-footer">
-            <div class="service-price">{{ service.price }}</div>
-            {% if service.duration %}
-            <div class="service-duration">⏱ {{ service.duration }}</div>
-            {% endif %}
+        <a href="{% url 'service_detail' service.pk %}" style="text-decoration: none; color: inherit; display: block;">
+          <div class="service-card fade-in">
+            <div class="service-icon">{{ service.icon }}</div>
+            <h3 class="service-title">
+              {% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}
+            </h3>
+            <p class="service-desc">
+              {% if lang == 'ge' %}{{ service.description_ge }}{% else %}{{ service.description_en }}{% endif %}
+            </p>
+            <div class="service-footer">
+              <div class="service-price">{{ service.price }}</div>
+              {% if service.duration %}
+              <div class="service-duration">⏱ {{ service.duration }}</div>
+              {% endif %}
+            </div>
+            <div class="btn btn-outline btn-sm">
+              {% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}
+            </div>
           </div>
-          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">
-            {% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}
-          </a>
-        </div>
+        </a>
         {% endfor %}
       {% else %}
         <!-- Default services if none in DB -->
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="service-card fade-in">
           <div class="service-icon">💆‍♀️</div>
           <h3 class="service-title">{% if lang == 'ge' %}ინდივიდუალური სესია{% else %}Individual Session{% endif %}</h3>
@@ -147,8 +150,10 @@
             <div class="service-price">111€</div>
             <div class="service-duration">⏱ 60 წთ</div>
           </div>
-          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
         </div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="service-card fade-in featured">
           <div class="card-badge">{% if lang == 'ge' %}პოპულარული{% else %}Popular{% endif %}</div>
           <div class="service-icon">🔥</div>
@@ -158,8 +163,10 @@
             <div class="service-price">455€</div>
             <div class="service-duration">💸 {% if lang == 'ge' %}დაზოგე 100€{% else %}Save 100€{% endif %}</div>
           </div>
-          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+          <div class="btn btn-primary btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
         </div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="service-card fade-in">
           <div class="service-icon">🌊</div>
           <h3 class="service-title">{% if lang == 'ge' %}კუნდალინი აქტივაცია{% else %}Kundalini Activation{% endif %}</h3>
@@ -168,8 +175,10 @@
             <div class="service-price">222€ / 255€</div>
             <div class="service-duration">🌐 {% if lang == 'ge' %}ონლ. / ოფლ.{% else %}Online / Offline{% endif %}</div>
           </div>
-          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
         </div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="service-card fade-in">
           <div class="service-icon">🚀</div>
           <h3 class="service-title">{% if lang == 'ge' %}1-თვიანი მენტორობა{% else %}1-Month Mentoring{% endif %}</h3>
@@ -178,8 +187,9 @@
             <div class="service-price">1111€</div>
             <div class="service-duration">✅ {% if lang == 'ge' %}გარანტია{% else %}Guaranteed{% endif %}</div>
           </div>
-          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm">{% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}</a>
+          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
         </div>
+        </a>
       {% endif %}
     </div>
   </div>
@@ -201,6 +211,7 @@
     <div class="chakras-grid">
       {% if chakras %}
         {% for chakra in chakras %}
+        <a href="{% url 'chakra_detail' chakra.pk %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color: {{ chakra.color }}">
           <div class="chakra-icon">{{ chakra.icon }}</div>
           <div class="chakra-number">{{ chakra.number }}</div>
@@ -214,6 +225,7 @@
             {% if lang == 'ge' %}{{ chakra.conditions_ge|linebreaksbr }}{% else %}{{ chakra.conditions_en|linebreaksbr }}{% endif %}
           </div>
         </div>
+        </a>
         {% endfor %}
       {% else %}
         <!-- Static chakras if none in DB -->
@@ -221,13 +233,27 @@
         {% for item in chakra_data|cut:","  %}
         {% endfor %}
         <!-- Hardcoded fallback -->
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color:#dc2626"><div class="chakra-icon">🔴</div><div class="chakra-number">1</div><h3 class="chakra-name">ფუძე</h3><div class="chakra-theme">უსაფრთხოება, სტაბილურობა</div><div class="chakra-conditions">პანიკური შეტევები<br>ფობიები<br>ქრონიკული შიშები<br>კუნთოვანი ბლოკები</div></div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color:#ea580c"><div class="chakra-icon">🟠</div><div class="chakra-number">2</div><h3 class="chakra-name">საკრალური</h3><div class="chakra-theme">ემოციები, სიამოვნება</div><div class="chakra-conditions">მიჯაჭვულობები<br>ადიქციები<br>ემოციური ტრავმები<br>შფოთვა</div></div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color:#ca8a04"><div class="chakra-icon">🟡</div><div class="chakra-number">3</div><h3 class="chakra-name">მზის წნული</h3><div class="chakra-theme">პიროვნული ძალა</div><div class="chakra-conditions">თვითშეფასება<br>ბრაზი<br>მსხვერპლის მდგომარეობა</div></div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color:#16a34a"><div class="chakra-icon">💚</div><div class="chakra-number">4</div><h3 class="chakra-name">გული</h3><div class="chakra-theme">სიყვარული, კავშირი</div><div class="chakra-conditions">ტოქსიკური ურთიერთობები<br>სიყვარულის შიში<br>ემოციური ტკივილი</div></div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color:#2563eb"><div class="chakra-icon">🔵</div><div class="chakra-number">5</div><h3 class="chakra-name">ყელი</h3><div class="chakra-theme">გამოხატულობა, კომუნიკაცია</div><div class="chakra-conditions">თვითგამოხატვა<br>„არა"-ს თქმა<br>საზღვრების დაცვა</div></div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color:#7c3aed"><div class="chakra-icon">🟣</div><div class="chakra-number">6</div><h3 class="chakra-name">მესამე თვალი</h3><div class="chakra-theme">ინტუიცია, სიბრძნე</div><div class="chakra-conditions">დეპრესია<br>მიმართულების დაკარგვა<br>მენტალური ბარიერები</div></div>
+        </a>
+        <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="chakra-card fade-in" style="--chakra-color:#9333ea"><div class="chakra-icon">👑</div><div class="chakra-number">7</div><h3 class="chakra-name">გვირგვინი</h3><div class="chakra-theme">სულიერი კავშირი</div><div class="chakra-conditions">ეგზისტენციური კრიზისი<br>იკიგაის ძიება<br>შინაგანი სიმშვიდე</div></div>
+        </a>
         {% endwith %}
       {% endif %}
     </div>

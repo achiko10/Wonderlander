@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}{% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %} - Wonderlander{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="min-height: 40vh; padding: 120px 20px 40px;">
+  <div class="page-hero-content">
+    <div class="section-badge fade-in">{{ service.icon }} {% if lang == 'ge' %}სერვისი{% else %}Service{% endif %}</div>
+    <h1 class="page-hero-title fade-in">
+      {% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}
+    </h1>
+  </div>
+</section>
+
+<section class="service-detail-section" style="padding-bottom: 120px;">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info fade-in" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border);">
+        <h2 style="color: var(--gold); margin-bottom: 20px;">{% if lang == 'ge' %}დეტალები{% else %}Details{% endif %}</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 30px;">
+          {% if lang == 'ge' %}{{ service.description_ge|linebreaksbr }}{% else %}{{ service.description_en|linebreaksbr }}{% endif %}
+        </p>
+        <div style="display: flex; gap: 20px; align-items: center; padding-top: 20px; border-top: 1px solid var(--border);">
+          <div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">{% if lang == 'ge' %}ინვესტიცია{% else %}Investment{% endif %}</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">{{ service.price }}</div>
+          </div>
+          {% if service.duration %}
+          <div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">{% if lang == 'ge' %}ხანგრძლივობა{% else %}Duration{% endif %}</div>
+            <div style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">{{ service.duration }}</div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="contact-form-wrap fade-in">
+        <div id="main-form-container" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border);">
+          <h3 style="margin-bottom: 20px; color: var(--gold);">{% if lang == 'ge' %}დაჯავშნე ეს სერვისი{% else %}Book this service{% endif %}</h3>
+          <form hx-post="{% url 'submit_lead' %}" hx-target="#main-form-container" hx-swap="innerHTML" class="contact-form">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+              <label class="form-label">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}<span class="form-error">{{ field.errors.0 }}</span>{% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">
+              {% if lang == 'ge' %}ჩაწერა ✨{% else %}Book ✨{% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

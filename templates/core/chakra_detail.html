@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}{% if lang == 'ge' %}{{ chakra.name_ge }}{% else %}{{ chakra.name_en }}{% endif %} - Wonderlander{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="min-height: 40vh; padding: 120px 20px 40px; background: radial-gradient(circle at center, {{ chakra.color }}20, var(--bg-main) 60%); border-bottom: 1px solid {{ chakra.color }}50;">
+  <div class="page-hero-content">
+    <div class="section-badge fade-in" style="border-color: {{ chakra.color }}; color: {{ chakra.color }}; background: {{ chakra.color }}10;">{{ chakra.icon }} {% if lang == 'ge' %}ჩაკრა {{ chakra.number }}{% else %}Chakra {{ chakra.number }}{% endif %}</div>
+    <h1 class="page-hero-title fade-in" style="color: {{ chakra.color }};">
+      {% if lang == 'ge' %}{{ chakra.name_ge }}{% else %}{{ chakra.name_en }}{% endif %}
+    </h1>
+    <p class="page-hero-subtitle fade-in" style="color: var(--text-main); font-size: 1.2rem; margin-top: 10px;">
+      {% if lang == 'ge' %}{{ chakra.theme_ge }}{% else %}{{ chakra.theme_en }}{% endif %}
+    </p>
+  </div>
+</section>
+
+<section class="service-detail-section" style="padding-bottom: 120px; padding-top: 60px;">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info fade-in" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid {{ chakra.color }}30;">
+        <h2 style="color: {{ chakra.color }}; margin-bottom: 20px;">{% if lang == 'ge' %}მდგომარეობები{% else %}Conditions{% endif %}</h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 30px;">
+          {% if lang == 'ge' %}
+            თუ თქვენ გრძნობთ შემდეგ სიმპტომებს ან მდგომარეობებს, ეს სფერო საჭიროებს ყურადღებას და დაბალანსებას:
+            <br><br>
+            {{ chakra.conditions_ge|linebreaksbr }}
+          {% else %}
+            If you feel the following symptoms or conditions, this area requires attention and balancing:
+            <br><br>
+            {{ chakra.conditions_en|linebreaksbr }}
+          {% endif %}
+        </p>
+        <div style="padding-top: 20px; border-top: 1px solid var(--border);">
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            {% if lang == 'ge' %}
+              ჩვენს სესიებზე ვიყენებთ მეთოდებს (ფსიქო-სომატიკა, კუნდალინი აქტივაცია, NLP) რათა აღვადგინოთ ამ ცენტრის ჰარმონია.
+            {% else %}
+              During our sessions we use methods (psycho-somatics, kundalini activation, NLP) to restore harmony in this center.
+            {% endif %}
+          </p>
+        </div>
+      </div>
+      
+      <div class="contact-form-wrap fade-in">
+        <div id="main-form-container" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border);">
+          <h3 style="margin-bottom: 20px; color: var(--gold);">{% if lang == 'ge' %}დაჯავშნე სესია{% else %}Book a session{% endif %}</h3>
+          <form hx-post="{% url 'submit_lead' %}" hx-target="#main-form-container" hx-swap="innerHTML" class="contact-form">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+              <label class="form-label">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}<span class="form-error">{{ field.errors.0 }}</span>{% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">
+              {% if lang == 'ge' %}ჩაწერა ✨{% else %}Book ✨{% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

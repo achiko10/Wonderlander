@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>პროექტის გადაბარების დოკუმენტი</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans Georgian', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            border: 1px #D3D3D3 solid;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #c9a84c;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #1a202c;
+            font-size: 24px;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .header p {
+            color: #718096;
+            margin: 0;
+            font-size: 14px;
+        }
+        .developer-badge {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .section-title {
+            color: #c9a84c;
+            font-size: 18px;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .info-table th, .info-table td {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        .info-table th {
+            background-color: #f7fafc;
+            color: #4a5568;
+            width: 30%;
+        }
+        .info-table td {
+            color: #2d3748;
+            font-weight: 500;
+        }
+        .highlight {
+            background-color: #fffaf0;
+            border-left: 4px solid #ed8936;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #c05621;
+        }
+        .feature-list {
+            padding-left: 20px;
+        }
+        .feature-list li {
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+        .feature-list strong {
+            color: #2d3748;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #a0aec0;
+            border-top: 1px solid #edf2f7;
+            padding-top: 20px;
+        }
+        .price-box {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .price-box h3 {
+            margin: 0 0 5px 0;
+            color: #276749;
+            font-size: 16px;
+        }
+        .price-box p {
+            margin: 0;
+            color: #2f855a;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body, page {
+                margin: 0;
+                box-shadow: none;
+                background: white;
+            }
+            .page {
+                width: 100%;
+                border: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <h1>პროექტის გადაბარების დოკუმენტი</h1>
+            <p>ოფიციალური დოკუმენტაცია და ინსტრუქცია დამკვეთისთვის</p>
+            <div class="developer-badge">შემსრულებელი: აჩიკო მღებრიშვილი</div>
+        </div>
+
+        <h2 class="section-title">1. პროექტის დეტალები</h2>
+        <table class="info-table">
+            <tr>
+                <th>პროექტი / კომპანია</th>
+                <td>Wonderlander Wellness</td>
+            </tr>
+            <tr>
+                <th>დამკვეთი</th>
+                <td>გურანდა ლაზარაშვილი</td>
+            </tr>
+            <tr>
+                <th>ვებ-გვერდის მისამართი</th>
+                <td><a href="https://wonderlander.pythonanywhere.com/" target="_blank" style="color: #3182ce;">wonderlander.pythonanywhere.com</a></td>
+            </tr>
+            <tr>
+                <th>მართვის პანელი (Admin)</th>
+                <td><a href="https://wonderlander.pythonanywhere.com/admin/" target="_blank" style="color: #3182ce;">.../admin/</a></td>
+            </tr>
+            <tr>
+                <th>მომხმარებელი (Username)</th>
+                <td><strong>admin</strong></td>
+            </tr>
+            <tr>
+                <th>პაროლი (Password)</th>
+                <td><strong>admin123</strong></td>
+            </tr>
+        </table>
+        
+        <div class="highlight">
+            <strong>უსაფრთხოების რეკომენდაცია:</strong> გთხოვთ, სისტემაში შესვლისთანავე შეცვალოთ ადმინისტრატორის პაროლი მართვის პანელიდან (Users განყოფილება), რათა დაიცვათ მომხმარებელთა მონაცემები.
+        </div>
+
+        <h2 class="section-title">2. შექმნილი ფუნქციონალი (Features)</h2>
+        <p style="color: #4a5568; margin-bottom: 15px;">პროექტი აგებულია უმაღლესი სტანდარტების, დაცული <strong>Python/Django</strong> არქიტექტურით. ეს არ არის შაბლონური საიტი — იგი სრულად Custom, ბრენდზე მორგებული პლატფორმაა.</p>
+        <ul class="feature-list">
+            <li><strong>ორენოვანი სისტემა (Bilingual):</strong> საიტი მუშაობს ქართულ და ინგლისურ ენებზე, ენების მყისიერი ცვლილებით.</li>
+            <li><strong>Mobile-First დიზაინი:</strong> 100%-ით ადაპტირებული მობილური ეკრანებისთვის (App-like ინტერფეისი ქვედა ნავიგაციითა და ჰორიზონტალური სქროლით).</li>
+            <li><strong>Custom მართვის პანელი (CMS):</strong> ტექსტების, ფასების, კურსების და სერვისების შეცვლის სრული დამოუკიდებლობა პროგრამისტის გარეშე.</li>
+            <li><strong>რეგისტრაციების ბაზა (Leads):</strong> კლიენტების მონაცემების ავტომატური შენახვა, ძებნის და ფილტრაციის ფუნქციით.</li>
+            <li><strong>ინტერაქტიული UI/UX:</strong> დინამიური ანიმაციები, ჩაკრების სისტემა და ინტეგრირებული WhatsApp / Telegram კონტაქტი.</li>
+        </ul>
+
+        <div class="price-box">
+            <h3>პროექტის კომერციული ღირებულება</h3>
+            <p>$2,000 — $2,500 USD</p>
+            <span style="font-size: 12px; font-weight: normal; color: #4a5568;">(მსგავსი მასშტაბის Custom Django არქიტექტურის საშუალო საბაზრო ფასი)</span>
+        </div>
+
+        <h2 class="section-title">3. გამოყენების ინსტრუქცია</h2>
+        <ul class="feature-list">
+            <li><strong>ტექსტების შეცვლა:</strong> მართვის პანელში შექმნილია "საიტის მართვა" მოდული. შეიყვანეთ ტექსტები ორივე ენაზე და საიტი ავტომატურად განახლდება.</li>
+            <li><strong>სერვისები და კურსები:</strong> ნებისმიერ დროს შეგიძლიათ დაამატოთ ახალი კურსი, პაკეტი ან რიტრიტის დღე იქვე, ერთი და იმავე ფანჯრიდან (Inline Editing).</li>
+            <li><strong>სურათების ატვირთვა:</strong> საიტის სისწრაფის შესანარჩუნებლად, ატვირთეთ მხოლოდ ოპტიმიზირებული ზომის სურათები (გამოიყენეთ tinypng.com კომპრესიისთვის).</li>
+        </ul>
+
+        <div class="footer">
+            <p>შეიქმნა მაღალი ხარისხის სტანდარტებით. შემსრულებელი: <strong>აჩიკო მღებრიშვილი</strong> | 2026</p>
+        </div>
+    </div>
+</body>
+</html>

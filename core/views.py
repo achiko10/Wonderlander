@@ -59,6 +59,22 @@ def contact(request):
     return render(request, 'core/contact.html', context)
 
 
+def service_detail(request, pk):
+    context = get_common_context(request)
+    from django.shortcuts import get_object_or_404
+    context['service'] = get_object_or_404(Service, pk=pk)
+    context['form'] = LeadForm(initial={'purpose': 'session'})
+    return render(request, 'core/service_detail.html', context)
+
+
+def chakra_detail(request, pk):
+    context = get_common_context(request)
+    from django.shortcuts import get_object_or_404
+    context['chakra'] = get_object_or_404(Chakra, pk=pk)
+    context['form'] = LeadForm(initial={'purpose': 'session'})
+    return render(request, 'core/chakra_detail.html', context)
+
+
 @require_POST
 def submit_lead(request):
     form = LeadForm(request.POST)

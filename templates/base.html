@@ -16,7 +16,7 @@
 
   <!-- Main CSS -->
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v={% now 'U' %}" />
 
   {% block extra_head %}{% endblock %}
 </head>
