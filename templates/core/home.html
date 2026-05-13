@@ -9,40 +9,18 @@
 <section class="hero">
   <div class="hero-particles" id="particles"></div>
   <div class="hero-content">
-    <div class="hero-badge">✦ Wonderlander Wellness</div>
+    <div class="hero-badge">✨ {% if lang == 'ge' %}გურანდა ლაზარაშვილი{% else %}Guranda Lazarashvili{% endif %}</div>
     <h1 class="hero-title">
-      {% if lang == 'ge' %}
-        საკუთარ თავთან<br><em>ჰარმონიული</em> ურთიერთობა
-      {% else %}
-        <em>Harmonious</em> Relationship<br>with Yourself
-      {% endif %}
+      {% if lang == 'ge' %}საკუთარ თავთან <em>ჰარმონია</em>{% else %}<em>Harmony</em> with Yourself{% endif %}
     </h1>
-    <p class="hero-subtitle">
-      {% if lang == 'ge' %}
-        გამარჯობა. პირველ რიგში, მადლობა ნდობისთვის ☀️<br>
-        ერთადერთი ადამიანი, ვინც დაბადებიდან სიკვდილამდე შენთანაა — ეს შენი საკუთარი თავია 💆‍♀️
-      {% else %}
-        Hello. Thank you for your trust ☀️<br>
-        The only person who is with you from birth to death is your own self 💆‍♀️
-      {% endif %}
-    </p>
     <div class="hero-actions">
       <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
-        {% if lang == 'ge' %}სესიაზე ჩაწერა ❣️{% else %}Book a Session ❣️{% endif %}
+        {% if lang == 'ge' %}ჩაწერა ❣️{% else %}Book Now ❣️{% endif %}
       </a>
       <a href="#services" class="btn btn-outline btn-lg">
         {% if lang == 'ge' %}სერვისები{% else %}Services{% endif %}
       </a>
     </div>
-    <div class="hero-credentials">
-      <span>🎓 MD</span>
-      <span>🧠 NLP</span>
-      <span>🌿 Holistic</span>
-      <span>🔥 Kundalini</span>
-    </div>
-  </div>
-  <div class="hero-scroll-indicator">
-    <span></span>
   </div>
 </section>
 
