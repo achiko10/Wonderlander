@@ -26,7 +26,7 @@
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="{% url 'home' %}" class="nav-logo">
-        <span class="logo-symbol">✦</span>
+        <img src="{% static 'images/logo.png' %}" alt="Wonderlander Wellness" />
         <span class="logo-text">Wonderlander</span>
       </a>
 
@@ -95,11 +95,11 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-brand">
-        <span class="logo-symbol">✦</span>
-        <span class="logo-text">Wonderlander Wellness</span>
-        <p class="footer-tagline">
-          {% if lang == 'ge' %}საკუთარ თავთან ჰარმონია{% else %}Harmony with Yourself{% endif %}
-        </p>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <img src="{% static 'images/logo.png' %}" alt="Wonderlander" style="height:32px;width:auto;" />
+          <span class="logo-text">Wonderlander</span>
+        </div>
+        <p class="footer-tagline">{% if lang == 'ge' %}საკუთარ თავთან ჰარმონია{% else %}Harmony with Yourself{% endif %}</p>
       </div>
       <div class="footer-links">
         <a href="{% url 'home' %}">{% if lang == 'ge' %}მთავარი{% else %}Home{% endif %}</a>

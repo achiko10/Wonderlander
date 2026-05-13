@@ -309,30 +309,19 @@
   </div>
 </section>
 
-<!-- QUICK CONTACT SECTION -->
-<section class="quick-contact-section" id="quick-contact">
+<!-- CTA BANNER SECTION -->
+<section class="quick-contact-section">
   <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-badge">❣️ {% if lang == 'ge' %}ჩაწერა{% else %}Book Now{% endif %}</div>
-      <h2 class="section-title">
-        {% if lang == 'ge' %}დაიწყე ტრანსფორმაცია{% else %}Start Your Transformation{% endif %}
-      </h2>
-    </div>
-    <div class="contact-form-wrap fade-in">
-      <div id="form-container">
-        <form hx-post="{% url 'submit_lead' %}" hx-target="#form-container" hx-swap="innerHTML" class="contact-form">
-          {% csrf_token %}
-          {% for field in form %}
-          <div class="form-group">
-            <label class="form-label">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}<span class="form-error">{{ field.errors.0 }}</span>{% endif %}
-          </div>
-          {% endfor %}
-          <button type="submit" class="btn btn-primary btn-full">
-            {% if lang == 'ge' %}გამოგზავნა ✨{% else %}Send ✨{% endif %}
-          </button>
-        </form>
+    <div class="cta-banner fade-in">
+      <h2>{% if lang == 'ge' %}მზად ხარ ტრანსფორმაციისთვის?{% else %}Ready for Transformation?{% endif %}</h2>
+      <p>{% if lang == 'ge' %}პირველი ნაბიჯი — ეს სესია. შედეგი 1-5 შეხვედრაში. ❣️{% else %}The first step is a session. Results in 1-5 meetings. ❣️{% endif %}</p>
+      <div class="cta-banner-actions">
+        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
+          {% if lang == 'ge' %}სესიაზე ჩაწერა{% else %}Book a Session{% endif %}
+        </a>
+        <a href="https://wa.me/{{ contact.whatsapp|cut:' '|cut:'+' }}" target="_blank" class="btn btn-outline btn-lg">
+          {% if lang == 'ge' %}WhatsApp-ზე დაწერა{% else %}Message on WhatsApp{% endif %}
+        </a>
       </div>
     </div>
   </div>
