@@ -11,7 +11,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         }),
         ('Hero Section', {
             'fields': ('hero_badge_ge', 'hero_title_ge', 'hero_subtitle_ge', 
-                       'hero_btn1_ge', 'hero_btn2_ge', 'hero_creds_ge')
+                       'hero_btn1_ge', 'hero_btn2_ge', 'hero_creds_ge', 'hero_image')
         }),
         ('Intro & Stats', {
             'fields': ('stat1_num', 'stat1_label_ge', 'stat2_num', 'stat2_label_ge', 
@@ -22,7 +22,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             'fields': ('services_title_ge', 'chakras_title_ge', 'about_title_ge')
         }),
         ('About Me', {
-            'fields': ('about_text_ge',)
+            'fields': ('about_text_ge', 'about_image')
         }),
         ('Footer', {
             'fields': ('footer_copy_ge',)
