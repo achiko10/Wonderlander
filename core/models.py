@@ -19,6 +19,7 @@ class SiteSettings(models.Model):
     hero_btn1_ge = models.CharField(max_length=50, default="ჩაწერა ❣️")
     hero_btn2_ge = models.CharField(max_length=50, default="სერვისები")
     hero_creds_ge = models.CharField(max_length=255, default="🎓 MD, 🧠 NLP, 🌿 Holistic, 🔥 Kundalini", help_text="მძიმით გამოყოფილი")
+    hero_image = models.ImageField(upload_to='site/', blank=True, null=True, verbose_name="მთავარი (Hero) ფოტო")
     
     # Intro Statistics (4 slots)
     stat1_num = models.CharField(max_length=20, default="10x")
@@ -40,6 +41,7 @@ class SiteSettings(models.Model):
     
     # About Section
     about_text_ge = models.TextField(verbose_name="ჩემს შესახებ (GE)", blank=True)
+    about_image = models.ImageField(upload_to='site/', blank=True, null=True, verbose_name="პროფილის (About) ფოტო")
     
     # Footer
     footer_copy_ge = models.CharField(max_length=255, default="© 2024 Wonderlander Wellness. ყველა უფლება დაცულია.")
