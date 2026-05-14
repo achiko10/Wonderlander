@@ -1,65 +1,141 @@
 {% extends 'base.html' %}
 {% block title %}{% if lang == 'ge' %}{{ chakra.name_ge }}{% else %}{{ chakra.name_en }}{% endif %} - Wonderlander{% endblock %}
 
-{% block content %}
-<section class="page-hero" style="min-height: 40vh; padding: 120px 20px 40px; background: radial-gradient(circle at center, {{ chakra.color }}20, var(--bg-main) 60%); border-bottom: 1px solid {{ chakra.color }}50;">
-  <div class="page-hero-content">
-    <div class="section-badge fade-in" style="border-color: {{ chakra.color }}; color: {{ chakra.color }}; background: {{ chakra.color }}10;">{{ chakra.icon }} {% if lang == 'ge' %}ჩაკრა {{ chakra.number }}{% else %}Chakra {{ chakra.number }}{% endif %}</div>
-    <h1 class="page-hero-title fade-in" style="color: {{ chakra.color }};">
-      {% if lang == 'ge' %}{{ chakra.name_ge }}{% else %}{{ chakra.name_en }}{% endif %}
-    </h1>
-    <p class="page-hero-subtitle fade-in" style="color: var(--text-main); font-size: 1.2rem; margin-top: 10px;">
-      {% if lang == 'ge' %}{{ chakra.theme_ge }}{% else %}{{ chakra.theme_en }}{% endif %}
-    </p>
-  </div>
-</section>
+{% block extra_head %}
+<style>
+  /* CHAKRA DASHBOARD ONE-SCREEN */
+  .main-content, main { padding-top: 0 !important; margin-top: 0 !important; }
+  
+  .chakra-dashboard { 
+    padding: 120px 24px 20px !important; 
+    background: #050505;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start !important;
+  }
 
-<section class="service-detail-section" style="padding-bottom: 120px; padding-top: 60px;">
-  <div class="container">
-    <div class="contact-grid">
-      <div class="contact-info fade-in" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid {{ chakra.color }}30;">
-        <h2 style="color: {{ chakra.color }}; margin-bottom: 20px;">{% if lang == 'ge' %}მდგომარეობები{% else %}Conditions{% endif %}</h2>
-        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 30px;">
-          {% if lang == 'ge' %}
-            თუ თქვენ გრძნობთ შემდეგ სიმპტომებს ან მდგომარეობებს, ეს სფერო საჭიროებს ყურადღებას და დაბალანსებას:
-            <br><br>
-            {{ chakra.conditions_ge|linebreaksbr }}
-          {% else %}
-            If you feel the following symptoms or conditions, this area requires attention and balancing:
-            <br><br>
-            {{ chakra.conditions_en|linebreaksbr }}
-          {% endif %}
-        </p>
-        <div style="padding-top: 20px; border-top: 1px solid var(--border);">
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            {% if lang == 'ge' %}
-              ჩვენს სესიებზე ვიყენებთ მეთოდებს (ფსიქო-სომატიკა, კუნდალინი აქტივაცია, NLP) რათა აღვადგინოთ ამ ცენტრის ჰარმონია.
-            {% else %}
-              During our sessions we use methods (psycho-somatics, kundalini activation, NLP) to restore harmony in this center.
-            {% endif %}
-          </p>
+  .dash-grid { 
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto !important;
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr; 
+    gap: 30px; 
+  }
+
+  .dash-block { 
+    background: #0a0a0a; 
+    border: 1px solid var(--chakra-border); 
+    border-radius: 16px; 
+    padding: 20px; 
+    position: relative;
+    overflow: hidden;
+    display: block !important;
+    height: auto !important;
+  }
+
+  /* Glow effect */
+  .dash-block::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--chakra-glow), transparent 70%);
+    pointer-events: none;
+  }
+
+  .chakra-icon-main { font-size: 2.2rem; margin: 0 0 5px 0 !important; display: block; filter: drop-shadow(0 0 10px var(--chakra-glow)); }
+  .chakra-number { font-size: 0.7rem; color: var(--chakra-color); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin: 0 0 2px 0 !important; display: block; }
+  .chakra-title { font-size: 1.8rem; color: #fff; margin: 0 0 5px 0 !important; line-height: 1.2; }
+  .chakra-theme { font-size: 1rem; color: var(--chakra-color); margin-bottom: 15px; font-weight: 500; }
+  
+  .conditions-box { 
+    font-size: 0.9rem; 
+    line-height: 1.6; 
+    color: #ccc; 
+    background: rgba(255,255,255,0.02);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid var(--chakra-color);
+  }
+
+  /* Right Side Stats & Form */
+  .book-block { 
+    background: #0d0d0d; 
+    border: 1px solid rgba(197,160,89,0.15); 
+    padding: 20px; 
+    border-radius: 16px;
+  }
+
+  /* Shrunk Form */
+  .form-group { margin-bottom: 10px !important; }
+  .form-label { display: none !important; }
+  input, select {
+    background: #000 !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    padding: 10px !important;
+    font-size: 0.85rem !important;
+    border-radius: 6px !important;
+    color: #fff !important;
+  }
+  .book-btn { width: 100% !important; padding: 12px !important; font-weight: 700; background: var(--gold) !important; color: #000 !important; margin-top: 10px; }
+
+  @media(max-width: 1024px) {
+    .dash-grid { grid-template-columns: 1fr; }
+    .chakra-dashboard { padding-top: 120px !important; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="chakra-dashboard" style="--chakra-color: {{ chakra.color }}; --chakra-border: {{ chakra.color }}30; --chakra-glow: {{ chakra.color }}50;">
+  <div class="dash-grid">
+    <!-- LEFT: Chakra Info -->
+    <main class="dash-col">
+      <div class="dash-block">
+        <span class="chakra-icon-main">{{ chakra.icon }}</span>
+        <span class="chakra-number">{% if lang == 'ge' %}ჩაკრა {{ chakra.number }}{% else %}Chakra {{ chakra.number }}{% endif %}</span>
+        <h1 class="chakra-title">{% if lang == 'ge' %}{{ chakra.name_ge }}{% else %}{{ chakra.name_en }}{% endif %}</h1>
+        <div class="chakra-theme">{% if lang == 'ge' %}{{ chakra.theme_ge }}{% else %}{{ chakra.theme_en }}{% endif %}</div>
+        
+        {% if chakra.image %}
+        <div class="chakra-media" style="margin-bottom: 20px;">
+          <img src="{{ chakra.image.url }}" alt="{{ chakra.name_ge }}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px; border: 1px solid var(--chakra-border);">
+        </div>
+        {% endif %}
+
+        <div class="conditions-box">
+          <strong style="display: block; margin-bottom: 8px; color: var(--chakra-color);">{% if lang == 'ge' %}რა მდგომარეობის დროს მომმართოთ?{% else %}When to contact me?{% endif %}</strong>
+          {% if lang == 'ge' %}{{ chakra.conditions_ge|linebreaksbr }}{% else %}{{ chakra.conditions_en|linebreaksbr }}{% endif %}
         </div>
       </div>
-      
-      <div class="contact-form-wrap fade-in">
-        <div id="main-form-container" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border);">
-          <h3 style="margin-bottom: 20px; color: var(--gold);">{% if lang == 'ge' %}დაჯავშნე სესია{% else %}Book a session{% endif %}</h3>
+    </main>
+
+    <!-- RIGHT: Booking Form -->
+    <aside class="dash-col">
+      <div class="book-block">
+        <h3 style="font-size: 1rem; color: var(--gold); margin-bottom: 15px; text-align: center;">🔥 {% if lang == 'ge' %}დაჯავშნე სესია{% else %}Book a Session{% endif %}</h3>
+        <div id="main-form-container">
           <form hx-post="{% url 'submit_lead' %}" hx-target="#main-form-container" hx-swap="innerHTML" class="contact-form">
             {% csrf_token %}
             {% for field in form %}
             <div class="form-group">
-              <label class="form-label">{{ field.label }}</label>
               {{ field }}
-              {% if field.errors %}<span class="form-error">{{ field.errors.0 }}</span>{% endif %}
             </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">
+            <button type="submit" class="btn book-btn">
               {% if lang == 'ge' %}ჩაწერა ✨{% else %}Book ✨{% endif %}
             </button>
           </form>
         </div>
+        <p style="font-size: 0.75rem; color: #555; text-align: center; margin-top: 15px;">
+          {% if lang == 'ge' %}* ჰოლისტიკური მიდგომა: ფსიქო-სომატიკა, NLP, ჰიპნოთერაპია{% else %}* Holistic approach: Psycho-somatics, NLP, Hypnotherapy{% endif %}
+        </p>
       </div>
-    </div>
+    </aside>
   </div>
-</section>
+</div>
 {% endblock %}

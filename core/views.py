@@ -14,6 +14,10 @@ def get_common_context(request):
         contact = None
     try:
         settings = SiteSettings.objects.first()
+        if settings:
+            # Pre-process lists for templates
+            settings.creds_list = [c.strip() for c in settings.hero_creds_ge.split(",")] if settings.hero_creds_ge else []
+            settings.tags_list = [t.strip() for t in settings.intro_tags_ge.split(",")] if settings.intro_tags_ge else []
     except SiteSettings.DoesNotExist:
         settings = None
     return {'lang': lang, 'contact': contact, 'site_settings': settings}

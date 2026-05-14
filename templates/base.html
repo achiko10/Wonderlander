@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{% block meta_description %}გურანდა ლაზარაშვილი - ჰოლისტიკური ფსიქოთერაპევტი, ველნეს ქოუჩი, კუნდალინი აქტივაციის ფასილიტატორი{% endblock %}" />
-  <title>{% block title %}Wonderlander Wellness{% endblock %}</title>
+  <title>{% block title %}{% if lang == 'ge' %}{{ site_settings.site_title_ge }}{% else %}{{ site_settings.site_title_en }}{% endif %}{% endblock %}</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,21 +27,21 @@
     <div class="nav-container">
       <a href="{% url 'home' %}" class="nav-logo">
         <img src="{% static 'images/logo.png' %}" alt="Wonderlander Wellness" />
-        <span class="logo-text">Wonderlander</span>
+        <span class="logo-text">{% if lang == 'ge' %}{{ site_settings.site_title_ge }}{% else %}{{ site_settings.site_title_en }}{% endif %}</span>
       </a>
 
       <ul class="nav-links">
         <li><a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-          {% if lang == 'ge' %}მთავარი{% else %}Home{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.nav_home_ge }}{% else %}Home{% endif %}
         </a></li>
         <li><a href="{% url 'course' %}" class="nav-link {% if request.resolver_match.url_name == 'course' %}active{% endif %}">
-          {% if lang == 'ge' %}ფემინური სიმდიდრე{% else %}Feminine Wealth{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Course{% endif %}
         </a></li>
         <li><a href="{% url 'retreat' %}" class="nav-link {% if request.resolver_match.url_name == 'retreat' %}active{% endif %}">
-          {% if lang == 'ge' %}ბალი{% else %}Bali{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}Bali{% endif %}
         </a></li>
         <li><a href="{% url 'contact' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
-          {% if lang == 'ge' %}კონტაქტი{% else %}Contact{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.nav_contact_ge }}{% else %}Contact{% endif %}
         </a></li>
       </ul>
 
@@ -53,7 +53,7 @@
           <a href="{% url 'set_language' 'en' %}" class="lang-btn {% if lang == 'en' %}active{% endif %}">EN</a>
         </div>
         <a href="{% url 'contact' %}" class="btn btn-primary nav-cta">
-          {% if lang == 'ge' %}ჩაწერა{% else %}Book Now{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.navbar_cta_ge }}{% else %}{{ site_settings.navbar_cta_en }}{% endif %}
         </a>
       </div>
 
@@ -65,19 +65,19 @@
   <div class="bottom-nav">
     <a href="{% url 'home' %}" class="bottom-nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-      <span>{% if lang == 'ge' %}მთავარი{% else %}Home{% endif %}</span>
+      <span>{% if lang == 'ge' %}{{ site_settings.nav_home_ge }}{% else %}Home{% endif %}</span>
     </a>
     <a href="{% url 'course' %}" class="bottom-nav-item {% if request.resolver_match.url_name == 'course' %}active{% endif %}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      <span>{% if lang == 'ge' %}კურსი{% else %}Course{% endif %}</span>
+      <span>{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Course{% endif %}</span>
     </a>
     <a href="{% url 'retreat' %}" class="bottom-nav-item {% if request.resolver_match.url_name == 'retreat' %}active{% endif %}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-      <span>{% if lang == 'ge' %}ბალი{% else %}Bali{% endif %}</span>
+      <span>{% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}Bali{% endif %}</span>
     </a>
     <a href="{% url 'contact' %}" class="bottom-nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-      <span>{% if lang == 'ge' %}კონტაქტი{% else %}Contact{% endif %}</span>
+      <span>{% if lang == 'ge' %}{{ site_settings.nav_contact_ge }}{% else %}Contact{% endif %}</span>
     </a>
   </div>
 
@@ -97,15 +97,15 @@
       <div class="footer-brand">
         <div style="display:flex;align-items:center;gap:12px;">
           <img src="{% static 'images/logo.png' %}" alt="Wonderlander" style="height:90px;width:90px;object-fit:contain;" />
-          <span class="logo-text">Wonderlander</span>
+          <span class="logo-text">{% if lang == 'ge' %}{{ site_settings.site_title_ge }}{% else %}{{ site_settings.site_title_en }}{% endif %}</span>
         </div>
         <p class="footer-tagline">{% if lang == 'ge' %}საკუთარ თავთან ჰარმონია{% else %}Harmony with Yourself{% endif %}</p>
       </div>
       <div class="footer-links">
-        <a href="{% url 'home' %}">{% if lang == 'ge' %}მთავარი{% else %}Home{% endif %}</a>
-        <a href="{% url 'course' %}">{% if lang == 'ge' %}კურსი{% else %}Course{% endif %}</a>
-        <a href="{% url 'retreat' %}">{% if lang == 'ge' %}ბალი{% else %}Bali{% endif %}</a>
-        <a href="{% url 'contact' %}">{% if lang == 'ge' %}კონტაქტი{% else %}Contact{% endif %}</a>
+        <a href="{% url 'home' %}">{% if lang == 'ge' %}{{ site_settings.nav_home_ge }}{% else %}Home{% endif %}</a>
+        <a href="{% url 'course' %}">{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Course{% endif %}</a>
+        <a href="{% url 'retreat' %}">{% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}Bali{% endif %}</a>
+        <a href="{% url 'contact' %}">{% if lang == 'ge' %}{{ site_settings.nav_contact_ge }}{% else %}Contact{% endif %}</a>
       </div>
       <div class="footer-social">
         <a href="https://wa.me/{{ contact.whatsapp|cut:' '|cut:'+' }}" target="_blank" class="social-icon whatsapp-icon" title="WhatsApp">
@@ -120,7 +120,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Wonderlander Wellness · Guranda Lazarashvili</p>
+      <p>{% if lang == 'ge' %}{{ site_settings.footer_copy_ge }}{% else %}{{ site_settings.footer_copy_en }}{% endif %}</p>
     </div>
   </footer>
 

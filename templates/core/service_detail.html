@@ -1,57 +1,130 @@
 {% extends 'base.html' %}
 {% block title %}{% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %} - Wonderlander{% endblock %}
 
-{% block content %}
-<section class="page-hero" style="min-height: 40vh; padding: 120px 20px 40px;">
-  <div class="page-hero-content">
-    <div class="section-badge fade-in">{{ service.icon }} {% if lang == 'ge' %}სერვისი{% else %}Service{% endif %}</div>
-    <h1 class="page-hero-title fade-in">
-      {% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}
-    </h1>
-  </div>
-</section>
+{% block extra_head %}
+<style>
+  /* SERVICE DASHBOARD ONE-SCREEN */
+  .main-content, main { padding-top: 0 !important; margin-top: 0 !important; }
+  
+  .service-dashboard { 
+    padding: 115px 24px 20px !important; /* Visible borders */
+    background: #050505;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start !important;
+  }
 
-<section class="service-detail-section" style="padding-bottom: 120px;">
-  <div class="container">
-    <div class="contact-grid">
-      <div class="contact-info fade-in" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border);">
-        <h2 style="color: var(--gold); margin-bottom: 20px;">{% if lang == 'ge' %}დეტალები{% else %}Details{% endif %}</h2>
-        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 30px;">
+  .dash-grid { 
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr; 
+    gap: 30px; 
+  }
+
+  .dash-block { 
+    background: #0a0a0a; 
+    border: 1px solid rgba(197,160,89,0.15); 
+    border-radius: 16px; 
+    padding: 20px; 
+    display: block !important; /* Ensure top alignment */
+    height: auto !important;
+  }
+
+  .service-icon { font-size: 2rem; margin-bottom: 5px; display: block; }
+  .service-title { font-size: 1.6rem; color: var(--gold); margin: 0 0 10px 0 !important; line-height: 1.2; }
+  .service-desc { font-size: 0.95rem; line-height: 1.6; color: #ccc; }
+
+  /* Right Side Stats & Form */
+  .stats-strip { 
+    display: flex; 
+    gap: 15px; 
+    margin-bottom: 20px;
+  }
+  .stat-card { 
+    flex: 1; 
+    background: rgba(197,160,89,0.05); 
+    border: 1px solid rgba(197,160,89,0.2); 
+    padding: 12px; 
+    border-radius: 10px;
+    text-align: center;
+  }
+  .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 4px; }
+  .stat-value { font-size: 1.2rem; color: #fff; font-weight: 700; }
+
+  /* Shrunk Form */
+  .form-group { margin-bottom: 10px !important; }
+  .form-label { display: none !important; }
+  input, select, textarea {
+    background: #000 !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    padding: 10px !important;
+    font-size: 0.85rem !important;
+    border-radius: 6px !important;
+    color: #fff !important;
+  }
+  .book-btn { width: 100% !important; padding: 12px !important; font-weight: 700; background: var(--gold) !important; color: #000 !important; margin-top: 10px; }
+
+  @media(max-width: 1024px) {
+    .dash-grid { grid-template-columns: 1fr; }
+    .service-dashboard { padding-top: 120px !important; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="service-dashboard">
+  <div class="dash-grid">
+    <!-- LEFT: Service Info -->
+    <main class="dash-col">
+      <div class="dash-block">
+        <span class="service-icon">{{ service.icon }}</span>
+        <h1 class="service-title">{% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}</h1>
+        <div class="service-desc">
           {% if lang == 'ge' %}{{ service.description_ge|linebreaksbr }}{% else %}{{ service.description_en|linebreaksbr }}{% endif %}
-        </p>
-        <div style="display: flex; gap: 20px; align-items: center; padding-top: 20px; border-top: 1px solid var(--border);">
-          <div>
-            <div style="font-size: 0.9rem; color: var(--text-muted);">{% if lang == 'ge' %}ინვესტიცია{% else %}Investment{% endif %}</div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">{{ service.price }}</div>
+        </div>
+        {% if service.image %}
+        <div class="service-media" style="margin-top: 20px;">
+          <img src="{{ service.image.url }}" alt="{{ service.title_ge }}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 12px; border: 1px solid rgba(197,160,89,0.2);">
+        </div>
+        {% endif %}
+      </div>
+    </main>
+
+    <!-- RIGHT: Booking & Price -->
+    <aside class="dash-col">
+      <div class="dash-block" style="background: #0d0d0d;">
+        <div class="stats-strip">
+          <div class="stat-card">
+            <div class="stat-label">{% if lang == 'ge' %}ინვესტიცია{% else %}Investment{% endif %}</div>
+            <div class="stat-value">{{ service.price }}</div>
           </div>
           {% if service.duration %}
-          <div>
-            <div style="font-size: 0.9rem; color: var(--text-muted);">{% if lang == 'ge' %}ხანგრძლივობა{% else %}Duration{% endif %}</div>
-            <div style="font-size: 1.5rem; font-weight: 700; color: var(--gold);">{{ service.duration }}</div>
+          <div class="stat-card">
+            <div class="stat-label">{% if lang == 'ge' %}ხანგრძლივობა{% else %}Duration{% endif %}</div>
+            <div class="stat-value">{{ service.duration }}</div>
           </div>
           {% endif %}
         </div>
-      </div>
-      
-      <div class="contact-form-wrap fade-in">
-        <div id="main-form-container" style="background: var(--bg-card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border);">
-          <h3 style="margin-bottom: 20px; color: var(--gold);">{% if lang == 'ge' %}დაჯავშნე ეს სერვისი{% else %}Book this service{% endif %}</h3>
+
+        <div id="main-form-container">
+          <h3 style="font-size: 1rem; color: var(--gold); margin-bottom: 12px; text-align: center;">🚀 {% if lang == 'ge' %}დაჯავშნე სესია{% else %}Book a Session{% endif %}</h3>
           <form hx-post="{% url 'submit_lead' %}" hx-target="#main-form-container" hx-swap="innerHTML" class="contact-form">
             {% csrf_token %}
             {% for field in form %}
             <div class="form-group">
-              <label class="form-label">{{ field.label }}</label>
               {{ field }}
-              {% if field.errors %}<span class="form-error">{{ field.errors.0 }}</span>{% endif %}
             </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary btn-full" style="margin-top: 10px;">
+            <button type="submit" class="btn book-btn">
               {% if lang == 'ge' %}ჩაწერა ✨{% else %}Book ✨{% endif %}
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </aside>
   </div>
-</section>
+</div>
 {% endblock %}

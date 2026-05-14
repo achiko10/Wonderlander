@@ -5,21 +5,26 @@
 
 {% block content %}
 
-<!-- HERO SECTION -->
 <section class="hero">
   <div class="hero-particles" id="particles"></div>
-  <div class="hero-content">
-    <div class="hero-badge">✨ {% if lang == 'ge' %}გურანდა ლაზარაშვილი{% else %}Guranda Lazarashvili{% endif %}</div>
-    <h1 class="hero-title">
-      {% if lang == 'ge' %}საკუთარ თავთან <em>ჰარმონია</em>{% else %}<em>Harmony</em> with Yourself{% endif %}
-    </h1>
-    <div class="hero-actions">
-      <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
-        {% if lang == 'ge' %}ჩაწერა ❣️{% else %}Book Now ❣️{% endif %}
-      </a>
-      <a href="#services" class="btn btn-outline btn-lg">
-        {% if lang == 'ge' %}სერვისები{% else %}Services{% endif %}
-      </a>
+  <div class="container">
+    <div class="hero-content fade-in">
+      <div class="hero-badge">{% if lang == 'ge' %}{{ site_settings.hero_badge_ge }}{% else %}{{ site_settings.hero_badge_en }}{% endif %}</div>
+      <h1 class="hero-title">
+        {% if lang == 'ge' %}{{ site_settings.hero_title_ge|safe }}{% else %}{{ site_settings.hero_title_en|safe }}{% endif %}
+      </h1>
+      <p class="hero-subtitle">
+        {% if lang == 'ge' %}{{ site_settings.hero_subtitle_ge|linebreaksbr }}{% else %}{{ site_settings.hero_subtitle_en|linebreaksbr }}{% endif %}
+      </p>
+      <div class="hero-actions">
+        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">{% if lang == 'ge' %}{{ site_settings.hero_btn1_ge }}{% else %}{{ site_settings.hero_btn1_en }}{% endif %}</a>
+        <a href="#services" class="btn btn-outline btn-lg">{% if lang == 'ge' %}{{ site_settings.hero_btn2_ge }}{% else %}{{ site_settings.hero_btn2_en }}{% endif %}</a>
+      </div>
+      <div class="hero-credentials">
+        {% for cred in site_settings.creds_list %}
+          <span>{{ cred }}</span>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
@@ -51,32 +56,27 @@
           {% endif %}
         </p>
         <div class="method-tags">
-          <span class="tag">ფსიქო-სომატიკა</span>
-          <span class="tag">NLP</span>
-          <span class="tag">ჰიპნოთერაპია</span>
-          <span class="tag">კუნდალინი</span>
-          <span class="tag">EFT</span>
-          <span class="tag">არტ თერაპია</span>
-          <span class="tag">იოგა</span>
-          <span class="tag">მედიტაცია</span>
+          {% for tag in site_settings.tags_list %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
         </div>
       </div>
       <div class="intro-stats fade-in">
         <div class="stat-card">
-          <div class="stat-number">10x</div>
-          <div class="stat-label">{% if lang == 'ge' %}უფრო სწრაფი შედეგი{% else %}Faster Results{% endif %}</div>
+          <div class="stat-number">{{ site_settings.stat1_num }}</div>
+          <div class="stat-label">{% if lang == 'ge' %}{{ site_settings.stat1_label_ge }}{% else %}Faster Results{% endif %}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">1-5</div>
-          <div class="stat-label">{% if lang == 'ge' %}სესია მიზნისთვის{% else %}Sessions to Goal{% endif %}</div>
+          <div class="stat-number">{{ site_settings.stat2_num }}</div>
+          <div class="stat-label">{% if lang == 'ge' %}{{ site_settings.stat2_label_ge }}{% else %}Sessions to Goal{% endif %}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">7</div>
-          <div class="stat-label">{% if lang == 'ge' %}ენერგეტ. ცენტრი{% else %}Energy Centers{% endif %}</div>
+          <div class="stat-number">{{ site_settings.stat3_num }}</div>
+          <div class="stat-label">{% if lang == 'ge' %}{{ site_settings.stat3_label_ge }}{% else %}Energy Centers{% endif %}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">💎</div>
-          <div class="stat-label">{% if lang == 'ge' %}სამოქმ. გეგმა{% else %}Action Plan{% endif %}</div>
+          <div class="stat-number">{{ site_settings.stat4_num }}</div>
+          <div class="stat-label">{% if lang == 'ge' %}{{ site_settings.stat4_label_ge }}{% else %}Action Plan{% endif %}</div>
         </div>
       </div>
     </div>
@@ -87,9 +87,9 @@
 <section class="services-section" id="services">
   <div class="container">
     <div class="section-header fade-in">
-      <div class="section-badge">✦ {% if lang == 'ge' %}სერვისები{% else %}Services{% endif %}</div>
+      <div class="section-badge">✦ {% if lang == 'ge' %}{{ site_settings.hero_btn2_ge }}{% else %}{{ site_settings.hero_btn2_en }}{% endif %}</div>
       <h2 class="section-title">
-        {% if lang == 'ge' %}ინვესტიცია საკუთარ თავში{% else %}Invest in Yourself{% endif %}
+        {% if lang == 'ge' %}{{ site_settings.services_title_ge }}{% else %}{{ site_settings.services_title_en }}{% endif %}
       </h2>
     </div>
 
@@ -179,7 +179,7 @@
     <div class="section-header fade-in">
       <div class="section-badge">🧩 {% if lang == 'ge' %}ენერგეტიკული ცენტრები{% else %}Energy Centers{% endif %}</div>
       <h2 class="section-title">
-        {% if lang == 'ge' %}რა მდგომარეობის დროს მომმართოთ?{% else %}When Should You Contact Me?{% endif %}
+        {% if lang == 'ge' %}{{ site_settings.chakras_title_ge }}{% else %}{{ site_settings.chakras_title_en }}{% endif %}
       </h2>
       <p class="section-subtitle">
         {% if lang == 'ge' %}დააჭირეთ ჩაკრას, რომელშიც პრობლემას გრძნობთ{% else %}Click on the chakra where you feel the issue{% endif %}
@@ -256,7 +256,7 @@
       </div>
       <div class="about-text fade-in">
         <div class="section-badge">✦ {% if lang == 'ge' %}ჩემს შესახებ{% else %}About Me{% endif %}</div>
-        <h2 class="section-title">{% if lang == 'ge' %}გურანდა ლაზარაშვილი{% else %}Guranda Lazarashvili{% endif %}</h2>
+        <h2 class="section-title">{% if lang == 'ge' %}{{ site_settings.about_title_ge }}{% else %}{{ site_settings.about_title_en }}{% endif %}</h2>
         <p>
           {% if site_settings and site_settings.about_text_ge and lang == 'ge' %}
             {{ site_settings.about_text_ge|linebreaksbr }}

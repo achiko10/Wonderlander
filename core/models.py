@@ -2,17 +2,48 @@ from django.db import models
 
 
 class SiteSettings(models.Model):
+    # Global & Navbar
     site_title_ge = models.CharField(max_length=255, default="Wonderlander Wellness")
     site_title_en = models.CharField(max_length=255, default="Wonderlander Wellness")
-    hero_title_ge = models.CharField(max_length=500, default="ინდივიდუალურ სესიაზე რეგისტრაცია")
-    hero_title_en = models.CharField(max_length=500, default="Individual Session Registration")
-    hero_subtitle_ge = models.TextField(default="გამარჯობა. პირველ რიგში, მადლობა ნდობისთვის ☀️")
-    hero_subtitle_en = models.TextField(default="Hello. First of all, thank you for your trust ☀️")
+    navbar_cta_ge = models.CharField(max_length=50, default="ჩაწერა", verbose_name="ნავბარის ღილაკი (GE)")
+    navbar_cta_en = models.CharField(max_length=50, default="Book Now", verbose_name="ნავბარის ღილაკი (EN)")
+    nav_home_ge = models.CharField(max_length=50, default="მთავარი")
+    nav_course_ge = models.CharField(max_length=50, default="ფემინური სიმდიდრე")
+    nav_retreat_ge = models.CharField(max_length=50, default="ბალი")
+    nav_contact_ge = models.CharField(max_length=50, default="კონტაქტი")
+    
+    # Hero Section
+    hero_badge_ge = models.CharField(max_length=100, default="✦ WONDERLANDER WELLNESS")
+    hero_title_ge = models.TextField(default="საკუთარ თავთან ჰარმონიული ურთიერთობა")
+    hero_subtitle_ge = models.TextField(default="გამარჯობა. მადლობა ნდობისთვის ☀️")
+    hero_btn1_ge = models.CharField(max_length=50, default="ჩაწერა ❣️")
+    hero_btn2_ge = models.CharField(max_length=50, default="სერვისები")
+    hero_creds_ge = models.CharField(max_length=255, default="🎓 MD, 🧠 NLP, 🌿 Holistic, 🔥 Kundalini", help_text="მძიმით გამოყოფილი")
+    
+    # Intro Statistics (4 slots)
+    stat1_num = models.CharField(max_length=20, default="10x")
+    stat1_label_ge = models.CharField(max_length=100, default="უფრო სწრაფი შედეგი")
+    stat2_num = models.CharField(max_length=20, default="1-5")
+    stat2_label_ge = models.CharField(max_length=100, default="სესია მიზნისთვის")
+    stat3_num = models.CharField(max_length=20, default="7")
+    stat3_label_ge = models.CharField(max_length=100, default="ენერგეტ. ცენტრი")
+    stat4_num = models.CharField(max_length=20, default="💎")
+    stat4_label_ge = models.CharField(max_length=100, default="სამოქმ. გეგმა")
+    
+    # Tags
+    intro_tags_ge = models.TextField(default="ფსიქო-სომატიკა, NLP, ჰიპნოთერაპია, კუნდალინი, EFT, არტ თერაპია, იოგა, მედიტაცია")
+
+    # Section Titles
+    services_title_ge = models.CharField(max_length=255, default="ინვესტიცია საკუთარ თავში")
+    chakras_title_ge = models.CharField(max_length=255, default="რა მდგომარეობის დროს მომმართოთ?")
+    about_title_ge = models.CharField(max_length=255, default="გურანდა ლაზარაშვილი")
+    
+    # About Section
     about_text_ge = models.TextField(verbose_name="ჩემს შესახებ (GE)", blank=True)
-    about_text_en = models.TextField(verbose_name="About Me (EN)", blank=True)
-    credentials_ge = models.TextField(verbose_name="კვალიფიკაცია (GE)", blank=True)
-    credentials_en = models.TextField(verbose_name="Credentials (EN)", blank=True)
-    hero_image = models.ImageField(upload_to='hero/', blank=True, null=True)
+    
+    # Footer
+    footer_copy_ge = models.CharField(max_length=255, default="© 2024 Wonderlander Wellness. ყველა უფლება დაცულია.")
+
 
     class Meta:
         verbose_name = "საიტის პარამეტრები"
@@ -32,6 +63,7 @@ class Service(models.Model):
     icon = models.CharField(max_length=10, default="🧩", verbose_name="იკონი (emoji)")
     is_active = models.BooleanField(default=True, verbose_name="აქტიური")
     order = models.PositiveIntegerField(default=0, verbose_name="თანმიმდევრობა")
+    image = models.ImageField(upload_to='services/', blank=True, null=True, verbose_name="ფოტო")
 
     class Meta:
         ordering = ['order']
@@ -52,6 +84,7 @@ class Chakra(models.Model):
     conditions_en = models.TextField(verbose_name="Conditions (EN)")
     color = models.CharField(max_length=20, default="#e91e63", verbose_name="ფერი")
     icon = models.CharField(max_length=10, default="🧩", verbose_name="იკონი")
+    image = models.ImageField(upload_to='chakras/', blank=True, null=True, verbose_name="ფოტო")
 
     class Meta:
         ordering = ['number']
@@ -77,6 +110,7 @@ class Course(models.Model):
     bank_accounts = models.TextField(blank=True, verbose_name="საბანკო ანგარიშები")
     registration_form_url = models.URLField(blank=True, verbose_name="გარე ფორმის ბმული")
     is_active = models.BooleanField(default=True, verbose_name="აქტიური")
+    image = models.ImageField(upload_to='courses/', blank=True, null=True, verbose_name="ფოტო")
 
     class Meta:
         verbose_name = "კურსი"
@@ -119,6 +153,7 @@ class Retreat(models.Model):
     includes_en = models.TextField(blank=True, verbose_name="Included (EN)")
     bank_accounts = models.TextField(blank=True, verbose_name="საბანკო ანგარიშები")
     is_active = models.BooleanField(default=True, verbose_name="აქტიური")
+    image = models.ImageField(upload_to='retreats/', blank=True, null=True, verbose_name="ფოტო")
 
     class Meta:
         verbose_name = "რიტრიტი / მოგზაურობა"
@@ -151,6 +186,14 @@ class ContactInfo(models.Model):
     telegram = models.CharField(max_length=100, default="@wonderlanderr", verbose_name="Telegram")
     instagram = models.CharField(max_length=100, default="wonderlanderwellness", verbose_name="Instagram")
     email = models.EmailField(default="dr.guranda8@gmail.com", verbose_name="Email")
+    
+    # Bank Labels (Dynamic)
+    bank_title_ge = models.CharField(max_length=100, default="საბანკო რეკვიზიტები", verbose_name="ბანკის სათაური (GE)")
+    bank_recipient_label_ge = models.CharField(max_length=100, default="მიმღები", verbose_name="მიმღების ლეიბლი (GE)")
+    bank_recipient_name = models.CharField(max_length=255, default="გურანდა ლაზარაშვილი", verbose_name="მიმღების სახელი")
+    bank_iban_label = models.CharField(max_length=50, default="IBAN", verbose_name="IBAN ლეიბლი")
+    bank_swift_label = models.CharField(max_length=50, default="SWIFT", verbose_name="SWIFT ლეიბლი")
+    
     bank_accounts_ge = models.TextField(verbose_name="საბანკო რეკვიზიტები (GE)", blank=True)
     bank_accounts_en = models.TextField(verbose_name="Bank Details (EN)", blank=True)
 
