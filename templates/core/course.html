@@ -1,14 +1,63 @@
 {% extends 'base.html' %}
-{% block title %}{% if lang == 'ge' %}ფემინური სიმდიდრე{% else %}Feminine Wealth{% endif %} - Wonderlander{% endblock %}
+{% block title %}{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Courses{% endif %} - Wonderlander{% endblock %}
 {% block content %}
 
+{% if courses and courses|length > 1 %}
+{# ============================================================ #}
+{# MULTIPLE COURSES — show a listing grid                       #}
+{# ============================================================ #}
+<div class="courses-listing fade-in">
+  <div class="courses-header">
+    <div class="section-badge">✦ {% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Courses{% endif %}</div>
+    <h1 class="courses-main-title">{% if lang == 'ge' %}{{ site_settings.label_our_courses_ge }}{% else %}{{ site_settings.label_our_courses_en }}{% endif %}</h1>
+    <p class="courses-subtitle">{% if lang == 'ge' %}{{ site_settings.label_choose_course_ge }}{% else %}{{ site_settings.label_choose_course_en }}{% endif %}</p>
+  </div>
+  <div class="courses-grid">
+    {% for c in courses %}
+    <div class="course-list-card fade-in">
+      {% if c.image %}
+      <div class="course-card-img">
+        <img src="{{ c.image.url }}" alt="{{ c.title_ge }}" />
+      </div>
+      {% endif %}
+      <div class="course-card-body">
+        <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.label_course_ge }}{% else %}{{ site_settings.label_course_en }}{% endif %}</div>
+        <h2 class="course-card-title">{% if lang == 'ge' %}{{ c.title_ge }}{% else %}{{ c.title_en }}{% endif %}</h2>
+        {% if c.subtitle_ge or c.subtitle_en %}
+        <p class="course-card-subtitle">{% if lang == 'ge' %}{{ c.subtitle_ge }}{% else %}{{ c.subtitle_en }}{% endif %}</p>
+        {% endif %}
+        <p class="course-card-desc">
+          {% if lang == 'ge' %}{{ c.description_ge|truncatewords:25 }}{% else %}{{ c.description_en|truncatewords:25 }}{% endif %}
+        </p>
+        {% if c.packages.all %}
+        <div class="course-card-prices">
+          {% for pkg in c.packages.all %}
+          <span class="course-price-tag {% if pkg.is_featured %}featured{% endif %}">
+            {{ pkg.name_ge }} — {{ pkg.price }}
+          </span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <a href="{% url 'contact' %}?course={{ c.pk }}" class="btn btn-primary btn-sm" style="margin-top:16px;">
+          {% if lang == 'ge' %}ჩაწერა / დაინტერესება ❣️{% else %}Enroll / Enquire ❣️{% endif %}
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% else %}
+{# ============================================================ #}
+{# SINGLE COURSE — keep the existing dashboard layout           #}
+{# ============================================================ #}
 <div class="course-dashboard fade-in">
   <div class="dash-grid">
     <!-- LEFT: Intro & Learning -->
     <aside class="dash-col">
       <div class="dash-block">
-        <div class="dash-badge-mini">{% if lang == 'ge' %}კურსი{% else %}Course{% endif %}</div>
-        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}შენ გრძნობ...{% else %}You feel...{% endif %}</h3>
+        <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.label_course_ge }}{% else %}{{ site_settings.label_course_en }}{% endif %}</div>
+        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}{{ site_settings.label_you_feel_ge }}{% else %}{{ site_settings.label_you_feel_en }}{% endif %}</h3>
         <ul class="dash-list small-list">
           {% if lang == 'ge' %}
           <li>💭 მეტი მუშაობა = უსაფრთხოება?</li>
@@ -24,7 +73,7 @@
         </ul>
       </div>
       <div class="dash-block">
-        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}რას ისწავლი?{% else %}What You'll Learn{% endif %}</h3>
+        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}{{ site_settings.label_what_learn_ge }}{% else %}{{ site_settings.label_what_learn_en }}{% endif %}</h3>
         <div class="dash-learn-items">
           <div class="mini-learn">✨ {% if lang == 'ge' %}ენერგიების ბალანსი{% else %}Energy Balance{% endif %}</div>
           <div class="mini-learn">✨ {% if lang == 'ge' %}ფულის ფსიქოლოგია{% else %}Money Psychology{% endif %}</div>
@@ -36,34 +85,31 @@
 
     <!-- CENTER: Packages -->
     <main class="dash-col-main">
-      <div class="dash-badge-mini" style="text-align: center; margin-bottom: 8px;">{% if lang == 'ge' %}კურსი{% else %}Course{% endif %}</div>
+      <div class="dash-badge-mini" style="text-align: center; margin-bottom: 8px; font-size:1.2rem; margin-top:0;">
+        {% if lang == 'ge' %}{{ course.packages_title_ge }}{% else %}{{ course.packages_title_en }}{% endif %}
+      </div>
       <div class="packages-compact">
-        <div class="package-card-mini">
+        {% for pkg in course.packages.all %}
+        <div class="package-card-mini {% if pkg.is_featured %}featured{% endif %}">
+          {% if pkg.is_featured %}
+          <div class="dash-badge">{% if lang == 'ge' %}{{ site_settings.label_popular_ge }}{% else %}{{ site_settings.label_popular_en }}{% endif %}</div>
+          {% endif %}
           <div>
-            <h3>Premium</h3>
-            <div class="pkg-price">777 ₾</div>
+            <h3>{% if lang == 'ge' %}{{ pkg.name_ge }}{% else %}{{ pkg.name_en }}{% endif %}</h3>
+            <div class="pkg-price {% if pkg.is_featured %}gold{% endif %}">{{ pkg.price }}</div>
             <ul class="pkg-features-mini">
-              <li>✅ {% if lang == 'ge' %}სასწავლო მასალა{% else %}Materials{% endif %}</li>
-              <li>✅ {% if lang == 'ge' %}4 ონლაინ შეხვედრა{% else %}4 Meetings{% endif %}</li>
-              <li>✅ {% if lang == 'ge' %}ჩათი და მხარდაჭერა{% else %}Chat & Support{% endif %}</li>
+              {% if lang == 'ge' %}
+                {{ pkg.features_ge|linebreaksbr }}
+              {% else %}
+                {{ pkg.features_en|linebreaksbr }}
+              {% endif %}
             </ul>
           </div>
-          <a href="{% url 'contact' %}" class="btn btn-outline btn-sm btn-full">{% if lang == 'ge' %}არჩევა{% else %}Select{% endif %}</a>
+          <a href="{% url 'contact' %}?course={{ course.pk }}&pkg={{ pkg.pk }}" class="btn {% if pkg.is_featured %}btn-primary{% else %}btn-outline{% endif %} btn-sm btn-full">
+            {% if lang == 'ge' %}არჩევა{% else %}Select{% endif %}
+          </a>
         </div>
-        <div class="package-card-mini featured">
-          <div class="dash-badge">VIP</div>
-          <div>
-            <h3>VIP</h3>
-            <div class="pkg-price gold">1111 ₾</div>
-            <ul class="pkg-features-mini">
-              <li>✅ Premium + ყველაფერი</li>
-              <li>🎯 {% if lang == 'ge' %}ინდ. მენტორობა{% else %}Mentoring{% endif %}</li>
-              <li>🌀 {% if lang == 'ge' %}ჰიპნოთერაპია{% else %}Hypnotherapy{% endif %}</li>
-              <li>🛡️ {% if lang == 'ge' %}110% გარანტია{% else %}110% Guarantee{% endif %}</li>
-            </ul>
-          </div>
-          <a href="{% url 'contact' %}" class="btn btn-primary btn-sm btn-full">{% if lang == 'ge' %}არჩევა{% else %}Select{% endif %}</a>
-        </div>
+        {% endfor %}
       </div>
     </main>
 
@@ -73,69 +119,120 @@
         <div class="dash-countdown-mini">
           <span id="cd-h">24</span>:<span id="cd-m">00</span>:<span id="cd-s">00</span>
         </div>
-        <h3 class="dash-block-title">🎁 {% if lang == 'ge' %}ბონუსები{% else %}Bonuses{% endif %}</h3>
-        <div class="dash-bonuses">
-          <div class="mini-bonus"><span>Ikigai</span> <strong>333₾</strong></div>
-          <div class="mini-bonus"><span>Freedom</span> <strong>555₾</strong></div>
-          <div class="mini-bonus"><span>Wealth Codes</span> <strong>1500₾</strong></div>
+        <h3 class="dash-block-title">🎁 {% if lang == 'ge' %}{{ site_settings.bonuses_title_ge|default:"ბონუსები" }}{% else %}{{ site_settings.bonuses_title_en|default:"Bonuses" }}{% endif %}</h3>
+        <div class="dash-bonuses" style="font-size: 0.85rem; color: #ccc;">
+          {% if lang == 'ge' %}{{ course.bonuses_ge|linebreaksbr }}{% else %}{{ course.bonuses_en|linebreaksbr }}{% endif %}
         </div>
       </div>
       <div class="dash-cta-block">
         <div class="dash-total">
-          <small>{% if lang == 'ge' %}ჯამური ღირებულება{% else %}Total Value{% endif %}</small>
-          <strong>2688 ₾</strong>
+          <small>{% if lang == 'ge' %}{{ site_settings.label_total_value_ge }}{% else %}{{ site_settings.label_total_value_en }}{% endif %}</small>
+          <strong>{% if lang == 'ge' %}{{ course.total_value_ge }}{% else %}{{ course.total_value_en }}{% endif %}</strong>
         </div>
         <div class="guarantee-tiny">
-          {% if lang == 'ge' %}110% თანხის დაბრუნების გარანტია{% else %}110% Money-back Guarantee{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.label_guarantee_ge }}{% else %}{{ site_settings.label_guarantee_en }}{% endif %}
         </div>
-        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg btn-full dash-btn">
-          {% if lang == 'ge' %}დავიწყოთ ❣️{% else %}Let's Start ❣️{% endif %}
+        <a href="{% url 'contact' %}?course={{ course.pk }}" class="btn btn-primary btn-lg btn-full dash-btn">
+          {% if lang == 'ge' %}{{ site_settings.label_let_start_ge }}{% else %}{{ site_settings.label_let_start_en }}{% endif %}
         </a>
       </div>
     </aside>
   </div>
 </div>
+{% endif %}
+
 {% endblock %}
 
 {% block extra_head %}
 <style>
-  /* ABSOLUTE SYMMETRY REFINEMENT */
   html, body { background: #050505; margin: 0; padding: 0; }
-  
-  .course-dashboard { 
-    padding: 0 24px 40px; 
-    background: #050505;
+
+  /* ── MULTI-COURSE LISTING ── */
+  .courses-listing {
+    padding: 120px 24px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .courses-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .courses-main-title {
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--gold);
+    margin: 10px 0 8px;
+  }
+  .courses-subtitle {
+    color: #888;
+    font-size: 0.9rem;
+  }
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .course-list-card {
+    background: #0d0d0d;
+    border: 1px solid rgba(197,160,89,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+  .course-list-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .course-card-img img { width: 100%; height: 200px; object-fit: cover; }
+  .course-card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .course-card-title { font-size: 1.3rem; color: var(--gold); margin: 8px 0; }
+  .course-card-subtitle { font-size: 0.85rem; color: #aaa; margin-bottom: 10px; font-style: italic; }
+  .course-card-desc { font-size: 0.88rem; color: #ccc; line-height: 1.6; flex: 1; margin-bottom: 12px; }
+  .course-card-prices { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .course-price-tag {
+    background: rgba(197,160,89,0.07);
+    border: 1px solid rgba(197,160,89,0.2);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    color: #ddd;
+  }
+  .course-price-tag.featured {
+    background: rgba(197,160,89,0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+    font-weight: 600;
   }
 
-  .dash-grid { 
+  /* ── SINGLE COURSE DASHBOARD ── */
+  .course-dashboard {
+    padding: 0 24px 40px;
+    background: #050505;
+  }
+  .dash-grid {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    display: grid; 
-    grid-template-columns: 1fr 1.8fr 1fr; 
-    gap: 20px; 
+    display: grid;
+    grid-template-columns: 1fr 1.8fr 1fr;
+    gap: 20px;
     align-items: start;
   }
-
   .dash-col { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
-  .dash-col-main { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 16px; 
-    margin-top: -35px !important;
+  .dash-col-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 0;
     position: relative;
     z-index: 10;
   }
-
-  .dash-block { 
-    background: #0a0a0a; 
-    border: 1px solid rgba(197,160,89,0.15); 
-    border-radius: 12px; 
-    padding: 20px; 
+  .dash-block {
+    background: #0a0a0a;
+    border: 1px solid rgba(197,160,89,0.15);
+    border-radius: 12px;
+    padding: 20px;
   }
-
   .packages-compact { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .package-card-mini { 
+  .package-card-mini {
     background: #0d0d0d;
     border: 1px solid rgba(197,160,89,0.2);
     border-radius: 16px;
@@ -150,41 +247,45 @@
   .pkg-price { font-size: 1.8rem; font-weight: 700; color: #fff; margin: 8px 0; }
   .pkg-features-mini { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
   .pkg-features-mini li { font-size: 0.85rem; color: #aaa; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-
-  .dash-cta-block { 
+  .dash-cta-block {
     background: rgba(197,160,89,0.05);
     border: 1px solid var(--gold);
     border-radius: 12px;
     padding: 20px;
     text-align: center;
   }
-
   .dash-total strong { font-size: 1.6rem; color: var(--gold); display: block; margin-top: 4px; }
   .dash-countdown-mini { font-size: 1rem; color: var(--gold); font-family: monospace; margin-bottom: 8px; text-align: center; }
-  .dash-badge-mini { 
-    font-size: 1.4rem; /* Doubled size (approx) */
-    color: var(--gold); 
-    opacity: 0.9; 
-    margin-bottom: 12px; 
-    margin-top: -60px; /* Lifted by total 60px */
-    text-transform: uppercase; 
-    letter-spacing: 0.15em; 
+  .dash-badge-mini {
+    font-size: 1.2rem;
+    color: var(--gold);
+    opacity: 0.9;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     font-weight: 700;
   }
-
-  /* REFINED BUTTON */
-  .dash-btn { 
-    padding: 10px 20px !important; 
-    font-size: 0.9rem !important; 
+  .dash-btn {
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
     width: auto !important;
     min-width: 180px;
     margin: 8px auto 0;
     display: inline-block;
   }
+  .mini-learn { font-size: 0.82rem; color: #ccc; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .mini-bonus { display: flex; justify-content: space-between; font-size: 0.82rem; color: #aaa; padding: 5px 0; }
+  .mini-bonus strong { color: var(--gold); }
+  .guarantee-tiny { font-size: 0.75rem; color: #888; margin: 10px 0; }
 
   @media(max-width: 1024px) {
     .dash-grid { grid-template-columns: 1fr; }
     .course-dashboard { padding-top: 100px; }
+    .courses-listing { padding-top: 100px; }
+  }
+  @media(max-width: 600px) {
+    .packages-compact { grid-template-columns: 1fr; }
+    .courses-grid { grid-template-columns: 1fr; }
   }
 </style>
 <script>

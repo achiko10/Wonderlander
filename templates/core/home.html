@@ -12,7 +12,7 @@
     <div class="hero-content fade-in">
       <div class="hero-badge">{% if lang == 'ge' %}{{ site_settings.hero_badge_ge }}{% else %}{{ site_settings.hero_badge_en }}{% endif %}</div>
       <h1 class="hero-title">
-        {% if lang == 'ge' %}{{ site_settings.hero_title_ge|safe }}{% else %}{{ site_settings.hero_title_en|safe }}{% endif %}
+        {% if lang == 'ge' %}{{ site_settings.hero_title_ge|safe|default:"საკუთარ თავთან ჰარმონიული ურთიერთობა" }}{% else %}{{ site_settings.hero_title_en|safe|default:"Harmonious Relationship With Yourself" }}{% endif %}
       </h1>
       <p class="hero-subtitle">
         {% if lang == 'ge' %}{{ site_settings.hero_subtitle_ge|linebreaksbr }}{% else %}{{ site_settings.hero_subtitle_en|linebreaksbr }}{% endif %}
@@ -104,7 +104,11 @@
               {% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}
             </h3>
             <p class="service-desc">
-              {% if lang == 'ge' %}{{ service.description_ge }}{% else %}{{ service.description_en }}{% endif %}
+              {% if lang == 'ge' %}
+                {% if service.short_description_ge %}{{ service.short_description_ge }}{% else %}{{ service.description_ge|truncatewords:20 }}{% endif %}
+              {% else %}
+                {% if service.short_description_en %}{{ service.short_description_en }}{% else %}{{ service.description_en|truncatewords:20 }}{% endif %}
+              {% endif %}
             </p>
             <div class="service-footer">
               <div class="service-price">{{ service.price }}</div>
@@ -113,7 +117,7 @@
               {% endif %}
             </div>
             <div class="btn btn-outline btn-sm">
-              {% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}
+              {% if lang == 'ge' %}{{ site_settings.label_details_ge }}{% else %}{{ site_settings.label_details_en }}{% endif %}
             </div>
           </div>
         </a>
@@ -129,20 +133,20 @@
             <div class="service-price">111€</div>
             <div class="service-duration">⏱ 60 წთ</div>
           </div>
-          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
+          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div>
         </div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
         <div class="service-card fade-in featured">
-          <div class="card-badge">{% if lang == 'ge' %}პოპულარული{% else %}Popular{% endif %}</div>
+          <div class="card-badge">{% if lang == 'ge' %}{{ site_settings.label_popular_ge }}{% else %}{{ site_settings.label_popular_en }}{% endif %}</div>
           <div class="service-icon">🔥</div>
           <h3 class="service-title">{% if lang == 'ge' %}სრული პაკეტი — 5 სესია{% else %}Full Package — 5 Sessions{% endif %}</h3>
           <p class="service-desc">{% if lang == 'ge' %}5 კვირა, 5 სესია. ყველაზე ეფექტური გზა ღრმა ტრანსფორმაციისთვის.{% else %}5 weeks, 5 sessions. The most effective path to deep transformation.{% endif %}</p>
           <div class="service-footer">
             <div class="service-price">455€</div>
-            <div class="service-duration">💸 {% if lang == 'ge' %}დაზოგე 100€{% else %}Save 100€{% endif %}</div>
+            <div class="service-duration">💸 {% if lang == 'ge' %}{{ site_settings.label_save_ge }}{% else %}{{ site_settings.label_save_en }}{% endif %} 100€</div>
           </div>
-          <div class="btn btn-primary btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
+          <div class="btn btn-primary btn-sm">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div>
         </div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
@@ -154,7 +158,7 @@
             <div class="service-price">222€ / 255€</div>
             <div class="service-duration">🌐 {% if lang == 'ge' %}ონლ. / ოფლ.{% else %}Online / Offline{% endif %}</div>
           </div>
-          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
+          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div>
         </div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
@@ -166,7 +170,7 @@
             <div class="service-price">1111€</div>
             <div class="service-duration">✅ {% if lang == 'ge' %}გარანტია{% else %}Guaranteed{% endif %}</div>
           </div>
-          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად{% else %}Details{% endif %}</div>
+          <div class="btn btn-outline btn-sm">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div>
         </div>
         </a>
       {% endif %}
@@ -174,16 +178,17 @@
   </div>
 </section>
 
+
 <!-- CHAKRAS SECTION -->
 <section class="chakras-section" id="chakras">
   <div class="container">
     <div class="section-header fade-in">
-      <div class="section-badge">🧩 {% if lang == 'ge' %}ენერგეტიკული ცენტრები{% else %}Energy Centers{% endif %}</div>
+      <div class="section-badge">🧩 {% if lang == 'ge' %}{{ site_settings.label_energy_centers_ge }}{% else %}{{ site_settings.label_energy_centers_en }}{% endif %}</div>
       <h2 class="section-title">
         {% if lang == 'ge' %}{{ site_settings.chakras_title_ge }}{% else %}{{ site_settings.chakras_title_en }}{% endif %}
       </h2>
       <p class="section-subtitle">
-        {% if lang == 'ge' %}დააჭირეთ ჩაკრას, რომელშიც პრობლემას გრძნობთ{% else %}Click on the chakra where you feel the issue{% endif %}
+        {% if lang == 'ge' %}{{ site_settings.label_choose_chakra_ge|default:"დააჭირეთ ჩაკრას, რომელშიც პრობლემას გრძნობთ" }}{% else %}{{ site_settings.label_choose_chakra_en|default:"Click on the chakra where you feel the issue" }}{% endif %}
       </p>
     </div>
 
@@ -201,39 +206,37 @@
             {% if lang == 'ge' %}{{ chakra.theme_ge }}{% else %}{{ chakra.theme_en }}{% endif %}
           </div>
           <div class="chakra-conditions">
-            {% if lang == 'ge' %}{{ chakra.conditions_ge|linebreaksbr }}{% else %}{{ chakra.conditions_en|linebreaksbr }}{% endif %}
+            {% if lang == 'ge' %}{{ chakra.conditions_ge|truncatewords:6 }}{% else %}{{ chakra.conditions_en|truncatewords:6 }}{% endif %}
+          </div>
+          <div class="btn btn-outline btn-sm" style="margin-top: 15px;">
+            {% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}
           </div>
         </div>
         </a>
         {% endfor %}
       {% else %}
         <!-- Static chakras if none in DB -->
-        {% with chakra_data="1|ფუძე|🔴|#dc2626|უსაფრთხოება, სტაბილურობა, მატერიალური სიმყარე|პანიკური შეტევები · ფობიები · ქრონიკული შიშები · კუნთოვანი ბლოკები · გაჭედილობა,2|საკრალური|🟠|#ea580c|ემოციური წონასწორობა, სიამოვნება|მიჯაჭვულობები · ადიქციები · შფოთვა · ემოციური ტრავმები · კრეატიულობის დეფიციტი,3|მზის წნული|🟡|#ca8a04|პიროვნული ძალა, თავდაჯერებულობა|თვითშეფასება · ბრაზი · მსხვერპლის მდგომარეობა · კონფლიქტი საკუთარ თავთან,4|გული|💚|#16a34a|სიყვარული, თანაგრძნობა|ტოქსიკური ურთიერთობები · სიყვარულის შიში · ემოციური ტკივილი · უნდობლობა,5|ყელი|🔵|#2563eb|გამოხატულობა, კომუნიკაცია|თვითგამოხატვა · საზღვრების დაცვა · ავთენტურობა · „არა“-ს თქმა,6|მესამე თვალი|🟣|#7c3aed|ინტუიცია, სიბრძნე|დეპრესია · ინტუიციასთან კავშირის ნაკლებობა · მიმართულების დაკარგვა,7|გვირგვინი|⚪|#6b7280|სულიერი კავშირი, ცნობიერება|დაკარგულობა · ეგზისტენციური კრიზისი · სულიერი სიმშვიდის ძიება" %}
-        {% for item in chakra_data|cut:","  %}
-        {% endfor %}
-        <!-- Hardcoded fallback -->
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
-        <div class="chakra-card fade-in" style="--chakra-color:#dc2626"><div class="chakra-icon">🔴</div><div class="chakra-number">1</div><h3 class="chakra-name">ფუძე</h3><div class="chakra-theme">უსაფრთხოება, სტაბილურობა</div><div class="chakra-conditions">პანიკური შეტევები<br>ფობიები<br>ქრონიკული შიშები<br>კუნთოვანი ბლოკები</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#dc2626"><div class="chakra-icon">🔴</div><div class="chakra-number">1</div><h3 class="chakra-name">{% if lang == 'ge' %}ფუძე{% else %}Root{% endif %}</h3><div class="chakra-theme">{% if lang == 'ge' %}უსაფრთხოება, სტაბილურობა{% else %}Safety, Stability{% endif %}</div><div class="chakra-conditions">{% if lang == 'ge' %}პანიკური შეტევები ფობიები...{% else %}Panic Attacks Phobias...{% endif %}</div><div class="btn btn-outline btn-sm" style="margin-top: 15px;">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div></div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
-        <div class="chakra-card fade-in" style="--chakra-color:#ea580c"><div class="chakra-icon">🟠</div><div class="chakra-number">2</div><h3 class="chakra-name">საკრალური</h3><div class="chakra-theme">ემოციები, სიამოვნება</div><div class="chakra-conditions">მიჯაჭვულობები<br>ადიქციები<br>ემოციური ტრავმები<br>შფოთვა</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#ea580c"><div class="chakra-icon">🟠</div><div class="chakra-number">2</div><h3 class="chakra-name">{% if lang == 'ge' %}საკრალური{% else %}Sacral{% endif %}</h3><div class="chakra-theme">{% if lang == 'ge' %}ემოციები, სიამოვნება{% else %}Emotions, Pleasure{% endif %}</div><div class="chakra-conditions">{% if lang == 'ge' %}მიჯაჭვულობები ადიქციები...{% else %}Attachments Addictions...{% endif %}</div><div class="btn btn-outline btn-sm" style="margin-top: 15px;">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div></div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
-        <div class="chakra-card fade-in" style="--chakra-color:#ca8a04"><div class="chakra-icon">🟡</div><div class="chakra-number">3</div><h3 class="chakra-name">მზის წნული</h3><div class="chakra-theme">პიროვნული ძალა</div><div class="chakra-conditions">თვითშეფასება<br>ბრაზი<br>მსხვერპლის მდგომარეობა</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#ca8a04"><div class="chakra-icon">🟡</div><div class="chakra-number">3</div><h3 class="chakra-name">{% if lang == 'ge' %}მზის წნული{% else %}Solar Plexus{% endif %}</h3><div class="chakra-theme">{% if lang == 'ge' %}პიროვნული ძალა{% else %}Personal Power{% endif %}</div><div class="chakra-conditions">{% if lang == 'ge' %}თვითშეფასება ბრაზი...{% else %}Self-esteem Anger...{% endif %}</div><div class="btn btn-outline btn-sm" style="margin-top: 15px;">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div></div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
-        <div class="chakra-card fade-in" style="--chakra-color:#16a34a"><div class="chakra-icon">💚</div><div class="chakra-number">4</div><h3 class="chakra-name">გული</h3><div class="chakra-theme">სიყვარული, კავშირი</div><div class="chakra-conditions">ტოქსიკური ურთიერთობები<br>სიყვარულის შიში<br>ემოციური ტკივილი</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#16a34a"><div class="chakra-icon">💚</div><div class="chakra-number">4</div><h3 class="chakra-name">{% if lang == 'ge' %}გული{% else %}Heart{% endif %}</h3><div class="chakra-theme">{% if lang == 'ge' %}სიყვარული, კავშირი{% else %}Love, Connection{% endif %}</div><div class="chakra-conditions">{% if lang == 'ge' %}ტოქსიკური ურთიერთობები...{% else %}Toxic Relationships...{% endif %}</div><div class="btn btn-outline btn-sm" style="margin-top: 15px;">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div></div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
-        <div class="chakra-card fade-in" style="--chakra-color:#2563eb"><div class="chakra-icon">🔵</div><div class="chakra-number">5</div><h3 class="chakra-name">ყელი</h3><div class="chakra-theme">გამოხატულობა, კომუნიკაცია</div><div class="chakra-conditions">თვითგამოხატვა<br>„არა"-ს თქმა<br>საზღვრების დაცვა</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#2563eb"><div class="chakra-icon">🔵</div><div class="chakra-number">5</div><h3 class="chakra-name">{% if lang == 'ge' %}ყელი{% else %}Throat{% endif %}</h3><div class="chakra-theme">{% if lang == 'ge' %}გამოხატულობა, კომუნიკაცია{% else %}Expression, Communication{% endif %}</div><div class="chakra-conditions">{% if lang == 'ge' %}თვითგამოხატვა „არა"-ს თქმა...{% else %}Self-expression Saying "No"...{% endif %}</div><div class="btn btn-outline btn-sm" style="margin-top: 15px;">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div></div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
-        <div class="chakra-card fade-in" style="--chakra-color:#7c3aed"><div class="chakra-icon">🟣</div><div class="chakra-number">6</div><h3 class="chakra-name">მესამე თვალი</h3><div class="chakra-theme">ინტუიცია, სიბრძნე</div><div class="chakra-conditions">დეპრესია<br>მიმართულების დაკარგვა<br>მენტალური ბარიერები</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#7c3aed"><div class="chakra-icon">🟣</div><div class="chakra-number">6</div><h3 class="chakra-name">{% if lang == 'ge' %}მესამე თვალი{% else %}Third Eye{% endif %}</h3><div class="chakra-theme">{% if lang == 'ge' %}ინტუიცია, სიბრძნე{% else %}Intuition, Wisdom{% endif %}</div><div class="chakra-conditions">{% if lang == 'ge' %}დეპრესია მიმართულების დაკარგვა...{% else %}Depression Loss of Direction...{% endif %}</div><div class="btn btn-outline btn-sm" style="margin-top: 15px;">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div></div>
         </a>
         <a href="{% url 'contact' %}" style="text-decoration: none; color: inherit; display: block;">
-        <div class="chakra-card fade-in" style="--chakra-color:#9333ea"><div class="chakra-icon">👑</div><div class="chakra-number">7</div><h3 class="chakra-name">გვირგვინი</h3><div class="chakra-theme">სულიერი კავშირი</div><div class="chakra-conditions">ეგზისტენციური კრიზისი<br>იკიგაის ძიება<br>შინაგანი სიმშვიდე</div></div>
+        <div class="chakra-card fade-in" style="--chakra-color:#9333ea"><div class="chakra-icon">👑</div><div class="chakra-number">7</div><h3 class="chakra-name">{% if lang == 'ge' %}გვირგვინი{% else %}Crown{% endif %}</h3><div class="chakra-theme">{% if lang == 'ge' %}სულიერი კავშირი{% else %}Spiritual Connection{% endif %}</div><div class="chakra-conditions">{% if lang == 'ge' %}ეგზისტენციური კრიზისი იკიგაის ძიება...{% else %}Existential Crisis Finding Ikigai...{% endif %}</div><div class="btn btn-outline btn-sm" style="margin-top: 15px;">{% if lang == 'ge' %}დეტალურად →{% else %}Details →{% endif %}</div></div>
         </a>
-        {% endwith %}
       {% endif %}
     </div>
 

@@ -87,11 +87,32 @@
         <div id="main-form-container">
           <form hx-post="{% url 'submit_lead' %}" hx-target="#main-form-container" hx-swap="innerHTML" class="contact-form">
             {% csrf_token %}
-            {% for field in form %}
             <div class="form-group">
-              {{ field }}
+              <input type="text" name="name" class="form-input" 
+                placeholder="{% if lang == 'ge' %}სახელი და გვარი{% else %}Full Name{% endif %}" required id="id_name">
             </div>
-            {% endfor %}
+            <div class="form-group">
+              <input type="text" name="phone" class="form-input" 
+                placeholder="{% if lang == 'ge' %}+995 5XX XX XX XX{% else %}+995 5XX XX XX XX{% endif %}" 
+                pattern="^\+?[0-9\s\-]{9,20}$" 
+                title="{% if lang == 'ge' %}შეიყვანეთ ვალიდური ტელეფონის ნომერი (+ ნიშანი და ციფრები){% else %}Enter a valid phone number (+ sign and digits){% endif %}" required id="id_phone">
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" class="form-input" 
+                placeholder="Email" id="id_email">
+            </div>
+            <div class="form-group">
+              <select name="purpose" class="form-input" required id="id_purpose">
+                <option value="session" selected>{% if lang == 'ge' %}ინდივიდუალური სესია{% else %}Individual Session{% endif %}</option>
+                <option value="course">{% if lang == 'ge' %}კურსები{% else %}Courses{% endif %}</option>
+                <option value="retreat">{% if lang == 'ge' %}ბალის რიტრიტი{% else %}Bali Retreat{% endif %}</option>
+                <option value="mentoring">{% if lang == 'ge' %}მენტორობა{% else %}Mentoring{% endif %}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea name="message" class="form-input" rows="3" 
+                placeholder="{% if lang == 'ge' %}შეტყობინება (არასავალდებულო){% else %}Message (optional){% endif %}" id="id_message"></textarea>
+            </div>
             <button type="submit" class="btn btn-primary btn-full" style="padding: 10px; font-weight: 700; font-size: 0.9rem; margin-top: 5px;">
               {% if lang == 'ge' %}გაგზავნა ✨{% else %}Send ✨{% endif %}
             </button>
@@ -122,9 +143,10 @@
 
         <!-- Mini Bank Details -->
         <div class="bank-details-mini">
-          <h4>💳 {% if lang == 'ge' %}{{ contact.bank_title_ge }}{% else %}Bank Details{% endif %}</h4>
+          <h4>💳 {% if lang == 'ge' %}{{ contact.bank_title_ge }}{% else %}{{ contact.bank_title_en }}{% endif %}</h4>
           <div style="font-size: 0.8rem; color: #fff; margin-bottom: 5px;">
-            <strong>{% if lang == 'ge' %}{{ contact.bank_recipient_label_ge }}{% else %}Recipient{% endif %}:</strong> {{ contact.bank_recipient_name }}
+            <strong>{% if lang == 'ge' %}{{ contact.bank_recipient_label_ge }}{% else %}{{ contact.bank_recipient_label_en }}{% endif %}:</strong> 
+            {% if lang == 'ge' %}{{ contact.bank_recipient_name }}{% else %}{{ contact.bank_recipient_name_en }}{% endif %}
           </div>
           <pre style="white-space: pre-wrap; line-height: 1.6;">{% if lang == 'ge' %}{{ contact.bank_accounts_ge }}{% else %}{{ contact.bank_accounts_en }}{% endif %}</pre>
         </div>

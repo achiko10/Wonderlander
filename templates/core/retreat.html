@@ -181,21 +181,34 @@
           {% if days %}
             {% for day in days %}
             <div class="program-day">
-              <span class="day-label">{{ day.date_label }}</span>
+              <span class="day-label">{% if lang == 'ge' %}{{ day.date_label }}{% else %}{{ day.date_label_en|default:day.date_label }}{% endif %}</span>
               <div class="day-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</div>
             </div>
             {% endfor %}
           {% else %}
-            <div class="program-day"><span class="day-label">11 SEP</span><div class="day-title">ადაპტაცია — მსუბუქი იოგა, მედიტაცია, სტრესის მოხსნა</div></div>
-            <div class="program-day"><span class="day-label">12 SEP</span><div class="day-title">ფუძის ჩაკრა — დამიწება, შიშების დამუშავება, სადჰუს დაფა</div></div>
-            <div class="program-day"><span class="day-label">13 SEP</span><div class="day-title">საკრალური ჩაკრა — კრეატიულობა, ემოციები, კუნდალინი</div></div>
-            <div class="program-day"><span class="day-label">14 SEP</span><div class="day-title">მზის წნული — პიროვნული ძალა, ჰიპნოთერაპია</div></div>
-            <div class="program-day"><span class="day-label">15 SEP</span><div class="day-title">გულის ჩაკრა — კუნდალინი, კაკაოს ცერემონია</div></div>
-            <div class="program-day"><span class="day-label">16 SEP</span><div class="day-title">ყელის ჩაკრა — ავთენტურობა, დრამა თერაპია</div></div>
-            <div class="program-day"><span class="day-label">17 SEP</span><div class="day-title">მესამე თვალი — ინტუიცია, კუნდალინი, მანიფესტაცია</div></div>
-            <div class="program-day"><span class="day-label">18 SEP</span><div class="day-title">გვირგვინი — ინტეგრაცია, კოსმიური ქორწილი</div></div>
-            <div class="program-day"><span class="day-label">19 SEP</span><div class="day-title">თავისუფალი დღე — შოპინგი, ტურები</div></div>
-            <div class="program-day"><span class="day-label">20 SEP</span><div class="day-title">გამგზავრება — ჩექაუთი</div></div>
+            {% if lang == 'ge' %}
+              <div class="program-day"><span class="day-label">11 სექტ</span><div class="day-title">ადაპტაცია — მსუბუქი იოგა, მედიტაცია, სტრესის მოხსნა</div></div>
+              <div class="program-day"><span class="day-label">12 სექტ</span><div class="day-title">ფუძის ჩაკრა — დამიწება, შიშების დამუშავება, სადჰუს დაფა</div></div>
+              <div class="program-day"><span class="day-label">13 სექტ</span><div class="day-title">საკრალური ჩაკრა — კრეატიულობა, ემოციები, კუნდალინი</div></div>
+              <div class="program-day"><span class="day-label">14 სექტ</span><div class="day-title">მზის წნული — პიროვნული ძალა, ჰიპნოთერაპია</div></div>
+              <div class="program-day"><span class="day-label">15 სექტ</span><div class="day-title">გულის ჩაკრა — კუნდალინი, კაკაოს ცერემონია</div></div>
+              <div class="program-day"><span class="day-label">16 სექტ</span><div class="day-title">ყელის ჩაკრა — ავთენტურობა, დრამა თერაპია</div></div>
+              <div class="program-day"><span class="day-label">17 სექტ</span><div class="day-title">მესამე თვალი — ინტუიცია, კუნდალინი, მანიფესტაცია</div></div>
+              <div class="program-day"><span class="day-label">18 სექტ</span><div class="day-title">გვირგვინი — ინტეგრაცია, კოსმიური ქორწილი</div></div>
+              <div class="program-day"><span class="day-label">19 სექტ</span><div class="day-title">თავისუფალი დღე — შოპინგი, ტურები</div></div>
+              <div class="program-day"><span class="day-label">20 სექტ</span><div class="day-title">გამგზავრება — ჩექაუთი</div></div>
+            {% else %}
+              <div class="program-day"><span class="day-label">11 SEP</span><div class="day-title">Adaptation — Light yoga, meditation, stress relief</div></div>
+              <div class="program-day"><span class="day-label">12 SEP</span><div class="day-title">Root Chakra — Grounding, working through fears, Sadhu board</div></div>
+              <div class="program-day"><span class="day-label">13 SEP</span><div class="day-title">Sacral Chakra — Creativity, emotions, Kundalini</div></div>
+              <div class="program-day"><span class="day-label">14 SEP</span><div class="day-title">Solar Plexus — Personal power, hypnotherapy</div></div>
+              <div class="program-day"><span class="day-label">15 SEP</span><div class="day-title">Heart Chakra — Kundalini, cocoa ceremony</div></div>
+              <div class="program-day"><span class="day-label">16 SEP</span><div class="day-title">Throat Chakra — Authenticity, drama therapy</div></div>
+              <div class="program-day"><span class="day-label">17 SEP</span><div class="day-title">Third Eye — Intuition, Kundalini, manifestation</div></div>
+              <div class="program-day"><span class="day-label">18 SEP</span><div class="day-title">Crown — Integration, cosmic wedding</div></div>
+              <div class="program-day"><span class="day-label">19 SEP</span><div class="day-title">Free day — Shopping, tours</div></div>
+              <div class="program-day"><span class="day-label">20 SEP</span><div class="day-title">Departure — Checkout</div></div>
+            {% endif %}
           {% endif %}
         </div>
       </div>
@@ -204,7 +217,7 @@
     <!-- RIGHT: Action Block -->
     <aside class="dash-col">
       <div class="dash-block action-block" style="padding: 16px;">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">🏝️ {% if lang == 'ge' %}დაჯავშნა{% else %}Booking{% endif %}</h3>
+        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">🏝️ {% if lang == 'ge' %}{{ site_settings.label_booking_ge }}{% else %}{{ site_settings.label_booking_en }}{% endif %}</h3>
         
         <div class="price-strip">
           <div class="price-card-small">
@@ -220,13 +233,31 @@
         <div id="retreat-form-container">
           <form hx-post="{% url 'submit_lead' %}" hx-target="#retreat-form-container" hx-swap="innerHTML" class="contact-form">
             {% csrf_token %}
-            {% for field in form %}
             <div class="form-group">
-              {{ field }}
+              <input type="text" name="name" class="form-input" 
+                placeholder="{% if lang == 'ge' %}სახელი და გვარი{% else %}Full Name{% endif %}" required id="id_name">
             </div>
-            {% endfor %}
+            <div class="form-group">
+              <input type="text" name="phone" class="form-input" 
+                placeholder="{% if lang == 'ge' %}+995 5XX XX XX XX{% else %}+995 5XX XX XX XX{% endif %}" 
+                pattern="^\+?[0-9\s\-]{9,20}$" 
+                title="{% if lang == 'ge' %}შეიყვანეთ ვალიდური ტელეფონის ნომერი (+ ნიშანი და ციფრები){% else %}Enter a valid phone number (+ sign and digits){% endif %}" required id="id_phone">
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" class="form-input" 
+                placeholder="Email" id="id_email">
+            </div>
+            <div class="form-group" style="display:none;">
+              <select name="purpose" class="form-input" required id="id_purpose">
+                <option value="retreat" selected>{% if lang == 'ge' %}ბალის რიტრიტი{% else %}Bali Retreat{% endif %}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea name="message" class="form-input" rows="3" 
+                placeholder="{% if lang == 'ge' %}შეტყობინება (არასავალდებულო){% else %}Message (optional){% endif %}" id="id_message"></textarea>
+            </div>
             <button type="submit" class="btn dash-btn-bali">
-              {% if lang == 'ge' %}განაცხადის გაგზავნა 🔥{% else %}Submit Application 🔥{% endif %}
+              {% if lang == 'ge' %}{{ site_settings.label_submit_app_ge }}{% else %}{{ site_settings.label_submit_app_en }}{% endif %}
             </button>
           </form>
         </div>

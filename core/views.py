@@ -15,9 +15,13 @@ def get_common_context(request):
     try:
         settings = SiteSettings.objects.first()
         if settings:
-            # Pre-process lists for templates
-            settings.creds_list = [c.strip() for c in settings.hero_creds_ge.split(",")] if settings.hero_creds_ge else []
-            settings.tags_list = [t.strip() for t in settings.intro_tags_ge.split(",")] if settings.intro_tags_ge else []
+            # Pre-process lists for templates based on language
+            if lang == 'en':
+                settings.creds_list = [c.strip() for c in settings.hero_creds_en.split(",")] if settings.hero_creds_en else []
+                settings.tags_list = [t.strip() for t in settings.intro_tags_en.split(",")] if settings.intro_tags_en else []
+            else:
+                settings.creds_list = [c.strip() for c in settings.hero_creds_ge.split(",")] if settings.hero_creds_ge else []
+                settings.tags_list = [t.strip() for t in settings.intro_tags_ge.split(",")] if settings.intro_tags_ge else []
     except SiteSettings.DoesNotExist:
         settings = None
     return {'lang': lang, 'contact': contact, 'site_settings': settings}
@@ -39,10 +43,13 @@ def home(request):
 
 def course(request):
     context = get_common_context(request)
-    course_obj = Course.objects.filter(is_active=True).first()
-    context['course'] = course_obj
-    if course_obj:
-        context['packages'] = course_obj.packages.all()
+    courses = Course.objects.filter(is_active=True)
+    context['courses'] = courses
+    # Also pass first course packages for backwards compatibility
+    first_course = courses.first()
+    context['course'] = first_course
+    if first_course:
+        context['packages'] = first_course.packages.all()
     context['form'] = LeadForm(initial={'purpose': 'course'})
     return render(request, 'core/course.html', context)
 

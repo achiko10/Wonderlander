@@ -10,7 +10,7 @@ local_settings.py
 # db.sqlite3 ამოვიღე იგნორიდან, რომ გაყვეს PythonAnywhere-ზე
 
 # Media & Static
-/media/
+# /media/ (unignored to keep default images in repo)
 /staticfiles/
 
 # Environments
