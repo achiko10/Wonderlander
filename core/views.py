@@ -45,13 +45,18 @@ def course(request):
     context = get_common_context(request)
     courses = Course.objects.filter(is_active=True)
     context['courses'] = courses
-    # Also pass first course packages for backwards compatibility
-    first_course = courses.first()
-    context['course'] = first_course
-    if first_course:
-        context['packages'] = first_course.packages.all()
     context['form'] = LeadForm(initial={'purpose': 'course'})
     return render(request, 'core/course.html', context)
+
+
+def course_detail(request, pk):
+    context = get_common_context(request)
+    from django.shortcuts import get_object_or_404
+    course_obj = get_object_or_404(Course, pk=pk, is_active=True)
+    context['course'] = course_obj
+    context['packages'] = course_obj.packages.all()
+    context['form'] = LeadForm(initial={'purpose': 'course'})
+    return render(request, 'core/course_detail.html', context)
 
 
 def retreat(request):

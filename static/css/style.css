@@ -313,31 +313,24 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
 .what-you-learn { background: var(--bg-alt); }
 .bonuses-section { background: var(--bg-main); }
 
-/* DASHBOARD CORE - NO HEADER */
+/* DASHBOARD CORE */
 .course-dashboard { 
-  height: calc(100vh - 70px); 
   display: flex; 
   flex-direction: column; 
-  padding: 12px 20px; 
+  padding: 20px 20px 60px; 
   background: var(--bg-main); 
-  overflow: hidden; 
   box-sizing: border-box; 
 }
-@media(max-width: 1024px) { .course-dashboard { height: auto; padding: 100px 20px 40px; } }
 
 .dash-grid { 
   display: grid; 
   grid-template-columns: 1fr 1.6fr 1fr; 
-  gap: 12px; 
-  flex-grow: 1; 
-  min-height: 0; 
-  align-items: stretch;
+  gap: 16px; 
+  align-items: start;
 }
 @media(max-width: 1024px) { .dash-grid { grid-template-columns: 1fr; } }
 
-.dash-col, .dash-col-main { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
-.dash-col { overflow-y: auto; scrollbar-width: none; }
-.dash-col::-webkit-scrollbar { display: none; }
+.dash-col, .dash-col-main { display: flex; flex-direction: column; gap: 16px; }
 
 .dash-block { background: var(--bg-alt); border: 1px solid var(--border); border-radius: 12px; padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .dash-block-title { font-size: 0.72rem; color: var(--gold); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }

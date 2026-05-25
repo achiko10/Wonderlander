@@ -2,22 +2,20 @@
 {% block title %}{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Courses{% endif %} - Wonderlander{% endblock %}
 {% block content %}
 
-{% if courses and courses|length > 1 %}
-{# ============================================================ #}
-{# MULTIPLE COURSES — show a listing grid                       #}
-{# ============================================================ #}
 <div class="courses-listing fade-in">
-  <div class="courses-header">
-    <div class="section-badge">✦ {% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Courses{% endif %}</div>
-    <h1 class="courses-main-title">{% if lang == 'ge' %}{{ site_settings.label_our_courses_ge }}{% else %}{{ site_settings.label_our_courses_en }}{% endif %}</h1>
-    <p class="courses-subtitle">{% if lang == 'ge' %}{{ site_settings.label_choose_course_ge }}{% else %}{{ site_settings.label_choose_course_en }}{% endif %}</p>
-  </div>
+
+  {% if courses %}
   <div class="courses-grid">
     {% for c in courses %}
     <div class="course-list-card fade-in">
       {% if c.image %}
       <div class="course-card-img">
-        <img src="{{ c.image.url }}" alt="{{ c.title_ge }}" />
+        <img src="{{ c.image.url }}" alt="{% if lang == 'ge' %}{{ c.title_ge }}{% else %}{{ c.title_en }}{% endif %}" />
+        <div class="course-card-img-overlay"></div>
+      </div>
+      {% else %}
+      <div class="course-card-img course-card-img--placeholder">
+        <span class="course-placeholder-icon">✦</span>
       </div>
       {% endif %}
       <div class="course-card-body">
@@ -27,119 +25,35 @@
         <p class="course-card-subtitle">{% if lang == 'ge' %}{{ c.subtitle_ge }}{% else %}{{ c.subtitle_en }}{% endif %}</p>
         {% endif %}
         <p class="course-card-desc">
-          {% if lang == 'ge' %}{{ c.description_ge|truncatewords:25 }}{% else %}{{ c.description_en|truncatewords:25 }}{% endif %}
+          {% if lang == 'ge' %}{{ c.description_ge|truncatewords:20 }}{% else %}{{ c.description_en|truncatewords:20 }}{% endif %}
         </p>
         {% if c.packages.all %}
         <div class="course-card-prices">
           {% for pkg in c.packages.all %}
           <span class="course-price-tag {% if pkg.is_featured %}featured{% endif %}">
-            {{ pkg.name_ge }} — {{ pkg.price }}
+            {% if lang == 'ge' %}{{ pkg.name_ge }}{% else %}{{ pkg.name_en }}{% endif %} — {{ pkg.price }}
           </span>
           {% endfor %}
         </div>
         {% endif %}
-        <a href="{% url 'contact' %}?course={{ c.pk }}" class="btn btn-primary btn-sm" style="margin-top:16px;">
-          {% if lang == 'ge' %}ჩაწერა / დაინტერესება ❣️{% else %}Enroll / Enquire ❣️{% endif %}
-        </a>
+        <div class="course-card-actions">
+          <a href="{% url 'course_detail' c.pk %}" class="btn btn-outline btn-sm">
+            {% if lang == 'ge' %}{{ site_settings.label_details_ge }}{% else %}{{ site_settings.label_details_en }}{% endif %}
+          </a>
+          <a href="{% url 'contact' %}?course={{ c.pk }}" class="btn btn-primary btn-sm">
+            {% if lang == 'ge' %}ჩაწერა ❣️{% else %}Enroll ❣️{% endif %}
+          </a>
+        </div>
       </div>
     </div>
     {% endfor %}
   </div>
-</div>
-
-{% else %}
-{# ============================================================ #}
-{# SINGLE COURSE — keep the existing dashboard layout           #}
-{# ============================================================ #}
-<div class="course-dashboard fade-in">
-  <div class="dash-grid">
-    <!-- LEFT: Intro & Learning -->
-    <aside class="dash-col">
-      <div class="dash-block">
-        <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.label_course_ge }}{% else %}{{ site_settings.label_course_en }}{% endif %}</div>
-        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}{{ site_settings.label_you_feel_ge }}{% else %}{{ site_settings.label_you_feel_en }}{% endif %}</h3>
-        <ul class="dash-list small-list">
-          {% if lang == 'ge' %}
-          <li>💭 მეტი მუშაობა = უსაფრთხოება?</li>
-          <li>🌀 გაქვს ყველაფერი, გაკლია შინაგანი?</li>
-          <li>😮‍💨 დაიღალე "გაძლებით"?</li>
-          <li>🌺 გინდა ფული "რბილი" გზით?</li>
-          {% else %}
-          <li>💭 Work more = Security?</li>
-          <li>🌀 Have everything, feel empty?</li>
-          <li>😮‍💨 Tired of "coping"?</li>
-          <li>🌺 Want money the "soft" way?</li>
-          {% endif %}
-        </ul>
-      </div>
-      <div class="dash-block">
-        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}{{ site_settings.label_what_learn_ge }}{% else %}{{ site_settings.label_what_learn_en }}{% endif %}</h3>
-        <div class="dash-learn-items">
-          <div class="mini-learn">✨ {% if lang == 'ge' %}ენერგიების ბალანსი{% else %}Energy Balance{% endif %}</div>
-          <div class="mini-learn">✨ {% if lang == 'ge' %}ფულის ფსიქოლოგია{% else %}Money Psychology{% endif %}</div>
-          <div class="mini-learn">✨ {% if lang == 'ge' %}NLP და რწმენები{% else %}NLP & Beliefs{% endif %}</div>
-          <div class="mini-learn">✨ {% if lang == 'ge' %}გაყიდვების ალქიმია{% else %}Alchemy of Sales{% endif %}</div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- CENTER: Packages -->
-    <main class="dash-col-main">
-      <div class="dash-badge-mini" style="text-align: center; margin-bottom: 8px; font-size:1.2rem; margin-top:0;">
-        {% if lang == 'ge' %}{{ course.packages_title_ge }}{% else %}{{ course.packages_title_en }}{% endif %}
-      </div>
-      <div class="packages-compact">
-        {% for pkg in course.packages.all %}
-        <div class="package-card-mini {% if pkg.is_featured %}featured{% endif %}">
-          {% if pkg.is_featured %}
-          <div class="dash-badge">{% if lang == 'ge' %}{{ site_settings.label_popular_ge }}{% else %}{{ site_settings.label_popular_en }}{% endif %}</div>
-          {% endif %}
-          <div>
-            <h3>{% if lang == 'ge' %}{{ pkg.name_ge }}{% else %}{{ pkg.name_en }}{% endif %}</h3>
-            <div class="pkg-price {% if pkg.is_featured %}gold{% endif %}">{{ pkg.price }}</div>
-            <ul class="pkg-features-mini">
-              {% if lang == 'ge' %}
-                {{ pkg.features_ge|linebreaksbr }}
-              {% else %}
-                {{ pkg.features_en|linebreaksbr }}
-              {% endif %}
-            </ul>
-          </div>
-          <a href="{% url 'contact' %}?course={{ course.pk }}&pkg={{ pkg.pk }}" class="btn {% if pkg.is_featured %}btn-primary{% else %}btn-outline{% endif %} btn-sm btn-full">
-            {% if lang == 'ge' %}არჩევა{% else %}Select{% endif %}
-          </a>
-        </div>
-        {% endfor %}
-      </div>
-    </main>
-
-    <!-- RIGHT: Bonuses & CTA -->
-    <aside class="dash-col">
-      <div class="dash-block">
-        <div class="dash-countdown-mini">
-          <span id="cd-h">24</span>:<span id="cd-m">00</span>:<span id="cd-s">00</span>
-        </div>
-        <h3 class="dash-block-title">🎁 {% if lang == 'ge' %}{{ site_settings.bonuses_title_ge|default:"ბონუსები" }}{% else %}{{ site_settings.bonuses_title_en|default:"Bonuses" }}{% endif %}</h3>
-        <div class="dash-bonuses" style="font-size: 0.85rem; color: #ccc;">
-          {% if lang == 'ge' %}{{ course.bonuses_ge|linebreaksbr }}{% else %}{{ course.bonuses_en|linebreaksbr }}{% endif %}
-        </div>
-      </div>
-      <div class="dash-cta-block">
-        <div class="dash-total">
-          <small>{% if lang == 'ge' %}{{ site_settings.label_total_value_ge }}{% else %}{{ site_settings.label_total_value_en }}{% endif %}</small>
-          <strong>{% if lang == 'ge' %}{{ course.total_value_ge }}{% else %}{{ course.total_value_en }}{% endif %}</strong>
-        </div>
-        <div class="guarantee-tiny">
-          {% if lang == 'ge' %}{{ site_settings.label_guarantee_ge }}{% else %}{{ site_settings.label_guarantee_en }}{% endif %}
-        </div>
-        <a href="{% url 'contact' %}?course={{ course.pk }}" class="btn btn-primary btn-lg btn-full dash-btn">
-          {% if lang == 'ge' %}{{ site_settings.label_let_start_ge }}{% else %}{{ site_settings.label_let_start_en }}{% endif %}
-        </a>
-      </div>
-    </aside>
+  {% else %}
+  <div class="courses-empty">
+    <p>{% if lang == 'ge' %}კურსები მალე დაემატება ✨{% else %}Courses coming soon ✨{% endif %}</p>
   </div>
+  {% endif %}
 </div>
-{% endif %}
 
 {% endblock %}
 
@@ -147,53 +61,128 @@
 <style>
   html, body { background: #050505; margin: 0; padding: 0; }
 
-  /* ── MULTI-COURSE LISTING ── */
   .courses-listing {
-    padding: 120px 24px 60px;
-    max-width: 1100px;
+    padding: 20px 24px 40px;
+    max-width: 1200px;
     margin: 0 auto;
   }
   .courses-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
   }
   .courses-main-title {
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
     color: var(--gold);
-    margin: 10px 0 8px;
+    margin: 12px 0 10px;
+    font-family: 'Playfair Display', serif;
   }
   .courses-subtitle {
     color: #888;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
+
+  /* ── GRID ── */
   .courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
   }
+
+  /* ── CARD ── */
   .course-list-card {
     background: #0d0d0d;
-    border: 1px solid rgba(197,160,89,0.2);
-    border-radius: 16px;
+    border: 1px solid rgba(197,160,89,0.18);
+    border-radius: 20px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
+    position: relative;
   }
-  .course-list-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-  .course-card-img img { width: 100%; height: 200px; object-fit: cover; }
-  .course-card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
-  .course-card-title { font-size: 1.3rem; color: var(--gold); margin: 8px 0; }
-  .course-card-subtitle { font-size: 0.85rem; color: #aaa; margin-bottom: 10px; font-style: italic; }
-  .course-card-desc { font-size: 0.88rem; color: #ccc; line-height: 1.6; flex: 1; margin-bottom: 12px; }
-  .course-card-prices { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .course-list-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(197,160,89,0.12);
+  }
+
+  /* ── IMAGE ── */
+  .course-card-img {
+    position: relative;
+    height: 210px;
+    overflow: hidden;
+  }
+  .course-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .course-list-card:hover .course-card-img img {
+    transform: scale(1.04);
+  }
+  .course-card-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, #0d0d0d 100%);
+  }
+  .course-card-img--placeholder {
+    background: linear-gradient(135deg, #111 0%, #1a1408 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .course-placeholder-icon {
+    font-size: 3rem;
+    color: var(--gold);
+    opacity: 0.3;
+  }
+
+  /* ── BODY ── */
+  .course-card-body {
+    padding: 24px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+  }
+  .course-card-title {
+    font-size: 1.35rem;
+    color: var(--gold);
+    margin: 4px 0 0;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.3;
+  }
+  .course-card-subtitle {
+    font-size: 0.85rem;
+    color: #aaa;
+    font-style: italic;
+    margin: 0;
+  }
+  .course-card-desc {
+    font-size: 0.88rem;
+    color: #ccc;
+    line-height: 1.7;
+    flex: 1;
+    margin: 0;
+  }
+
+  /* ── PRICES ── */
+  .course-card-prices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
   .course-price-tag {
     background: rgba(197,160,89,0.07);
     border: 1px solid rgba(197,160,89,0.2);
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 50px;
     font-size: 0.78rem;
-    color: #ddd;
+    color: #ccc;
   }
   .course-price-tag.featured {
     background: rgba(197,160,89,0.15);
@@ -202,111 +191,31 @@
     font-weight: 600;
   }
 
-  /* ── SINGLE COURSE DASHBOARD ── */
-  .course-dashboard {
-    padding: 0 24px 40px;
-    background: #050505;
-  }
-  .dash-grid {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1.8fr 1fr;
-    gap: 20px;
-    align-items: start;
-  }
-  .dash-col { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
-  .dash-col-main {
+  /* ── ACTIONS ── */
+  .course-card-actions {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 0;
-    position: relative;
-    z-index: 10;
+    gap: 10px;
+    margin-top: 8px;
   }
-  .dash-block {
-    background: #0a0a0a;
-    border: 1px solid rgba(197,160,89,0.15);
-    border-radius: 12px;
-    padding: 20px;
-  }
-  .packages-compact { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .package-card-mini {
-    background: #0d0d0d;
-    border: 1px solid rgba(197,160,89,0.2);
-    border-radius: 16px;
-    padding: 24px;
+  .course-card-actions .btn {
+    flex: 1;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 12px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
   }
-  .package-card-mini h3 { font-size: 1.1rem; color: var(--gold); }
-  .pkg-price { font-size: 1.8rem; font-weight: 700; color: #fff; margin: 8px 0; }
-  .pkg-features-mini { list-style: none; padding: 0; margin: 0 0 16px; text-align: left; }
-  .pkg-features-mini li { font-size: 0.85rem; color: #aaa; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .dash-cta-block {
-    background: rgba(197,160,89,0.05);
-    border: 1px solid var(--gold);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-  }
-  .dash-total strong { font-size: 1.6rem; color: var(--gold); display: block; margin-top: 4px; }
-  .dash-countdown-mini { font-size: 1rem; color: var(--gold); font-family: monospace; margin-bottom: 8px; text-align: center; }
-  .dash-badge-mini {
-    font-size: 1.2rem;
-    color: var(--gold);
-    opacity: 0.9;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 700;
-  }
-  .dash-btn {
-    padding: 10px 20px !important;
-    font-size: 0.9rem !important;
-    width: auto !important;
-    min-width: 180px;
-    margin: 8px auto 0;
-    display: inline-block;
-  }
-  .mini-learn { font-size: 0.82rem; color: #ccc; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .mini-bonus { display: flex; justify-content: space-between; font-size: 0.82rem; color: #aaa; padding: 5px 0; }
-  .mini-bonus strong { color: var(--gold); }
-  .guarantee-tiny { font-size: 0.75rem; color: #888; margin: 10px 0; }
 
-  @media(max-width: 1024px) {
-    .dash-grid { grid-template-columns: 1fr; }
-    .course-dashboard { padding-top: 100px; }
-    .courses-listing { padding-top: 100px; }
+  /* ── EMPTY ── */
+  .courses-empty {
+    text-align: center;
+    padding: 80px 24px;
+    color: #666;
+    font-size: 1.1rem;
   }
-  @media(max-width: 600px) {
-    .packages-compact { grid-template-columns: 1fr; }
-    .courses-grid { grid-template-columns: 1fr; }
+
+  @media (max-width: 768px) {
+    .courses-listing { padding-top: 100px; }
+    .courses-grid { grid-template-columns: 1fr; gap: 20px; }
+    .course-card-actions { flex-direction: column; }
   }
 </style>
-<script>
-(function(){
-  var end = new Date();
-  end.setHours(end.getHours() + 24);
-  function tick(){
-    var diff = end - new Date();
-    if(diff <= 0){ clearInterval(t); return; }
-    var h = Math.floor(diff/3600000);
-    var m = Math.floor((diff%3600000)/60000);
-    var s = Math.floor((diff%60000)/1000);
-    var elH = document.getElementById('cd-h');
-    var elM = document.getElementById('cd-m');
-    var elS = document.getElementById('cd-s');
-    if(elH) elH.textContent = String(h).padStart(2,'0');
-    if(elM) elM.textContent = String(m).padStart(2,'0');
-    if(elS) elS.textContent = String(s).padStart(2,'0');
-  }
-  tick();
-  var t = setInterval(tick, 1000);
-})();
-</script>
 {% endblock %}
