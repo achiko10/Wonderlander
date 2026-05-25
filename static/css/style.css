@@ -139,7 +139,7 @@ main { padding-top: 110px; padding-bottom: calc(var(--bottom-nav-height) + 10px)
   left: 0;
   right: 0;
   background: url('/media/influencer.jpg') no-repeat center 15%/cover; 
-  opacity: 0.35; 
+  opacity: 0.75; 
   z-index: 0; 
   pointer-events: none; 
   mask-image: linear-gradient(to top, black 30%, transparent 100%);
@@ -150,7 +150,7 @@ main { padding-top: 110px; padding-bottom: calc(var(--bottom-nav-height) + 10px)
     width: 50%; 
     left: auto; 
     right: 0; 
-    opacity: 0.6; 
+    opacity: 0.95; 
     background-position: center top;
     mask-image: linear-gradient(to left, black 60%, transparent 100%); 
     -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%); 
