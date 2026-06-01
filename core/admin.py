@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import SiteSettings, Service, Chakra, Course, CoursePackage, Retreat, RetreatDay, Lead, ContactInfo
+from .models import SiteSettings, Service, Chakra, Course, CoursePackage, Retreat, RetreatDay, Lead, ContactInfo, Review
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
@@ -39,7 +39,9 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             'fields': (
                 'services_title_ge', 'services_title_en',
                 'chakras_title_ge', 'chakras_title_en',
-                'about_title_ge', 'about_title_en'
+                'about_title_ge', 'about_title_en',
+                'reviews_title_ge', 'reviews_title_en',
+                'reviews_empty_text_ge', 'reviews_empty_text_en'
             )
         }),
         ('About Me', {
@@ -48,7 +50,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ('Footer', {
             'fields': ('footer_copy_ge', 'footer_copy_en')
         }),
-        ('UI Labels (Buttons & Text)', {
+        ('UI Labels', {
             'fields': (
                 'label_details_ge', 'label_details_en',
                 'label_popular_ge', 'label_popular_en',
@@ -63,7 +65,11 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'label_guarantee_ge', 'label_guarantee_en',
                 'label_let_start_ge', 'label_let_start_en',
                 'label_booking_ge', 'label_booking_en',
-                'label_submit_app_ge', 'label_submit_app_en'
+                'label_submit_app_ge', 'label_submit_app_en',
+                'label_included_ge', 'label_included_en',
+                'label_program_ge', 'label_program_en',
+                'label_early_bird_ge', 'label_early_bird_en',
+                'label_regular_price_ge', 'label_regular_price_en',
             ),
             'classes': ('collapse',),
             'description': 'აქედან შეგიძლიათ შეცვალოთ საიტზე არსებული ყველა პატარა ტექსტი და ღილაკი.'
@@ -183,3 +189,9 @@ class RetreatAdmin(admin.ModelAdmin):
 class LeadAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'purpose', 'created_at')
     list_filter = ('purpose', 'created_at')
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('name_ge', 'rating', 'is_active', 'order')
+    list_editable = ('is_active', 'order')
+

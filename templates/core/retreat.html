@@ -1,272 +1,209 @@
 {% extends 'base.html' %}
-{% block title %}{% if lang == 'ge' %}ბალი - ტრანსფორმაციული მოგზაურობა{% else %}Bali - Transformational Journey{% endif %} - Wonderlander{% endblock %}
+{% block title %}{% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}{{ site_settings.nav_retreat_en }}{% endif %} - Wonderlander{% endblock %}
+{% block content %}
+
+<div class="courses-listing fade-in">
+
+  {% if retreats %}
+  <div class="courses-grid">
+    {% for r in retreats %}
+    <div class="course-list-card fade-in">
+      {% if r.image %}
+      <div class="course-card-img">
+        <img src="{{ r.image.url }}" alt="{% if lang == 'ge' %}{{ r.title_ge }}{% else %}{{ r.title_en }}{% endif %}" />
+        <div class="course-card-img-overlay"></div>
+      </div>
+      {% else %}
+      <div class="course-card-img course-card-img--placeholder">
+        <span class="course-placeholder-icon">✈️</span>
+      </div>
+      {% endif %}
+      <div class="course-card-body">
+        <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}{{ site_settings.nav_retreat_en }}{% endif %}</div>
+        <h2 class="course-card-title">{% if lang == 'ge' %}{{ r.title_ge }}{% else %}{{ r.title_en }}{% endif %}</h2>
+        
+        <p class="course-card-subtitle" style="margin-top: 5px; color: var(--gold);">
+          📍 {% if lang == 'ge' %}{{ r.location_ge }}{% else %}{{ r.location_en }}{% endif %} | 📅 {% if lang == 'ge' %}{{ r.date_range_ge }}{% else %}{{ r.date_range_en }}{% endif %}
+        </p>
+
+        <p class="course-card-desc" style="margin-top: 15px;">
+          {% if lang == 'ge' %}{{ r.description_ge|truncatewords:20 }}{% else %}{{ r.description_en|truncatewords:20 }}{% endif %}
+        </p>
+        
+        <div class="course-card-prices" style="margin-top: 15px;">
+          <span class="course-price-tag featured">
+            {{ r.price }}
+          </span>
+          {% if r.early_bird_price %}
+          <span class="course-price-tag" style="text-decoration: line-through; opacity: 0.6;">
+            {{ r.early_bird_price }}
+          </span>
+          {% endif %}
+        </div>
+        
+        <div class="course-card-actions">
+          <a href="{% url 'retreat_detail' r.pk %}" class="btn btn-outline btn-sm">
+            {% if lang == 'ge' %}{{ site_settings.label_details_ge }}{% else %}{{ site_settings.label_details_en }}{% endif %}
+          </a>
+          <a href="{% url 'contact' %}?retreat={{ r.pk }}" class="btn btn-primary btn-sm">
+            {% if lang == 'ge' %}დაჯავშნა ❣️{% else %}Book ❣️{% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="courses-empty">
+    <p>{% if lang == 'ge' %}რიტრიტები მალე დაემატება ✨{% else %}Retreats coming soon ✨{% endif %}</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
 
 {% block extra_head %}
 <style>
-  /* RADICAL SPACE CLEANUP */
-  html, body { background: #050505; margin: 0; padding: 0; overflow-x: hidden; }
-  
-  /* Override global main-content padding if it exists */
-  .main-content, main { padding-top: 0 !important; margin-top: 0 !important; }
+  html, body { background: #050505; margin: 0; padding: 0; }
 
-  .retreat-dashboard { 
-    padding: 120px 24px 40px; /* High safety for navbar */
-    background: #050505;
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
-
-  .dash-grid { 
-    width: 100%;
-    max-width: 1400px;
+  .courses-listing {
+    padding: 20px 24px 40px;
+    max-width: 1200px;
     margin: 0 auto;
-    display: grid; 
-    grid-template-columns: 1fr 1.6fr 1fr; 
-    gap: 30px; 
-    align-items: start; /* Independent heights to prevent empty stretching */
   }
 
-  .dash-col, .dash-col-main { display: flex; flex-direction: column; gap: 20px; }
+  /* ── GRID ── */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+  }
 
-  .dash-block { 
-    background: #0a0a0a; 
-    border: 1px solid rgba(197,160,89,0.12); 
-    border-radius: 12px; 
-    padding: 16px; /* Tighter padding */
+  /* ── CARD ── */
+  .course-list-card {
+    background: #0d0d0d;
+    border: 1px solid rgba(197,160,89,0.18);
+    border-radius: 20px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: all 0.35s ease;
+    position: relative;
+  }
+  .course-list-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(197,160,89,0.12);
   }
 
-  /* Badge Style - Maximum Lift */
-  .dash-badge-mini { 
-    font-size: 1.4rem; 
-    color: var(--gold); 
-    text-align: center;
-    margin: 0 0 10px 0 !important; /* Zero top margin, tiny bottom */
-    padding-top: 10px;
-    text-transform: uppercase; 
-    letter-spacing: 0.15em; 
-    font-weight: 700;
+  /* ── IMAGE ── */
+  .course-card-img {
+    position: relative;
+    height: 210px;
+    overflow: hidden;
   }
-
-  /* Includes Grid inside block */
-  .includes-list { 
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .course-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
   }
-  .includes-list li { 
-    font-size: 0.85rem; 
-    color: #bbb; 
-    padding: 10px; 
-    background: rgba(255,255,255,0.02);
-    border-radius: 8px;
+  .course-list-card:hover .course-card-img img {
+    transform: scale(1.04);
+  }
+  .course-card-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, #0d0d0d 100%);
+  }
+  .course-card-img--placeholder {
+    background: linear-gradient(135deg, #111 0%, #1a1408 100%);
     display: flex;
     align-items: center;
-    gap: 10px;
-    border: 1px solid rgba(255,255,255,0.03);
+    justify-content: center;
+  }
+  .course-placeholder-icon {
+    font-size: 3rem;
+    color: var(--gold);
+    opacity: 0.3;
   }
 
-  /* Program - Centered Hero */
-  .program-container { 
-    flex-grow: 1;
-    overflow-y: auto; 
-    padding-right: 12px;
-    max-height: 60vh;
-  }
-  .program-container::-webkit-scrollbar { width: 4px; }
-  .program-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-
-  .program-day { 
-    background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
-    border: 1px solid rgba(197,160,89,0.1);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-    transition: all 0.3s ease;
-  }
-  .day-label { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; display: block; opacity: 0.8; }
-  .day-title { font-size: 1rem; color: #fff; line-height: 1.4; }
-
-  /* Combined Pricing & Form Block */
-  .action-block { display: flex; flex-direction: column; gap: 20px; }
-  .price-strip { 
-    display: flex; 
-    justify-content: space-between; 
-    gap: 12px;
-    margin-bottom: 10px;
-  }
-  .price-card-small { 
+  /* ── BODY ── */
+  .course-card-body {
+    padding: 24px 28px 28px;
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    background: #0d0d0d;
-    border: 1px solid rgba(197,160,89,0.15);
-    border-radius: 12px;
-    padding: 12px;
+    gap: 10px;
+  }
+  .course-card-title {
+    font-size: 1.35rem;
+    color: var(--gold);
+    margin: 4px 0 0;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.3;
+  }
+  .course-card-subtitle {
+    font-size: 0.85rem;
+    color: #aaa;
+    font-style: italic;
+    margin: 0;
+  }
+  .course-card-desc {
+    font-size: 0.88rem;
+    color: #ccc;
+    line-height: 1.7;
+    flex: 1;
+    margin: 0;
+  }
+
+  /* ── PRICES ── */
+  .course-card-prices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .course-price-tag {
+    background: rgba(197,160,89,0.07);
+    border: 1px solid rgba(197,160,89,0.2);
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    color: #ccc;
+  }
+  .course-price-tag.featured {
+    background: rgba(197,160,89,0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── ACTIONS ── */
+  .course-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .course-card-actions .btn {
+    flex: 1;
     text-align: center;
-  }
-  .price-card-small.active { border-color: var(--gold); background: rgba(197,160,89,0.04); }
-  .price-card-small .label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 4px; }
-  .price-card-small .value { font-size: 1.2rem; color: #fff; font-weight: 700; }
-
-  /* Compact Form */
-  .contact-form .form-group { margin-bottom: 14px; }
-  .contact-form input, .contact-form select { 
-    background: #000 !important; 
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    padding: 12px !important;
-    font-size: 0.9rem !important;
-    border-radius: 8px !important;
+    padding: 10px 14px;
+    font-size: 0.85rem;
   }
 
-  .dash-btn-bali { 
-    width: 100% !important;
-    padding: 14px !important;
-    font-size: 0.95rem !important;
-    margin-top: 10px;
-    background: var(--gold) !important;
-    color: #000 !important;
-    border-radius: 8px !important;
-    font-weight: 700 !important;
+  /* ── EMPTY ── */
+  .courses-empty {
+    text-align: center;
+    padding: 80px 24px;
+    color: #666;
+    font-size: 1.1rem;
   }
 
-  @media(max-width: 1024px) {
-    .dash-grid { grid-template-columns: 1fr; }
-    .retreat-dashboard { padding-top: 120px; }
+  @media (max-width: 768px) {
+    .courses-listing { padding-top: 100px; }
+    .courses-grid { grid-template-columns: 1fr; gap: 20px; }
+    .course-card-actions { flex-direction: column; }
   }
 </style>
-{% endblock %}
-
-{% block content %}
-<div class="retreat-dashboard">
-  <div class="dash-badge-mini">
-    🏝️ {% if lang == 'ge' %}ბალის რიტრიტი{% else %}Bali Retreat{% endif %} · 11-20 {% if lang == 'ge' %}სექტემბერი{% else %}September{% endif %}
-  </div>
-
-  <div class="dash-grid">
-    <!-- LEFT: Includes -->
-    <aside class="dash-col">
-      <div class="dash-block">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 12px 0 !important;">💫 {% if lang == 'ge' %}ღირებულებაში შედის{% else %}What's Included{% endif %}</h3>
-        <ul class="includes-list">
-          {% if retreat and retreat.includes_ge %}
-            {% if lang == 'ge' %}
-              {% for line in retreat.includes_ge.splitlines %}{% if line %}<li>💫 {{ line }}</li>{% endif %}{% endfor %}
-            {% else %}
-              {% for line in retreat.includes_en.splitlines %}{% if line %}<li>💫 {{ line }}</li>{% endif %}{% endfor %}
-            {% endif %}
-          {% else %}
-            <li>🏨 {% if lang == 'ge' %}სასტუმროში განთავსება{% else %}Hotel accommodation{% endif %}</li>
-            <li>🥗 {% if lang == 'ge' %}ორჯერადი ჯანსაღი კვება{% else %}Healthy meals{% endif %}</li>
-            <li>☕ {% if lang == 'ge' %}ულიმიტო ყავა/ჩაი{% else %}Unlimited coffee/tea{% endif %}</li>
-            <li>🧘 {% if lang == 'ge' %}ყოველდღიური ვორქშოფები{% else %}Daily workshops{% endif %}</li>
-            <li>🌅 {% if lang == 'ge' %}იოგა და მედიტაცია{% else %}Yoga and meditation{% endif %}</li>
-            <li>🔥 {% if lang == 'ge' %}კუნდალინის 4 სესია{% else %}4 Kundalini sessions{% endif %}</li>
-            <li>💃 {% if lang == 'ge' %}ექსტაზური ცეკვა{% else %}Ecstatic dance{% endif %}</li>
-            <li>📸 {% if lang == 'ge' %}ფოტო/ვიდეო გადაღება{% else %}Photo/video coverage{% endif %}</li>
-            <li>🎯 {% if lang == 'ge' %}ინდივიდუალური სესია{% else %}Individual session{% endif %}</li>
-            <li>🎁 {% if lang == 'ge' %}ონლაინ კურსი{% else %}Online course{% endif %}</li>
-          {% endif %}
-        </ul>
-      </div>
-    </aside>
-
-    <!-- CENTER: Program -->
-    <main class="dash-col-main" style="margin-top: 0 !important;">
-      <div class="dash-block" style="padding: 16px;">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 8px 0 !important; text-align: center;">📆 {% if lang == 'ge' %}პროგრამა{% else %}Program{% endif %}</h3>
-        <div class="program-container" style="max-height: 65vh;">
-          {% if days %}
-            {% for day in days %}
-            <div class="program-day">
-              <span class="day-label">{% if lang == 'ge' %}{{ day.date_label }}{% else %}{{ day.date_label_en|default:day.date_label }}{% endif %}</span>
-              <div class="day-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</div>
-            </div>
-            {% endfor %}
-          {% else %}
-            {% if lang == 'ge' %}
-              <div class="program-day"><span class="day-label">11 სექტ</span><div class="day-title">ადაპტაცია — მსუბუქი იოგა, მედიტაცია, სტრესის მოხსნა</div></div>
-              <div class="program-day"><span class="day-label">12 სექტ</span><div class="day-title">ფუძის ჩაკრა — დამიწება, შიშების დამუშავება, სადჰუს დაფა</div></div>
-              <div class="program-day"><span class="day-label">13 სექტ</span><div class="day-title">საკრალური ჩაკრა — კრეატიულობა, ემოციები, კუნდალინი</div></div>
-              <div class="program-day"><span class="day-label">14 სექტ</span><div class="day-title">მზის წნული — პიროვნული ძალა, ჰიპნოთერაპია</div></div>
-              <div class="program-day"><span class="day-label">15 სექტ</span><div class="day-title">გულის ჩაკრა — კუნდალინი, კაკაოს ცერემონია</div></div>
-              <div class="program-day"><span class="day-label">16 სექტ</span><div class="day-title">ყელის ჩაკრა — ავთენტურობა, დრამა თერაპია</div></div>
-              <div class="program-day"><span class="day-label">17 სექტ</span><div class="day-title">მესამე თვალი — ინტუიცია, კუნდალინი, მანიფესტაცია</div></div>
-              <div class="program-day"><span class="day-label">18 სექტ</span><div class="day-title">გვირგვინი — ინტეგრაცია, კოსმიური ქორწილი</div></div>
-              <div class="program-day"><span class="day-label">19 სექტ</span><div class="day-title">თავისუფალი დღე — შოპინგი, ტურები</div></div>
-              <div class="program-day"><span class="day-label">20 სექტ</span><div class="day-title">გამგზავრება — ჩექაუთი</div></div>
-            {% else %}
-              <div class="program-day"><span class="day-label">11 SEP</span><div class="day-title">Adaptation — Light yoga, meditation, stress relief</div></div>
-              <div class="program-day"><span class="day-label">12 SEP</span><div class="day-title">Root Chakra — Grounding, working through fears, Sadhu board</div></div>
-              <div class="program-day"><span class="day-label">13 SEP</span><div class="day-title">Sacral Chakra — Creativity, emotions, Kundalini</div></div>
-              <div class="program-day"><span class="day-label">14 SEP</span><div class="day-title">Solar Plexus — Personal power, hypnotherapy</div></div>
-              <div class="program-day"><span class="day-label">15 SEP</span><div class="day-title">Heart Chakra — Kundalini, cocoa ceremony</div></div>
-              <div class="program-day"><span class="day-label">16 SEP</span><div class="day-title">Throat Chakra — Authenticity, drama therapy</div></div>
-              <div class="program-day"><span class="day-label">17 SEP</span><div class="day-title">Third Eye — Intuition, Kundalini, manifestation</div></div>
-              <div class="program-day"><span class="day-label">18 SEP</span><div class="day-title">Crown — Integration, cosmic wedding</div></div>
-              <div class="program-day"><span class="day-label">19 SEP</span><div class="day-title">Free day — Shopping, tours</div></div>
-              <div class="program-day"><span class="day-label">20 SEP</span><div class="day-title">Departure — Checkout</div></div>
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-    </main>
-
-    <!-- RIGHT: Action Block -->
-    <aside class="dash-col">
-      <div class="dash-block action-block" style="padding: 16px;">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">🏝️ {% if lang == 'ge' %}{{ site_settings.label_booking_ge }}{% else %}{{ site_settings.label_booking_en }}{% endif %}</h3>
-        
-        <div class="price-strip">
-          <div class="price-card-small">
-            <div class="label">Early Bird</div>
-            <div class="value">2000$</div>
-          </div>
-          <div class="price-card-small active">
-            <div class="label">{% if lang == 'ge' %}რეგულარული{% else %}Regular{% endif %}</div>
-            <div class="value">2555$</div>
-          </div>
-        </div>
-
-        <div id="retreat-form-container">
-          <form hx-post="{% url 'submit_lead' %}" hx-target="#retreat-form-container" hx-swap="innerHTML" class="contact-form">
-            {% csrf_token %}
-            <div class="form-group">
-              <input type="text" name="name" class="form-input" 
-                placeholder="{% if lang == 'ge' %}სახელი და გვარი{% else %}Full Name{% endif %}" required id="id_name">
-            </div>
-            <div class="form-group">
-              <input type="text" name="phone" class="form-input" 
-                placeholder="{% if lang == 'ge' %}+995 5XX XX XX XX{% else %}+995 5XX XX XX XX{% endif %}" 
-                pattern="^\+?[0-9\s\-]{9,20}$" 
-                title="{% if lang == 'ge' %}შეიყვანეთ ვალიდური ტელეფონის ნომერი (+ ნიშანი და ციფრები){% else %}Enter a valid phone number (+ sign and digits){% endif %}" required id="id_phone">
-            </div>
-            <div class="form-group">
-              <input type="email" name="email" class="form-input" 
-                placeholder="Email" id="id_email">
-            </div>
-            <div class="form-group" style="display:none;">
-              <select name="purpose" class="form-input" required id="id_purpose">
-                <option value="retreat" selected>{% if lang == 'ge' %}ბალის რიტრიტი{% else %}Bali Retreat{% endif %}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <textarea name="message" class="form-input" rows="3" 
-                placeholder="{% if lang == 'ge' %}შეტყობინება (არასავალდებულო){% else %}Message (optional){% endif %}" id="id_message"></textarea>
-            </div>
-            <button type="submit" class="btn dash-btn-bali">
-              {% if lang == 'ge' %}{{ site_settings.label_submit_app_ge }}{% else %}{{ site_settings.label_submit_app_en }}{% endif %}
-            </button>
-          </form>
-        </div>
-
-        <p style="font-size: 0.75rem; color: #666; text-align: center; margin-top: auto; padding-top: 15px;">
-          {% if lang == 'ge' %}* ფასში არ შედის ავიაბილეთები{% else %}* Price excludes flight tickets{% endif %}
-        </p>
-      </div>
-    </aside>
-  </div>
-</div>
 {% endblock %}

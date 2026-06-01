@@ -2,8 +2,46 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib import messages
 from django.views.decorators.http import require_POST
-from .models import SiteSettings, Service, Chakra, Course, Retreat, ContactInfo
+from .models import SiteSettings, Service, Chakra, Course, Retreat, ContactInfo, Review
 from .forms import LeadForm
+import urllib.request
+import urllib.parse
+import json
+import threading
+
+BOT_TOKEN = "8901049445:AAGqF1zwGw99fFa4Dw-HDbcDx8_q_eO15yM"
+ADMIN_CHAT_ID = 6404415447
+
+def send_telegram_notification(lead):
+    """საიტის ახალი განაცხადი → Telegram შეტყობინება ადმინს"""
+    PURPOSE_LABELS = {
+        'session': 'ინდივიდუალური სესია',
+        'course': 'კურსები',
+        'retreat': 'რიტრიტი',
+        'mentoring': 'მენტორობა',
+    }
+    purpose_label = PURPOSE_LABELS.get(lead.purpose, lead.purpose)
+    message_text = (
+        f"🔔 <b>ახალი განაცხადი საიტიდან!</b>\n\n"
+        f"👤 სახელი: <b>{lead.name}</b>\n"
+        f"📱 ტელეფონი: <b>{lead.phone}</b>\n"
+        f"📧 Email: {lead.email or '—'}\n"
+        f"🎯 სერვისი: <b>{purpose_label}</b>\n"
+        f"💬 შეტყობინება: {lead.message or '—'}"
+    )
+    def _send():
+        try:
+            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+            data = urllib.parse.urlencode({
+                'chat_id': ADMIN_CHAT_ID,
+                'text': message_text,
+                'parse_mode': 'HTML'
+            }).encode()
+            req = urllib.request.Request(url, data=data)
+            urllib.request.urlopen(req, timeout=5)
+        except Exception as e:
+            print(f"Telegram notification error: {e}")
+    threading.Thread(target=_send, daemon=True).start()
 
 
 def get_common_context(request):
@@ -59,20 +97,34 @@ def course_detail(request, pk):
     return render(request, 'core/course_detail.html', context)
 
 
-def retreat(request):
+def retreat_list(request):
     context = get_common_context(request)
-    retreat_obj = Retreat.objects.filter(is_active=True).first()
-    context['retreat'] = retreat_obj
-    if retreat_obj:
-        context['days'] = retreat_obj.days.all()
+    context['retreats'] = Retreat.objects.filter(is_active=True)
     context['form'] = LeadForm(initial={'purpose': 'retreat'})
     return render(request, 'core/retreat.html', context)
+
+
+def retreat_detail(request, pk):
+    context = get_common_context(request)
+    from django.shortcuts import get_object_or_404
+    retreat_obj = get_object_or_404(Retreat, pk=pk, is_active=True)
+    context['retreat'] = retreat_obj
+    context['days'] = retreat_obj.days.all()
+    context['form'] = LeadForm(initial={'purpose': 'retreat'})
+    return render(request, 'core/retreat_detail.html', context)
 
 
 def contact(request):
     context = get_common_context(request)
     context['form'] = LeadForm()
     return render(request, 'core/contact.html', context)
+
+
+def reviews(request):
+    context = get_common_context(request)
+    context['reviews'] = Review.objects.filter(is_active=True)
+    return render(request, 'core/reviews.html', context)
+
 
 
 def service_detail(request, pk):
@@ -95,7 +147,8 @@ def chakra_detail(request, pk):
 def submit_lead(request):
     form = LeadForm(request.POST)
     if form.is_valid():
-        form.save()
+        lead = form.save()
+        send_telegram_notification(lead)
         if request.headers.get('HX-Request'):
             return render(request, 'core/partials/success_message.html', {})
         messages.success(request, 'გმადლობთ! მალე დაგიკავშირდებით. ✅')

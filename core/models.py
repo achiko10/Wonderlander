@@ -15,6 +15,8 @@ class SiteSettings(models.Model):
     nav_retreat_en = models.CharField(max_length=50, default="Retreats", blank=True)
     nav_contact_ge = models.CharField(max_length=50, default="კონტაქტი")
     nav_contact_en = models.CharField(max_length=50, default="Contact", blank=True)
+    nav_review_ge = models.CharField(max_length=50, default="უკუკავშირი")
+    nav_review_en = models.CharField(max_length=50, default="Reviews", blank=True)
     
     # Hero Section
     hero_badge_ge = models.CharField(max_length=100, default="✦ WONDERLANDER WELLNESS")
@@ -56,6 +58,10 @@ class SiteSettings(models.Model):
     chakras_title_en = models.CharField(max_length=255, default="When Should You Contact Me?", blank=True)
     about_title_ge = models.CharField(max_length=255, default="გურანდა ლაზარაშვილი")
     about_title_en = models.CharField(max_length=255, default="Guranda Lazarashvili", blank=True)
+    reviews_title_ge = models.CharField(max_length=255, default="რას ამბობენ ჩვენზე")
+    reviews_title_en = models.CharField(max_length=255, default="What They Say", blank=True)
+    reviews_empty_text_ge = models.CharField(max_length=255, default="უკუკავშირები ჯერ არ დამატებულა.")
+    reviews_empty_text_en = models.CharField(max_length=255, default="No reviews added yet.", blank=True)
     
     # About Section
     about_text_ge = models.TextField(verbose_name="ჩემს შესახებ (GE)", blank=True)
@@ -108,6 +114,15 @@ class SiteSettings(models.Model):
     
     label_submit_app_ge = models.CharField(max_length=100, default="განაცხადის გაგზავნა 🔥", verbose_name="ღილაკი 'განაცხადის გაგზავნა' (GE)")
     label_submit_app_en = models.CharField(max_length=100, default="Submit Application 🔥", verbose_name="Button 'Submit' (EN)")
+    
+    label_included_ge = models.CharField(max_length=100, default="ღირებულებაში შედის", verbose_name="სათაური 'ღირებულებაში შედის' (GE)")
+    label_included_en = models.CharField(max_length=100, default="What's Included", verbose_name="Title 'What's Included' (EN)")
+    label_program_ge = models.CharField(max_length=100, default="პროგრამა", verbose_name="სათაური 'პროგრამა' (GE)")
+    label_program_en = models.CharField(max_length=100, default="Program", verbose_name="Title 'Program' (EN)")
+    label_early_bird_ge = models.CharField(max_length=50, default="Early Bird", verbose_name="სათაური 'Early Bird' (GE)")
+    label_early_bird_en = models.CharField(max_length=50, default="Early Bird", verbose_name="Title 'Early Bird' (EN)")
+    label_regular_price_ge = models.CharField(max_length=50, default="რეგულარული", verbose_name="სათაური 'რეგულარული ფასი' (GE)")
+    label_regular_price_en = models.CharField(max_length=50, default="Regular", verbose_name="Title 'Regular Price' (EN)")
 
 
     class Meta:
@@ -215,7 +230,8 @@ class CoursePackage(models.Model):
 class Retreat(models.Model):
     title_ge = models.CharField(max_length=255, verbose_name="სათაური (GE)")
     title_en = models.CharField(max_length=255, verbose_name="Title (EN)")
-    date_range = models.CharField(max_length=255, verbose_name="თარიღი")
+    date_range_ge = models.CharField(max_length=255, verbose_name="თარიღი (GE)", default="")
+    date_range_en = models.CharField(max_length=255, verbose_name="Date (EN)", blank=True)
     location_ge = models.CharField(max_length=255, verbose_name="ადგილი (GE)")
     location_en = models.CharField(max_length=255, verbose_name="Location (EN)")
     price = models.CharField(max_length=100, verbose_name="ფასი")
@@ -227,6 +243,8 @@ class Retreat(models.Model):
     bank_accounts = models.TextField(blank=True, verbose_name="საბანკო ანგარიშები")
     is_active = models.BooleanField(default=True, verbose_name="აქტიური")
     image = models.ImageField(upload_to='retreats/', blank=True, null=True, verbose_name="ფოტო")
+    disclaimer_ge = models.CharField(max_length=255, blank=True, default="* ფასში არ შედის ავიაბილეთები", verbose_name="შენიშვნა (GE)")
+    disclaimer_en = models.CharField(max_length=255, blank=True, default="* Price excludes flight tickets", verbose_name="Disclaimer (EN)")
 
     class Meta:
         verbose_name = "რიტრიტი / მოგზაურობა"
@@ -303,3 +321,23 @@ class Lead(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.get_purpose_display()}"
+
+
+class Review(models.Model):
+    name_ge = models.CharField(max_length=100, verbose_name="სახელი (GE)")
+    name_en = models.CharField(max_length=100, verbose_name="Name (EN)", blank=True)
+    text_ge = models.TextField(verbose_name="ტექსტი (GE)")
+    text_en = models.TextField(verbose_name="Text (EN)", blank=True)
+    rating = models.PositiveIntegerField(default=5, verbose_name="შეფასება (1-5)")
+    image = models.ImageField(upload_to='reviews/', blank=True, null=True, verbose_name="ფოტო")
+    is_active = models.BooleanField(default=True, verbose_name="აქტიური")
+    order = models.PositiveIntegerField(default=0, verbose_name="თანმიმდევრობა")
+
+    class Meta:
+        ordering = ['order', '-id']
+        verbose_name = "უკუკავშირი"
+        verbose_name_plural = "უკუკავშირები"
+
+    def __str__(self):
+        return self.name_ge
+
