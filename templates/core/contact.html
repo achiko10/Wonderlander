@@ -105,7 +105,7 @@
               <select name="purpose" class="form-input" required id="id_purpose">
                 <option value="session" selected>{% if lang == 'ge' %}ინდივიდუალური სესია{% else %}Individual Session{% endif %}</option>
                 <option value="course">{% if lang == 'ge' %}კურსები{% else %}Courses{% endif %}</option>
-                <option value="retreat">{% if lang == 'ge' %}ბალის რიტრიტი{% else %}Bali Retreat{% endif %}</option>
+                <option value="retreat">{% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}{{ site_settings.nav_retreat_en }}{% endif %}</option>
                 <option value="mentoring">{% if lang == 'ge' %}მენტორობა{% else %}Mentoring{% endif %}</option>
               </select>
             </div>

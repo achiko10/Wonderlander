@@ -341,3 +341,43 @@ class Review(models.Model):
     def __str__(self):
         return self.name_ge
 
+
+class BotSettings(models.Model):
+    bot_token = models.CharField(max_length=255, verbose_name="Bot Token")
+    admin_chat_id = models.CharField(max_length=100, verbose_name="Admin Chat ID")
+
+    # მთავარი ტექსტები
+    welcome_text_ge = models.TextField(default="✨ მოგესალმებით Wonderlander Wellness-ში!\n\nაირჩიეთ ნებისმიერი სექცია ქვემოთ ⬇️", verbose_name="მისალმების ტექსტი")
+    services_menu_text_ge = models.CharField(max_length=255, default="💫 ჩვენი სერვისები — აირჩიეთ:", verbose_name="სერვისების მენიუს ტექსტი")
+    courses_menu_text_ge = models.CharField(max_length=255, default="📚 ჩვენი კურსები — აირჩიეთ:", verbose_name="კურსების მენიუს ტექსტი")
+    contact_text_ge = models.TextField(default="📍 <b>კონტაქტი</b>\n\n📧 dr.guranda8@gmail.com", verbose_name="კონტაქტის ტექსტი")
+    booking_success_text_ge = models.TextField(default="🎉 <b>განაცხადი მიღებულია!</b>\n\nგურანდა მალე დაგიკავშირდებათ! ✨", verbose_name="ჯავშნის დასრულების ტექსტი")
+
+    # მთავარი მენიუს ღილაკები
+    btn_services = models.CharField(max_length=100, default="🌟 სერვისები", verbose_name="ღილაკი: სერვისები")
+    btn_courses = models.CharField(max_length=100, default="📚 კურსები", verbose_name="ღილაკი: კურსები")
+    btn_booking = models.CharField(max_length=100, default="📅 ჩაწერა", verbose_name="ღილაკი: ჩაწერა")
+    btn_contact = models.CharField(max_length=100, default="📞 კონტაქტი", verbose_name="ღილაკი: კონტაქტი")
+    btn_language = models.CharField(max_length=100, default="🌐 ენა / Language", verbose_name="ღილაკი: ენა")
+    btn_back = models.CharField(max_length=100, default="🔙 უკან", verbose_name="ღილაკი: უკან")
+    btn_pay_label = models.CharField(max_length=100, default="💳 გადახდა", verbose_name="ღილაკი: გადახდა")
+    btn_language_ge = models.CharField(max_length=100, default="🇬🇪 ქართული", verbose_name="ღილაკი: ქართული ენა")
+    btn_language_en = models.CharField(max_length=100, default="🇬🇧 English", verbose_name="ღილაკი: ინგლისური ენა")
+
+    # ჯავშნის პროცესი
+    booking_ask_name = models.TextField(default="📝 <b>ჩაწერის ფორმა</b>\n\nგთხოვთ, შეიყვანეთ თქვენი <b>სახელი და გვარი</b>:", verbose_name="ჯავშანი: სახელის მოთხოვნა")
+    booking_ask_phone = models.CharField(max_length=255, default="✅ მადლობა!\n\nშეიყვანეთ თქვენი <b>ტელეფონის ნომერი</b> (მაგ: +995599123456):", verbose_name="ჯავშანი: ნომრის მოთხოვნა")
+    booking_admin_notify = models.TextField(default="🔔 <b>ახალი განაცხადი ბოტიდან!</b>", verbose_name="ადმინის შეტყობინების სათაური")
+
+    # სხვა შეტყობინებები
+    payment_soon_text = models.CharField(max_length=255, default="💳 გადახდის სისტემა მალე გაიხსნება!", verbose_name="გადახდის მიმდინარე ტექსტი")
+    not_found_text = models.CharField(max_length=255, default="❌ ინფორმაცია ვერ მოიძებნა", verbose_name="ვერ მოიძებნა — ტექსტი")
+    language_choice_text = models.CharField(max_length=255, default="Choose language / ენა:", verbose_name="ენის არჩევის ტექსტი")
+    bot_started_text = models.CharField(max_length=255, default="🟢 <b>ბოტი ჩაირთო!</b> Wonderlander Wellness Bot is running.", verbose_name="ბოტის ჩართვის შეტყობინება")
+
+    class Meta:
+        verbose_name = "ბოტის პარამეტრები"
+        verbose_name_plural = "ბოტის პარამეტრები"
+
+    def __str__(self):
+        return "Telegram ბოტის პარამეტრები"

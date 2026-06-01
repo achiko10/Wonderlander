@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import SiteSettings, Service, Chakra, Course, CoursePackage, Retreat, RetreatDay, Lead, ContactInfo, Review
+from .models import SiteSettings, Service, Chakra, Course, CoursePackage, Retreat, RetreatDay, Lead, ContactInfo, Review, BotSettings
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
@@ -194,4 +194,64 @@ class LeadAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('name_ge', 'rating', 'is_active', 'order')
     list_editable = ('is_active', 'order')
+
+@admin.register(BotSettings)
+class BotSettingsAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('🔑 ტექნიკური პარამეტრები', {
+            'fields': ('bot_token', 'admin_chat_id'),
+            'description': '⚠️ ბოტის ტოკენი და ადმინის Chat ID. ეს ველები შეცვალეთ მხოლოდ ბოტის შეცვლის შემთხვევაში.'
+        }),
+        ('👋 მისალმება და მენიუს ტექსტები', {
+            'fields': (
+                'welcome_text_ge',
+                'services_menu_text_ge',
+                'courses_menu_text_ge',
+                'contact_text_ge',
+                'language_choice_text',
+            ),
+            'description': 'ეს ტექსტები ჩანს მომხმარებელს, როდესაც ის ხსნის ბოტს ან ირჩევს კატეგორიას.'
+        }),
+        ('🔘 მთავარი მენიუს ღილაკები', {
+            'fields': (
+                'btn_services',
+                'btn_courses',
+                'btn_booking',
+                'btn_contact',
+                'btn_language',
+                'btn_back',
+                'btn_pay_label',
+                'btn_language_ge',
+                'btn_language_en',
+            ),
+            'description': 'ბოტის ყველა ღილაკის ტექსტი. შეიძლება შეიცვალოს ემოჯი ან სიტყვა.',
+            'classes': ('collapse',),
+        }),
+        ('📅 ჩაწერის პროცესი (Booking)', {
+            'fields': (
+                'booking_ask_name',
+                'booking_ask_phone',
+                'booking_success_text_ge',
+                'booking_admin_notify',
+            ),
+            'description': 'ეს ტექსტები გამოჩნდება, როდესაც მომხმარებელი იწყებს ჩაწერის პროცესს.'
+        }),
+        ('⚙️ სხვა შეტყობინებები', {
+            'fields': (
+                'payment_soon_text',
+                'not_found_text',
+                'bot_started_text',
+            ),
+            'description': 'დამხმარე შეტყობინებები სხვადასხვა სიტუაციებისთვის.',
+            'classes': ('collapse',),
+        }),
+    )
+
+    def has_add_permission(self, request):
+        if self.model.objects.exists():
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 

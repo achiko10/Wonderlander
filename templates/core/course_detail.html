@@ -6,7 +6,7 @@
 
   <!-- BREADCRUMB -->
   <div class="course-breadcrumb">
-    <a href="{% url 'course' %}">{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}Courses{% endif %}</a>
+    <a href="{% url 'course' %}">{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}{{ site_settings.nav_course_en }}{% endif %}</a>
     <span class="breadcrumb-sep">›</span>
     <span>{% if lang == 'ge' %}{{ course.title_ge }}{% else %}{{ course.title_en }}{% endif %}</span>
   </div>

@@ -8,9 +8,7 @@ import urllib.request
 import urllib.parse
 import json
 import threading
-
-BOT_TOKEN = "8901049445:AAGqF1zwGw99fFa4Dw-HDbcDx8_q_eO15yM"
-ADMIN_CHAT_ID = 6404415447
+from .models import BotSettings
 
 def send_telegram_notification(lead):
     """საიტის ახალი განაცხადი → Telegram შეტყობინება ადმინს"""
@@ -31,9 +29,12 @@ def send_telegram_notification(lead):
     )
     def _send():
         try:
-            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+            sets = BotSettings.objects.first()
+            if not sets or not sets.bot_token or not sets.admin_chat_id:
+                return
+            url = f"https://api.telegram.org/bot{sets.bot_token}/sendMessage"
             data = urllib.parse.urlencode({
-                'chat_id': ADMIN_CHAT_ID,
+                'chat_id': sets.admin_chat_id,
                 'text': message_text,
                 'parse_mode': 'HTML'
             }).encode()
