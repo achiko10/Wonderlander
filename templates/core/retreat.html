@@ -31,18 +31,9 @@
  </p>
  
  <div class="course-card-prices" style="margin-top: 15px;">
- {% if r.early_bird_price %}
- <span class="course-price-tag featured">
- {{ r.early_bird_price }}
- </span>
- <span class="course-price-tag" style="text-decoration: line-through; opacity: 0.6;">
- {{ r.price }}
- </span>
- {% else %}
  <span class="course-price-tag featured">
  {{ r.price }}
  </span>
- {% endif %}
  </div>
  
  <div class="course-card-actions">

@@ -202,20 +202,9 @@
  <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">{% if lang == 'ge' %}{{ site_settings.label_booking_ge }}{% else %}{{ site_settings.label_booking_en }}{% endif %}</h3>
  
  <div class="price-strip">
- {% if retreat.early_bird_price %}
- <div class="price-card-small">
- <div class="label">{% if lang == 'ge' %}{{ site_settings.label_early_bird_ge }}{% else %}{{ site_settings.label_early_bird_en }}{% endif %}</div>
- <div class="value">{{ retreat.early_bird_price }}</div>
- </div>
- <div class="price-card-small active">
- <div class="label">{% if lang == 'ge' %}{{ site_settings.label_regular_price_ge }}{% else %}{{ site_settings.label_regular_price_en }}{% endif %}</div>
- <div class="value">{{ retreat.price }}</div>
- </div>
- {% else %}
  <div class="price-card-small active" style="border: none; background: transparent; padding: 0; text-align: left;">
  <div class="value" style="font-size: 1.8rem; color: var(--gold);">{{ retreat.price }}</div>
  </div>
- {% endif %}
  </div>
 
  <div id="retreat-form-container">

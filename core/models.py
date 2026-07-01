@@ -25,8 +25,8 @@ class SiteSettings(models.Model):
     hero_title_en = models.TextField(default="Harmonious Relationship With Yourself", blank=True)
     hero_subtitle_ge = models.TextField(default="გამარჯობა. მადლობა ნდობისთვის ☀️")
     hero_subtitle_en = models.TextField(default="Hello. Thank you for your trust ☀️", blank=True)
-    hero_btn1_ge = models.CharField(max_length=50, default="ჩაწერა ❣️")
-    hero_btn1_en = models.CharField(max_length=50, default="Book Now ❣️", blank=True)
+    hero_btn1_ge = models.CharField(max_length=50, default="ჩაწერა")
+    hero_btn1_en = models.CharField(max_length=50, default="Book Now", blank=True)
     hero_btn2_ge = models.CharField(max_length=50, default="სერვისები")
     hero_btn2_en = models.CharField(max_length=50, default="Services", blank=True)
     hero_creds_ge = models.CharField(max_length=255, default="🎓 MD, 🧠 NLP, 🌿 Holistic, 🔥 Kundalini", help_text="მძიმით გამოყოფილი")
@@ -106,14 +106,14 @@ class SiteSettings(models.Model):
     label_guarantee_ge = models.CharField(max_length=100, default="110% თანხის დაბრუნების გარანტია", verbose_name="გარანტიის ტექსტი (GE)")
     label_guarantee_en = models.CharField(max_length=100, default="110% Money-back Guarantee", verbose_name="Guarantee Text (EN)")
     
-    label_let_start_ge = models.CharField(max_length=50, default="დავიწყოთ ❣️", verbose_name="ღილაკი 'დავიწყოთ' (GE)")
-    label_let_start_en = models.CharField(max_length=50, default="Let's Start ❣️", verbose_name="Button 'Let's Start' (EN)")
+    label_let_start_ge = models.CharField(max_length=50, default="დავიწყოთ", verbose_name="ღილაკი 'დავიწყოთ' (GE)")
+    label_let_start_en = models.CharField(max_length=50, default="Let's Start", verbose_name="Button 'Let's Start' (EN)")
     
     label_booking_ge = models.CharField(max_length=50, default="დაჯავშნა", verbose_name="სათაური 'დაჯავშნა' (GE)")
     label_booking_en = models.CharField(max_length=50, default="Booking", verbose_name="Title 'Booking' (EN)")
     
-    label_submit_app_ge = models.CharField(max_length=100, default="განაცხადის გაგზავნა 🔥", verbose_name="ღილაკი 'განაცხადის გაგზავნა' (GE)")
-    label_submit_app_en = models.CharField(max_length=100, default="Submit Application 🔥", verbose_name="Button 'Submit' (EN)")
+    label_submit_app_ge = models.CharField(max_length=100, default="განაცხადის გაგზავნა", verbose_name="ღილაკი 'განაცხადის გაგზავნა' (GE)")
+    label_submit_app_en = models.CharField(max_length=100, default="Submit Application", verbose_name="Button 'Submit' (EN)")
     
     label_included_ge = models.CharField(max_length=100, default="ღირებულებაში შედის", verbose_name="სათაური 'ღირებულებაში შედის' (GE)")
     label_included_en = models.CharField(max_length=100, default="What's Included", verbose_name="Title 'What's Included' (EN)")
@@ -129,10 +129,10 @@ class SiteSettings(models.Model):
     label_choose_chakra_en = models.CharField(max_length=255, default="Click on the chakra where you feel the issue", verbose_name="Subtitle 'Choose Chakra' (EN)")
     
     # New labels & text
-    label_enroll_ge = models.CharField(max_length=100, default="ჩაწერა ❣️", verbose_name="ღილაკი 'ჩაწერა' (კურსებზე) (GE)")
-    label_enroll_en = models.CharField(max_length=100, default="Enroll ❣️", verbose_name="Button 'Enroll' (on courses) (EN)")
-    label_book_ge = models.CharField(max_length=100, default="დაჯავშნა ❣️", verbose_name="ღილაკი 'დაჯავშნა' (რიტრიტებზე) (GE)")
-    label_book_en = models.CharField(max_length=100, default="Book ❣️", verbose_name="Button 'Book' (on retreats) (EN)")
+    label_enroll_ge = models.CharField(max_length=100, default="ჩაწერა", verbose_name="ღილაკი 'ჩაწერა' (კურსებზე) (GE)")
+    label_enroll_en = models.CharField(max_length=100, default="Enroll", verbose_name="Button 'Enroll' (on courses) (EN)")
+    label_book_ge = models.CharField(max_length=100, default="დაჯავშნა", verbose_name="ღილაკი 'დაჯავშნა' (რიტრიტებზე) (GE)")
+    label_book_en = models.CharField(max_length=100, default="Book", verbose_name="Button 'Book' (on retreats) (EN)")
     label_select_ge = models.CharField(max_length=100, default="არჩევა", verbose_name="ღილაკი 'არჩევა' (პაკეტებზე) (GE)")
     label_select_en = models.CharField(max_length=100, default="Select", verbose_name="Button 'Select' (on packages) (EN)")
     label_bonuses_ge = models.CharField(max_length=100, default="ბონუსები", verbose_name="სათაური 'ბონუსები' (GE)")
@@ -142,8 +142,8 @@ class SiteSettings(models.Model):
     
     home_cta_title_ge = models.CharField(max_length=255, default="მზად ხარ ტრანსფორმაციისთვის?", verbose_name="ქოლ-თუ-ექშენ სათაური (GE)")
     home_cta_title_en = models.CharField(max_length=255, default="Ready for Transformation?", verbose_name="Call-to-Action Title (EN)")
-    home_cta_text_ge = models.TextField(default="პირველი ნაბიჯი — ეს სესია. შედეგი 1-5 შეხვედრაში. ❣️", verbose_name="ქოლ-თუ-ექშენ ტექსტი (GE)")
-    home_cta_text_en = models.TextField(default="The first step is a session. Results in 1-5 meetings. ❣️", verbose_name="Call-to-Action Text (EN)")
+    home_cta_text_ge = models.TextField(default="პირველი ნაბიჯი — ეს სესია. შედეგი 1-5 შეხვედრაში.", verbose_name="ქოლ-თუ-ექშენ ტექსტი (GE)")
+    home_cta_text_en = models.TextField(default="The first step is a session. Results in 1-5 meetings.", verbose_name="Call-to-Action Text (EN)")
     
     home_why_title_ge = models.CharField(max_length=255, default="რატომ ჩემთან?", verbose_name="სექცია 'რატომ ჩემთან' სათაური (GE)")
     home_why_title_en = models.CharField(max_length=255, default="Why Work with Me?", verbose_name="Section 'Why Work with Me' Title (EN)")
