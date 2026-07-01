@@ -69,7 +69,7 @@
             </ul>
           </div>
           <a href="{% url 'contact' %}?course={{ course.pk }}&pkg={{ pkg.pk }}" class="btn {% if pkg.is_featured %}btn-primary{% else %}btn-outline{% endif %} btn-sm btn-full">
-            {% if lang == 'ge' %}არჩევა{% else %}Select{% endif %}
+            {% if lang == 'ge' %}{{ site_settings.label_select_ge }}{% else %}{{ site_settings.label_select_en }}{% endif %}
           </a>
         </div>
         {% endfor %}
@@ -82,7 +82,7 @@
         <div class="dash-countdown-mini">
           <span id="cd-h">24</span>:<span id="cd-m">00</span>:<span id="cd-s">00</span>
         </div>
-        <h3 class="dash-block-title">🎁 {% if lang == 'ge' %}ბონუსები{% else %}Bonuses{% endif %}</h3>
+        <h3 class="dash-block-title">🎁 {% if lang == 'ge' %}{{ site_settings.label_bonuses_ge }}{% else %}{{ site_settings.label_bonuses_en }}{% endif %}</h3>
         {% if course.bonuses_ge or course.bonuses_en %}
         <div class="dash-bonuses">
           {% if lang == 'ge' %}

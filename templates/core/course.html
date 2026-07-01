@@ -41,7 +41,7 @@
             {% if lang == 'ge' %}{{ site_settings.label_details_ge }}{% else %}{{ site_settings.label_details_en }}{% endif %}
           </a>
           <a href="{% url 'contact' %}?course={{ c.pk }}" class="btn btn-primary btn-sm">
-            {% if lang == 'ge' %}ჩაწერა ❣️{% else %}Enroll ❣️{% endif %}
+            {% if lang == 'ge' %}{{ site_settings.label_enroll_ge }}{% else %}{{ site_settings.label_enroll_en }}{% endif %}
           </a>
         </div>
       </div>

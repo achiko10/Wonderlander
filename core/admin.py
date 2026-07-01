@@ -51,6 +51,15 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ('Footer', {
             'fields': ('footer_copy_ge', 'footer_copy_en')
         }),
+        ('Why Work with Me & CTA Banner', {
+            'fields': (
+                'home_why_title_ge', 'home_why_title_en',
+                'home_why_text1_ge', 'home_why_text1_en',
+                'home_why_text2_ge', 'home_why_text2_en',
+                'home_cta_title_ge', 'home_cta_title_en',
+                'home_cta_text_ge', 'home_cta_text_en'
+            )
+        }),
         ('UI Labels', {
             'fields': (
                 'label_details_ge', 'label_details_en',
@@ -73,6 +82,11 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'label_regular_price_ge', 'label_regular_price_en',
                 'label_energy_centers_ge', 'label_energy_centers_en',
                 'label_choose_chakra_ge', 'label_choose_chakra_en',
+                'label_enroll_ge', 'label_enroll_en',
+                'label_book_ge', 'label_book_en',
+                'label_select_ge', 'label_select_en',
+                'label_bonuses_ge', 'label_bonuses_en',
+                'label_whatsapp_btn_ge', 'label_whatsapp_btn_en',
             ),
             'classes': ('collapse',),
             'description': 'აქედან შეგიძლიათ შეცვალოთ საიტზე არსებული ყველა პატარა ტექსტი და ღილაკი.'

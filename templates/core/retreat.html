@@ -46,7 +46,7 @@
             {% if lang == 'ge' %}{{ site_settings.label_details_ge }}{% else %}{{ site_settings.label_details_en }}{% endif %}
           </a>
           <a href="{% url 'contact' %}?retreat={{ r.pk }}" class="btn btn-primary btn-sm">
-            {% if lang == 'ge' %}დაჯავშნა ❣️{% else %}Book ❣️{% endif %}
+            {% if lang == 'ge' %}{{ site_settings.label_book_ge }}{% else %}{{ site_settings.label_book_en }}{% endif %}
           </a>
         </div>
       </div>

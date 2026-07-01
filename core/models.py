@@ -127,6 +127,31 @@ class SiteSettings(models.Model):
     label_energy_centers_en = models.CharField(max_length=100, default="Energy Centers", verbose_name="Badge 'Energy Centers' (EN)")
     label_choose_chakra_ge = models.CharField(max_length=255, default="დააჭირეთ ჩაკრას, რომელშიც პრობლემას გრძნობთ", verbose_name="ქვესათაური 'აირჩიეთ ჩაკრა' (GE)")
     label_choose_chakra_en = models.CharField(max_length=255, default="Click on the chakra where you feel the issue", verbose_name="Subtitle 'Choose Chakra' (EN)")
+    
+    # New labels & text
+    label_enroll_ge = models.CharField(max_length=100, default="ჩაწერა ❣️", verbose_name="ღილაკი 'ჩაწერა' (კურსებზე) (GE)")
+    label_enroll_en = models.CharField(max_length=100, default="Enroll ❣️", verbose_name="Button 'Enroll' (on courses) (EN)")
+    label_book_ge = models.CharField(max_length=100, default="დაჯავშნა ❣️", verbose_name="ღილაკი 'დაჯავშნა' (რიტრიტებზე) (GE)")
+    label_book_en = models.CharField(max_length=100, default="Book ❣️", verbose_name="Button 'Book' (on retreats) (EN)")
+    label_select_ge = models.CharField(max_length=100, default="არჩევა", verbose_name="ღილაკი 'არჩევა' (პაკეტებზე) (GE)")
+    label_select_en = models.CharField(max_length=100, default="Select", verbose_name="Button 'Select' (on packages) (EN)")
+    label_bonuses_ge = models.CharField(max_length=100, default="ბონუსები", verbose_name="სათაური 'ბონუსები' (GE)")
+    label_bonuses_en = models.CharField(max_length=100, default="Bonuses", verbose_name="Title 'Bonuses' (EN)")
+    label_whatsapp_btn_ge = models.CharField(max_length=100, default="WhatsApp-ზე დაწერა", verbose_name="ღილაკი 'WhatsApp' (GE)")
+    label_whatsapp_btn_en = models.CharField(max_length=100, default="Message on WhatsApp", verbose_name="Button 'WhatsApp' (EN)")
+    
+    home_cta_title_ge = models.CharField(max_length=255, default="მზად ხარ ტრანსფორმაციისთვის?", verbose_name="ქოლ-თუ-ექშენ სათაური (GE)")
+    home_cta_title_en = models.CharField(max_length=255, default="Ready for Transformation?", verbose_name="Call-to-Action Title (EN)")
+    home_cta_text_ge = models.TextField(default="პირველი ნაბიჯი — ეს სესია. შედეგი 1-5 შეხვედრაში. ❣️", verbose_name="ქოლ-თუ-ექშენ ტექსტი (GE)")
+    home_cta_text_en = models.TextField(default="The first step is a session. Results in 1-5 meetings. ❣️", verbose_name="Call-to-Action Text (EN)")
+    
+    home_why_title_ge = models.CharField(max_length=255, default="რატომ ჩემთან?", verbose_name="სექცია 'რატომ ჩემთან' სათაური (GE)")
+    home_why_title_en = models.CharField(max_length=255, default="Why Work with Me?", verbose_name="Section 'Why Work with Me' Title (EN)")
+    home_why_text1_ge = models.TextField(default="სტანდარტული ფსიქოთერაპიისგან განსხვავებით, შედეგებს ვიღებთ 10ჯერ უფრო სწრაფად. პრობლემათა უმრავლესობის გადაჭრა/მიზნების მიღწევა ხდება 1-5 სესიაში 🤗", verbose_name="რატომ ჩემთან - ტექსტი 1 (GE)")
+    home_why_text1_en = models.TextField(default="Unlike standard psychotherapy, we achieve results 10x faster. Most problems are resolved/goals achieved in 1-5 sessions 🤗", verbose_name="Why Work with Me - Text 1 (EN)")
+    home_why_text2_ge = models.TextField(default="სესიაზე დამღლელი საუბრების მაგივრად, ვიყენებთ უნიკალურ მეთოდოლოგიას — ფსიქო-სომატიკა, NLP, ჰიპნოთერაპია, კუნდალინი აქტივაცია, EFT, არტ თერაპია.", verbose_name="რატომ ჩემთან - ტექსტი 2 (GE)")
+    home_why_text2_en = models.TextField(default="Instead of exhausting conversations, we use unique methodology — Psycho-somatics, NLP, Hypnotherapy, Kundalini Activation, EFT, Art Therapy.", verbose_name="Why Work with Me - Text 2 (EN)")
+
 
 
 

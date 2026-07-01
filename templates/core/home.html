@@ -36,24 +36,20 @@
     <div class="intro-grid">
       <div class="intro-text fade-in">
         <h2 class="section-title">
-          {% if lang == 'ge' %}რატომ ჩემთან?{% else %}Why Work with Me?{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.home_why_title_ge }}{% else %}{{ site_settings.home_why_title_en }}{% endif %}
         </h2>
         <p>
           {% if lang == 'ge' %}
-            სტანდარტული ფსიქოთერაპიისგან განსხვავებით, შედეგებს ვიღებთ <strong>10ჯერ უფრო სწრაფად</strong>. 
-            პრობლემათა უმრავლესობის გადაჭრა/მიზნების მიღწევა ხდება <strong>1-5 სესიაში</strong> 🤗
+            {{ site_settings.home_why_text1_ge|safe }}
           {% else %}
-            Unlike standard psychotherapy, we achieve results <strong>10x faster</strong>. 
-            Most problems are resolved/goals achieved in <strong>1-5 sessions</strong> 🤗
+            {{ site_settings.home_why_text1_en|safe }}
           {% endif %}
         </p>
         <p>
           {% if lang == 'ge' %}
-            სესიაზე დამღლელი საუბრების მაგივრად, ვიყენებთ უნიკალურ მეთოდოლოგიას — 
-            ფსიქო-სომატიკა, NLP, ჰიპნოთერაპია, კუნდალინი აქტივაცია, EFT, არტ თერაპია.
+            {{ site_settings.home_why_text2_ge|safe }}
           {% else %}
-            Instead of exhausting conversations, we use unique methodology — 
-            Psycho-somatics, NLP, Hypnotherapy, Kundalini Activation, EFT, Art Therapy.
+            {{ site_settings.home_why_text2_en|safe }}
           {% endif %}
         </p>
         <div class="method-tags">
@@ -242,7 +238,7 @@
 
     <div class="chakras-cta fade-in">
       <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
-        {% if lang == 'ge' %}სესიაზე ჩაწერა ❣️{% else %}Book a Session ❣️{% endif %}
+        {% if lang == 'ge' %}{{ site_settings.label_book_session_ge }}{% else %}{{ site_settings.label_book_session_en }}{% endif %}
       </a>
     </div>
   </div>
@@ -302,14 +298,14 @@
 <section class="quick-contact-section">
   <div class="container">
     <div class="cta-banner fade-in">
-      <h2>{% if lang == 'ge' %}მზად ხარ ტრანსფორმაციისთვის?{% else %}Ready for Transformation?{% endif %}</h2>
-      <p>{% if lang == 'ge' %}პირველი ნაბიჯი — ეს სესია. შედეგი 1-5 შეხვედრაში. ❣️{% else %}The first step is a session. Results in 1-5 meetings. ❣️{% endif %}</p>
+      <h2>{% if lang == 'ge' %}{{ site_settings.home_cta_title_ge }}{% else %}{{ site_settings.home_cta_title_en }}{% endif %}</h2>
+      <p>{% if lang == 'ge' %}{{ site_settings.home_cta_text_ge|linebreaksbr }}{% else %}{{ site_settings.home_cta_text_en|linebreaksbr }}{% endif %}</p>
       <div class="cta-banner-actions">
         <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
-          {% if lang == 'ge' %}სესიაზე ჩაწერა{% else %}Book a Session{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.label_book_session_ge }}{% else %}{{ site_settings.label_book_session_en }}{% endif %}
         </a>
         <a href="https://wa.me/{{ contact.whatsapp|cut:' '|cut:'+' }}" target="_blank" class="btn btn-outline btn-lg">
-          {% if lang == 'ge' %}WhatsApp-ზე დაწერა{% else %}Message on WhatsApp{% endif %}
+          {% if lang == 'ge' %}{{ site_settings.label_whatsapp_btn_ge }}{% else %}{{ site_settings.label_whatsapp_btn_en }}{% endif %}
         </a>
       </div>
     </div>
