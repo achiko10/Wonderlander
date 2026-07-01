@@ -18,7 +18,7 @@
     <aside class="dash-col">
       <div class="dash-block">
         <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.label_course_ge }}{% else %}{{ site_settings.label_course_en }}{% endif %}</div>
-        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}{{ site_settings.label_you_feel_ge }}{% else %}{{ site_settings.label_you_feel_en }}{% endif %}</h3>
+        <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_you_feel_ge }}{% else %}{{ site_settings.label_you_feel_en }}{% endif %}</h3>
         <div class="course-desc-text">
           {% if lang == 'ge' %}{{ course.description_ge|linebreaksbr }}{% else %}{{ course.description_en|linebreaksbr }}{% endif %}
         </div>
@@ -26,15 +26,15 @@
 
       {% if course.what_you_learn_ge or course.what_you_learn_en %}
       <div class="dash-block">
-        <h3 class="dash-block-title">✦ {% if lang == 'ge' %}{{ site_settings.label_what_learn_ge }}{% else %}{{ site_settings.label_what_learn_en }}{% endif %}</h3>
+        <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_what_learn_ge }}{% else %}{{ site_settings.label_what_learn_en }}{% endif %}</h3>
         <div class="dash-learn-items">
           {% if lang == 'ge' %}
             {% for item in course.what_you_learn_ge.splitlines %}
-              {% if item %}<div class="mini-learn">✨ {{ item }}</div>{% endif %}
+              {% if item %}<div class="mini-learn">{{ item }}</div>{% endif %}
             {% endfor %}
           {% else %}
             {% for item in course.what_you_learn_en.splitlines %}
-              {% if item %}<div class="mini-learn">✨ {{ item }}</div>{% endif %}
+              {% if item %}<div class="mini-learn">{{ item }}</div>{% endif %}
             {% endfor %}
           {% endif %}
         </div>
@@ -82,16 +82,16 @@
         <div class="dash-countdown-mini">
           <span id="cd-h">24</span>:<span id="cd-m">00</span>:<span id="cd-s">00</span>
         </div>
-        <h3 class="dash-block-title">🎁 {% if lang == 'ge' %}{{ site_settings.label_bonuses_ge }}{% else %}{{ site_settings.label_bonuses_en }}{% endif %}</h3>
+        <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_bonuses_ge }}{% else %}{{ site_settings.label_bonuses_en }}{% endif %}</h3>
         {% if course.bonuses_ge or course.bonuses_en %}
         <div class="dash-bonuses">
           {% if lang == 'ge' %}
             {% for line in course.bonuses_ge.splitlines %}
-              {% if line %}<div class="bonus-item">🎁 {{ line }}</div>{% endif %}
+              {% if line %}<div class="bonus-item">{{ line }}</div>{% endif %}
             {% endfor %}
           {% else %}
             {% for line in course.bonuses_en.splitlines %}
-              {% if line %}<div class="bonus-item">🎁 {{ line }}</div>{% endif %}
+              {% if line %}<div class="bonus-item">{{ line }}</div>{% endif %}
             {% endfor %}
           {% endif %}
         </div>

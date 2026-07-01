@@ -127,7 +127,7 @@
     <!-- RIGHT: Booking Form -->
     <aside class="dash-col">
       <div class="book-block">
-        <h3 style="font-size: 1rem; color: var(--gold); margin-bottom: 15px; text-align: center;">🔥 {% if lang == 'ge' %}{{ site_settings.label_book_session_ge }}{% else %}{{ site_settings.label_book_session_en }}{% endif %}</h3>
+        <h3 style="font-size: 1rem; color: var(--gold); margin-bottom: 15px; text-align: center;">{% if lang == 'ge' %}{{ site_settings.label_book_session_ge }}{% else %}{{ site_settings.label_book_session_en }}{% endif %}</h3>
         <div id="main-form-container">
           <form hx-post="{% url 'submit_lead' %}" hx-target="#main-form-container" hx-swap="innerHTML" class="contact-form">
             {% csrf_token %}
@@ -155,7 +155,7 @@
                 placeholder="{% if lang == 'ge' %}შეტყობინება (არასავალდებულო){% else %}Message (optional){% endif %}" id="id_message"></textarea>
             </div>
             <button type="submit" class="btn book-btn">
-              {% if lang == 'ge' %}ჩაწერა ✨{% else %}Book ✨{% endif %}
+              {% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}
             </button>
           </form>
         </div>

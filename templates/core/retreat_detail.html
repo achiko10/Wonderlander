@@ -142,20 +142,20 @@
 {% block content %}
 <div class="retreat-dashboard">
   <div class="dash-badge-mini">
-    🏝️ {% if lang == 'ge' %}{{ retreat.title_ge }}{% else %}{{ retreat.title_en }}{% endif %} · {% if lang == 'ge' %}{{ retreat.date_range_ge }}{% else %}{{ retreat.date_range_en }}{% endif %}
+    {% if lang == 'ge' %}{{ retreat.title_ge }}{% else %}{{ retreat.title_en }}{% endif %} · {% if lang == 'ge' %}{{ retreat.date_range_ge }}{% else %}{{ retreat.date_range_en }}{% endif %}
   </div>
 
   <div class="dash-grid">
     <!-- LEFT: Includes -->
     <aside class="dash-col">
       <div class="dash-block">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 12px 0 !important;">💫 {% if lang == 'ge' %}{{ site_settings.label_included_ge }}{% else %}{{ site_settings.label_included_en }}{% endif %}</h3>
+        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 12px 0 !important;">{% if lang == 'ge' %}{{ site_settings.label_included_ge }}{% else %}{{ site_settings.label_included_en }}{% endif %}</h3>
         <ul class="includes-list">
           {% if retreat and retreat.includes_ge %}
             {% if lang == 'ge' %}
-              {% for line in retreat.includes_ge.splitlines %}{% if line %}<li>💫 {{ line }}</li>{% endif %}{% endfor %}
+              {% for line in retreat.includes_ge.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
             {% else %}
-              {% for line in retreat.includes_en.splitlines %}{% if line %}<li>💫 {{ line }}</li>{% endif %}{% endfor %}
+              {% for line in retreat.includes_en.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
             {% endif %}
           {% else %}
             <li>🏨 {% if lang == 'ge' %}სასტუმროში განთავსება{% else %}Hotel accommodation{% endif %}</li>
@@ -176,7 +176,7 @@
     <!-- CENTER: Program -->
     <main class="dash-col-main" style="margin-top: 0 !important;">
       <div class="dash-block" style="padding: 16px;">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 8px 0 !important; text-align: center;">📆 {% if lang == 'ge' %}{{ site_settings.label_program_ge }}{% else %}{{ site_settings.label_program_en }}{% endif %}</h3>
+        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 8px 0 !important; text-align: center;">{% if lang == 'ge' %}{{ site_settings.label_program_ge }}{% else %}{{ site_settings.label_program_en }}{% endif %}</h3>
         <div class="program-container" style="max-height: 65vh;">
           {% if days %}
             {% for day in days %}
@@ -199,7 +199,7 @@
     <!-- RIGHT: Action Block -->
     <aside class="dash-col">
       <div class="dash-block action-block" style="padding: 16px;">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">🏝️ {% if lang == 'ge' %}{{ site_settings.label_booking_ge }}{% else %}{{ site_settings.label_booking_en }}{% endif %}</h3>
+        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">{% if lang == 'ge' %}{{ site_settings.label_booking_ge }}{% else %}{{ site_settings.label_booking_en }}{% endif %}</h3>
         
         <div class="price-strip">
           {% if retreat.early_bird_price %}
@@ -207,11 +207,15 @@
             <div class="label">{% if lang == 'ge' %}{{ site_settings.label_early_bird_ge }}{% else %}{{ site_settings.label_early_bird_en }}{% endif %}</div>
             <div class="value">{{ retreat.early_bird_price }}</div>
           </div>
-          {% endif %}
           <div class="price-card-small active">
             <div class="label">{% if lang == 'ge' %}{{ site_settings.label_regular_price_ge }}{% else %}{{ site_settings.label_regular_price_en }}{% endif %}</div>
             <div class="value">{{ retreat.price }}</div>
           </div>
+          {% else %}
+          <div class="price-card-small active" style="border: none; background: transparent; padding: 0; text-align: left;">
+            <div class="value" style="font-size: 1.8rem; color: var(--gold);">{{ retreat.price }}</div>
+          </div>
+          {% endif %}
         </div>
 
         <div id="retreat-form-container">

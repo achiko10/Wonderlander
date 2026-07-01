@@ -110,7 +110,7 @@
         </div>
 
         <div id="main-form-container">
-          <h3 style="font-size: 1rem; color: var(--gold); margin-bottom: 12px; text-align: center;">🚀 {% if lang == 'ge' %}დაჯავშნე სესია{% else %}Book a Session{% endif %}</h3>
+          <h3 style="font-size: 1rem; color: var(--gold); margin-bottom: 12px; text-align: center;">{% if lang == 'ge' %}დაჯავშნე სესია{% else %}Book a Session{% endif %}</h3>
           <form hx-post="{% url 'submit_lead' %}" hx-target="#main-form-container" hx-swap="innerHTML" class="contact-form">
             {% csrf_token %}
             <div class="form-group">
@@ -137,7 +137,7 @@
                 placeholder="{% if lang == 'ge' %}შეტყობინება (არასავალდებულო){% else %}Message (optional){% endif %}" id="id_message"></textarea>
             </div>
             <button type="submit" class="btn book-btn">
-              {% if lang == 'ge' %}ჩაწერა ✨{% else %}Book ✨{% endif %}
+              {% if lang == 'ge' %}ჩაწერა{% else %}Book{% endif %}
             </button>
           </form>
         </div>
