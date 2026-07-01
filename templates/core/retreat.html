@@ -4,206 +4,210 @@
 
 <div class="courses-listing fade-in">
 
-  {% if retreats %}
-  <div class="courses-grid">
-    {% for r in retreats %}
-    <div class="course-list-card fade-in">
-      {% if r.image %}
-      <div class="course-card-img">
-        <img src="{{ r.image.url }}" alt="{% if lang == 'ge' %}{{ r.title_ge }}{% else %}{{ r.title_en }}{% endif %}" />
-        <div class="course-card-img-overlay"></div>
-      </div>
-      {% else %}
-      <div class="course-card-img course-card-img--placeholder">
-        <span class="course-placeholder-icon">✈️</span>
-      </div>
-      {% endif %}
-      <div class="course-card-body">
-        <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}{{ site_settings.nav_retreat_en }}{% endif %}</div>
-        <h2 class="course-card-title">{% if lang == 'ge' %}{{ r.title_ge }}{% else %}{{ r.title_en }}{% endif %}</h2>
-        
-        <p class="course-card-subtitle" style="margin-top: 5px; color: var(--gold);">
-          📍 {% if lang == 'ge' %}{{ r.location_ge }}{% else %}{{ r.location_en }}{% endif %} | 📅 {% if lang == 'ge' %}{{ r.date_range_ge }}{% else %}{{ r.date_range_en }}{% endif %}
-        </p>
+ {% if retreats %}
+ <div class="courses-grid">
+ {% for r in retreats %}
+ <div class="course-list-card fade-in">
+ {% if r.image %}
+ <div class="course-card-img">
+ <img src="{{ r.image.url }}" alt="{% if lang == 'ge' %}{{ r.title_ge }}{% else %}{{ r.title_en }}{% endif %}" />
+ <div class="course-card-img-overlay"></div>
+ </div>
+ {% else %}
+ <div class="course-card-img course-card-img--placeholder">
+ <span class="course-placeholder-icon">️</span>
+ </div>
+ {% endif %}
+ <div class="course-card-body">
+ <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.nav_retreat_ge }}{% else %}{{ site_settings.nav_retreat_en }}{% endif %}</div>
+ <h2 class="course-card-title">{% if lang == 'ge' %}{{ r.title_ge }}{% else %}{{ r.title_en }}{% endif %}</h2>
+ 
+ <p class="course-card-subtitle" style="margin-top: 5px; color: var(--gold);">
+ {% if lang == 'ge' %}{{ r.location_ge }}{% else %}{{ r.location_en }}{% endif %} | {% if lang == 'ge' %}{{ r.date_range_ge }}{% else %}{{ r.date_range_en }}{% endif %}
+ </p>
 
-        <p class="course-card-desc" style="margin-top: 15px;">
-          {% if lang == 'ge' %}{{ r.description_ge|truncatewords:20 }}{% else %}{{ r.description_en|truncatewords:20 }}{% endif %}
-        </p>
-        
-        <div class="course-card-prices" style="margin-top: 15px;">
-          <span class="course-price-tag featured">
-            {{ r.price }}
-          </span>
-          {% if r.early_bird_price %}
-          <span class="course-price-tag" style="text-decoration: line-through; opacity: 0.6;">
-            {{ r.early_bird_price }}
-          </span>
-          {% endif %}
-        </div>
-        
-        <div class="course-card-actions">
-          <a href="{% url 'retreat_detail' r.pk %}" class="btn btn-outline btn-sm">
-            {% if lang == 'ge' %}{{ site_settings.label_details_ge }}{% else %}{{ site_settings.label_details_en }}{% endif %}
-          </a>
-          <a href="{% url 'contact' %}?retreat={{ r.pk }}" class="btn btn-primary btn-sm">
-            {% if lang == 'ge' %}{{ site_settings.label_book_ge }}{% else %}{{ site_settings.label_book_en }}{% endif %}
-          </a>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  {% else %}
-  <div class="courses-empty">
-    <p>{% if lang == 'ge' %}რიტრიტები მალე დაემატება ✨{% else %}Retreats coming soon ✨{% endif %}</p>
-  </div>
-  {% endif %}
+ <p class="course-card-desc" style="margin-top: 15px;">
+ {% if lang == 'ge' %}{{ r.description_ge|truncatewords:20 }}{% else %}{{ r.description_en|truncatewords:20 }}{% endif %}
+ </p>
+ 
+ <div class="course-card-prices" style="margin-top: 15px;">
+ {% if r.early_bird_price %}
+ <span class="course-price-tag featured">
+ {{ r.early_bird_price }}
+ </span>
+ <span class="course-price-tag" style="text-decoration: line-through; opacity: 0.6;">
+ {{ r.price }}
+ </span>
+ {% else %}
+ <span class="course-price-tag featured">
+ {{ r.price }}
+ </span>
+ {% endif %}
+ </div>
+ 
+ <div class="course-card-actions">
+ <a href="{% url 'retreat_detail' r.pk %}" class="btn btn-outline btn-sm">
+ {% if lang == 'ge' %}{{ site_settings.label_details_ge }}{% else %}{{ site_settings.label_details_en }}{% endif %}
+ </a>
+ <a href="{% url 'contact' %}?retreat={{ r.pk }}" class="btn btn-primary btn-sm">
+ {% if lang == 'ge' %}{{ site_settings.label_book_ge }}{% else %}{{ site_settings.label_book_en }}{% endif %}
+ </a>
+ </div>
+ </div>
+ </div>
+ {% endfor %}
+ </div>
+ {% else %}
+ <div class="courses-empty">
+ <p>{% if lang == 'ge' %}რიტრიტები მალე დაემატება{% else %}Retreats coming soon{% endif %}</p>
+ </div>
+ {% endif %}
 </div>
 
 {% endblock %}
 
 {% block extra_head %}
 <style>
-  html, body { background: #050505; margin: 0; padding: 0; }
+ html, body { background: #050505; margin: 0; padding: 0; }
 
-  .courses-listing {
-    padding: 20px 24px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+ .courses-listing {
+ padding: 20px 24px 40px;
+ max-width: 1200px;
+ margin: 0 auto;
+ }
 
-  /* ── GRID ── */
-  .courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 28px;
-  }
+ /* ── GRID ── */
+ .courses-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+ gap: 28px;
+ }
 
-  /* ── CARD ── */
-  .course-list-card {
-    background: #0d0d0d;
-    border: 1px solid rgba(197,160,89,0.18);
-    border-radius: 20px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.35s ease;
-    position: relative;
-  }
-  .course-list-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-6px);
-    box-shadow: 0 20px 60px rgba(197,160,89,0.12);
-  }
+ /* ── CARD ── */
+ .course-list-card {
+ background: #0d0d0d;
+ border: 1px solid rgba(197,160,89,0.18);
+ border-radius: 20px;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ transition: all 0.35s ease;
+ position: relative;
+ }
+ .course-list-card:hover {
+ border-color: var(--gold);
+ transform: translateY(-6px);
+ box-shadow: 0 20px 60px rgba(197,160,89,0.12);
+ }
 
-  /* ── IMAGE ── */
-  .course-card-img {
-    position: relative;
-    height: 210px;
-    overflow: hidden;
-  }
-  .course-card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-  }
-  .course-list-card:hover .course-card-img img {
-    transform: scale(1.04);
-  }
-  .course-card-img-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, #0d0d0d 100%);
-  }
-  .course-card-img--placeholder {
-    background: linear-gradient(135deg, #111 0%, #1a1408 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .course-placeholder-icon {
-    font-size: 3rem;
-    color: var(--gold);
-    opacity: 0.3;
-  }
+ /* ── IMAGE ── */
+ .course-card-img {
+ position: relative;
+ height: 210px;
+ overflow: hidden;
+ }
+ .course-card-img img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ transition: transform 0.4s ease;
+ }
+ .course-list-card:hover .course-card-img img {
+ transform: scale(1.04);
+ }
+ .course-card-img-overlay {
+ position: absolute;
+ inset: 0;
+ background: linear-gradient(to bottom, transparent 40%, #0d0d0d 100%);
+ }
+ .course-card-img--placeholder {
+ background: linear-gradient(135deg, #111 0%, #1a1408 100%);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+ .course-placeholder-icon {
+ font-size: 3rem;
+ color: var(--gold);
+ opacity: 0.3;
+ }
 
-  /* ── BODY ── */
-  .course-card-body {
-    padding: 24px 28px 28px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px;
-  }
-  .course-card-title {
-    font-size: 1.35rem;
-    color: var(--gold);
-    margin: 4px 0 0;
-    font-family: 'Playfair Display', serif;
-    line-height: 1.3;
-  }
-  .course-card-subtitle {
-    font-size: 0.85rem;
-    color: #aaa;
-    font-style: italic;
-    margin: 0;
-  }
-  .course-card-desc {
-    font-size: 0.88rem;
-    color: #ccc;
-    line-height: 1.7;
-    flex: 1;
-    margin: 0;
-  }
+ /* ── BODY ── */
+ .course-card-body {
+ padding: 24px 28px 28px;
+ display: flex;
+ flex-direction: column;
+ flex: 1;
+ gap: 10px;
+ }
+ .course-card-title {
+ font-size: 1.35rem;
+ color: var(--gold);
+ margin: 4px 0 0;
+ font-family: 'Playfair Display', serif;
+ line-height: 1.3;
+ }
+ .course-card-subtitle {
+ font-size: 0.85rem;
+ color: #aaa;
+ font-style: italic;
+ margin: 0;
+ }
+ .course-card-desc {
+ font-size: 0.88rem;
+ color: #ccc;
+ line-height: 1.7;
+ flex: 1;
+ margin: 0;
+ }
 
-  /* ── PRICES ── */
-  .course-card-prices {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-  }
-  .course-price-tag {
-    background: rgba(197,160,89,0.07);
-    border: 1px solid rgba(197,160,89,0.2);
-    padding: 5px 14px;
-    border-radius: 50px;
-    font-size: 0.78rem;
-    color: #ccc;
-  }
-  .course-price-tag.featured {
-    background: rgba(197,160,89,0.15);
-    border-color: var(--gold);
-    color: var(--gold);
-    font-weight: 600;
-  }
+ /* ── PRICES ── */
+ .course-card-prices {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin-top: 4px;
+ }
+ .course-price-tag {
+ background: rgba(197,160,89,0.07);
+ border: 1px solid rgba(197,160,89,0.2);
+ padding: 5px 14px;
+ border-radius: 50px;
+ font-size: 0.78rem;
+ color: #ccc;
+ }
+ .course-price-tag.featured {
+ background: rgba(197,160,89,0.15);
+ border-color: var(--gold);
+ color: var(--gold);
+ font-weight: 600;
+ }
 
-  /* ── ACTIONS ── */
-  .course-card-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 8px;
-  }
-  .course-card-actions .btn {
-    flex: 1;
-    text-align: center;
-    padding: 10px 14px;
-    font-size: 0.85rem;
-  }
+ /* ── ACTIONS ── */
+ .course-card-actions {
+ display: flex;
+ gap: 10px;
+ margin-top: 8px;
+ }
+ .course-card-actions .btn {
+ flex: 1;
+ text-align: center;
+ padding: 10px 14px;
+ font-size: 0.85rem;
+ }
 
-  /* ── EMPTY ── */
-  .courses-empty {
-    text-align: center;
-    padding: 80px 24px;
-    color: #666;
-    font-size: 1.1rem;
-  }
+ /* ── EMPTY ── */
+ .courses-empty {
+ text-align: center;
+ padding: 80px 24px;
+ color: #666;
+ font-size: 1.1rem;
+ }
 
-  @media (max-width: 768px) {
-    .courses-listing { padding-top: 100px; }
-    .courses-grid { grid-template-columns: 1fr; gap: 20px; }
-    .course-card-actions { flex-direction: column; }
-  }
+ @media (max-width: 768px) {
+ .courses-listing { padding-top: 100px; }
+ .courses-grid { grid-template-columns: 1fr; gap: 20px; }
+ .course-card-actions { flex-direction: column; }
+ }
 </style>
 {% endblock %}

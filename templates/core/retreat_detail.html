@@ -3,258 +3,258 @@
 
 {% block extra_head %}
 <style>
-  /* RADICAL SPACE CLEANUP */
-  html, body { background: #050505; margin: 0; padding: 0; overflow-x: hidden; }
-  
-  /* Override global main-content padding if it exists */
-  .main-content, main { padding-top: 0 !important; margin-top: 0 !important; }
+ /* RADICAL SPACE CLEANUP */
+ html, body { background: #050505; margin: 0; padding: 0; overflow-x: hidden; }
+ 
+ /* Override global main-content padding if it exists */
+ .main-content, main { padding-top: 0 !important; margin-top: 0 !important; }
 
-  .retreat-dashboard { 
-    padding: 120px 24px 40px; /* High safety for navbar */
-    background: #050505;
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
+ .retreat-dashboard { 
+ padding: 120px 24px 40px; /* High safety for navbar */
+ background: #050505;
+ min-height: 100vh;
+ box-sizing: border-box;
+ }
 
-  .dash-grid { 
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid; 
-    grid-template-columns: 1fr 1.6fr 1fr; 
-    gap: 30px; 
-    align-items: start; /* Independent heights to prevent empty stretching */
-  }
+ .dash-grid { 
+ width: 100%;
+ max-width: 1400px;
+ margin: 0 auto;
+ display: grid; 
+ grid-template-columns: 1fr 1.6fr 1fr; 
+ gap: 30px; 
+ align-items: start; /* Independent heights to prevent empty stretching */
+ }
 
-  .dash-col, .dash-col-main { display: flex; flex-direction: column; gap: 20px; }
+ .dash-col, .dash-col-main { display: flex; flex-direction: column; gap: 20px; }
 
-  .dash-block { 
-    background: #0a0a0a; 
-    border: 1px solid rgba(197,160,89,0.12); 
-    border-radius: 12px; 
-    padding: 16px; /* Tighter padding */
-    display: flex;
-    flex-direction: column;
-  }
+ .dash-block { 
+ background: #0a0a0a; 
+ border: 1px solid rgba(197,160,89,0.12); 
+ border-radius: 12px; 
+ padding: 16px; /* Tighter padding */
+ display: flex;
+ flex-direction: column;
+ }
 
-  /* Badge Style - Maximum Lift */
-  .dash-badge-mini { 
-    font-size: 1.4rem; 
-    color: var(--gold); 
-    text-align: center;
-    margin: 0 0 10px 0 !important; /* Zero top margin, tiny bottom */
-    padding-top: 10px;
-    text-transform: uppercase; 
-    letter-spacing: 0.15em; 
-    font-weight: 700;
-  }
+ /* Badge Style - Maximum Lift */
+ .dash-badge-mini { 
+ font-size: 1.4rem; 
+ color: var(--gold); 
+ text-align: center;
+ margin: 0 0 10px 0 !important; /* Zero top margin, tiny bottom */
+ padding-top: 10px;
+ text-transform: uppercase; 
+ letter-spacing: 0.15em; 
+ font-weight: 700;
+ }
 
-  /* Includes Grid inside block */
-  .includes-list { 
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .includes-list li { 
-    font-size: 0.85rem; 
-    color: #bbb; 
-    padding: 10px; 
-    background: rgba(255,255,255,0.02);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid rgba(255,255,255,0.03);
-  }
+ /* Includes Grid inside block */
+ .includes-list { 
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 8px;
+ list-style: none;
+ padding: 0;
+ margin: 0;
+ }
+ .includes-list li { 
+ font-size: 0.85rem; 
+ color: #bbb; 
+ padding: 10px; 
+ background: rgba(255,255,255,0.02);
+ border-radius: 8px;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ border: 1px solid rgba(255,255,255,0.03);
+ }
 
-  /* Program - Centered Hero */
-  .program-container { 
-    flex-grow: 1;
-    overflow-y: auto; 
-    padding-right: 12px;
-    max-height: 60vh;
-  }
-  .program-container::-webkit-scrollbar { width: 4px; }
-  .program-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+ /* Program - Centered Hero */
+ .program-container { 
+ flex-grow: 1;
+ overflow-y: auto; 
+ padding-right: 12px;
+ max-height: 60vh;
+ }
+ .program-container::-webkit-scrollbar { width: 4px; }
+ .program-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
 
-  .program-day { 
-    background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
-    border: 1px solid rgba(197,160,89,0.1);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-    transition: all 0.3s ease;
-  }
-  .day-label { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; display: block; opacity: 0.8; }
-  .day-title { font-size: 1rem; color: #fff; line-height: 1.4; }
+ .program-day { 
+ background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
+ border: 1px solid rgba(197,160,89,0.1);
+ border-radius: 12px;
+ padding: 16px;
+ margin-bottom: 12px;
+ transition: all 0.3s ease;
+ }
+ .day-label { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; display: block; opacity: 0.8; }
+ .day-title { font-size: 1rem; color: #fff; line-height: 1.4; }
 
-  /* Combined Pricing & Form Block */
-  .action-block { display: flex; flex-direction: column; gap: 20px; }
-  .price-strip { 
-    display: flex; 
-    justify-content: space-between; 
-    gap: 12px;
-    margin-bottom: 10px;
-  }
-  .price-card-small { 
-    flex: 1;
-    background: #0d0d0d;
-    border: 1px solid rgba(197,160,89,0.15);
-    border-radius: 12px;
-    padding: 12px;
-    text-align: center;
-  }
-  .price-card-small.active { border-color: var(--gold); background: rgba(197,160,89,0.04); }
-  .price-card-small .label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 4px; }
-  .price-card-small .value { font-size: 1.2rem; color: #fff; font-weight: 700; }
+ /* Combined Pricing & Form Block */
+ .action-block { display: flex; flex-direction: column; gap: 20px; }
+ .price-strip { 
+ display: flex; 
+ justify-content: space-between; 
+ gap: 12px;
+ margin-bottom: 10px;
+ }
+ .price-card-small { 
+ flex: 1;
+ background: #0d0d0d;
+ border: 1px solid rgba(197,160,89,0.15);
+ border-radius: 12px;
+ padding: 12px;
+ text-align: center;
+ }
+ .price-card-small.active { border-color: var(--gold); background: rgba(197,160,89,0.04); }
+ .price-card-small .label { font-size: 0.7rem; color: #888; text-transform: uppercase; margin-bottom: 4px; }
+ .price-card-small .value { font-size: 1.2rem; color: #fff; font-weight: 700; }
 
-  /* Compact Form */
-  .contact-form .form-group { margin-bottom: 14px; }
-  .contact-form input, .contact-form select { 
-    background: #000 !important; 
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    padding: 12px !important;
-    font-size: 0.9rem !important;
-    border-radius: 8px !important;
-  }
+ /* Compact Form */
+ .contact-form .form-group { margin-bottom: 14px; }
+ .contact-form input, .contact-form select { 
+ background: #000 !important; 
+ border: 1px solid rgba(255,255,255,0.1) !important;
+ padding: 12px !important;
+ font-size: 0.9rem !important;
+ border-radius: 8px !important;
+ }
 
-  .dash-btn-bali { 
-    width: 100% !important;
-    padding: 14px !important;
-    font-size: 0.95rem !important;
-    margin-top: 10px;
-    background: var(--gold) !important;
-    color: #000 !important;
-    border-radius: 8px !important;
-    font-weight: 700 !important;
-  }
+ .dash-btn-bali { 
+ width: 100% !important;
+ padding: 14px !important;
+ font-size: 0.95rem !important;
+ margin-top: 10px;
+ background: var(--gold) !important;
+ color: #000 !important;
+ border-radius: 8px !important;
+ font-weight: 700 !important;
+ }
 
-  @media(max-width: 1024px) {
-    .dash-grid { grid-template-columns: 1fr; }
-    .retreat-dashboard { padding-top: 120px; }
-  }
+ @media(max-width: 1024px) {
+ .dash-grid { grid-template-columns: 1fr; }
+ .retreat-dashboard { padding-top: 120px; }
+ }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="retreat-dashboard">
-  <div class="dash-badge-mini">
-    {% if lang == 'ge' %}{{ retreat.title_ge }}{% else %}{{ retreat.title_en }}{% endif %} · {% if lang == 'ge' %}{{ retreat.date_range_ge }}{% else %}{{ retreat.date_range_en }}{% endif %}
-  </div>
+ <div class="dash-badge-mini">
+ {% if lang == 'ge' %}{{ retreat.title_ge }}{% else %}{{ retreat.title_en }}{% endif %} · {% if lang == 'ge' %}{{ retreat.date_range_ge }}{% else %}{{ retreat.date_range_en }}{% endif %}
+ </div>
 
-  <div class="dash-grid">
-    <!-- LEFT: Includes -->
-    <aside class="dash-col">
-      <div class="dash-block">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 12px 0 !important;">{% if lang == 'ge' %}{{ site_settings.label_included_ge }}{% else %}{{ site_settings.label_included_en }}{% endif %}</h3>
-        <ul class="includes-list">
-          {% if retreat and retreat.includes_ge %}
-            {% if lang == 'ge' %}
-              {% for line in retreat.includes_ge.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
-            {% else %}
-              {% for line in retreat.includes_en.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
-            {% endif %}
-          {% else %}
-            <li>🏨 {% if lang == 'ge' %}სასტუმროში განთავსება{% else %}Hotel accommodation{% endif %}</li>
-            <li>🥗 {% if lang == 'ge' %}ორჯერადი ჯანსაღი კვება{% else %}Healthy meals{% endif %}</li>
-            <li>☕ {% if lang == 'ge' %}ულიმიტო ყავა/ჩაი{% else %}Unlimited coffee/tea{% endif %}</li>
-            <li>🧘 {% if lang == 'ge' %}ყოველდღიური ვორქშოფები{% else %}Daily workshops{% endif %}</li>
-            <li>🌅 {% if lang == 'ge' %}იოგა და მედიტაცია{% else %}Yoga and meditation{% endif %}</li>
-            <li>🔥 {% if lang == 'ge' %}კუნდალინის 4 სესია{% else %}4 Kundalini sessions{% endif %}</li>
-            <li>💃 {% if lang == 'ge' %}ექსტაზური ცეკვა{% else %}Ecstatic dance{% endif %}</li>
-            <li>📸 {% if lang == 'ge' %}ფოტო/ვიდეო გადაღება{% else %}Photo/video coverage{% endif %}</li>
-            <li>🎯 {% if lang == 'ge' %}ინდივიდუალური სესია{% else %}Individual session{% endif %}</li>
-            <li>🎁 {% if lang == 'ge' %}ონლაინ კურსი{% else %}Online course{% endif %}</li>
-          {% endif %}
-        </ul>
-      </div>
-    </aside>
+ <div class="dash-grid">
+ <!-- LEFT: Includes -->
+ <aside class="dash-col">
+ <div class="dash-block">
+ <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 12px 0 !important;">{% if lang == 'ge' %}{{ site_settings.label_included_ge }}{% else %}{{ site_settings.label_included_en }}{% endif %}</h3>
+ <ul class="includes-list">
+ {% if retreat and retreat.includes_ge %}
+ {% if lang == 'ge' %}
+ {% for line in retreat.includes_ge.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
+ {% else %}
+ {% for line in retreat.includes_en.splitlines %}{% if line %}<li>{{ line }}</li>{% endif %}{% endfor %}
+ {% endif %}
+ {% else %}
+ <li> {% if lang == 'ge' %}სასტუმროში განთავსება{% else %}Hotel accommodation{% endif %}</li>
+ <li> {% if lang == 'ge' %}ორჯერადი ჯანსაღი კვება{% else %}Healthy meals{% endif %}</li>
+ <li> {% if lang == 'ge' %}ულიმიტო ყავა/ჩაი{% else %}Unlimited coffee/tea{% endif %}</li>
+ <li> {% if lang == 'ge' %}ყოველდღიური ვორქშოფები{% else %}Daily workshops{% endif %}</li>
+ <li> {% if lang == 'ge' %}იოგა და მედიტაცია{% else %}Yoga and meditation{% endif %}</li>
+ <li> {% if lang == 'ge' %}კუნდალინის 4 სესია{% else %}4 Kundalini sessions{% endif %}</li>
+ <li> {% if lang == 'ge' %}ექსტაზური ცეკვა{% else %}Ecstatic dance{% endif %}</li>
+ <li> {% if lang == 'ge' %}ფოტო/ვიდეო გადაღება{% else %}Photo/video coverage{% endif %}</li>
+ <li> {% if lang == 'ge' %}ინდივიდუალური სესია{% else %}Individual session{% endif %}</li>
+ <li> {% if lang == 'ge' %}ონლაინ კურსი{% else %}Online course{% endif %}</li>
+ {% endif %}
+ </ul>
+ </div>
+ </aside>
 
-    <!-- CENTER: Program -->
-    <main class="dash-col-main" style="margin-top: 0 !important;">
-      <div class="dash-block" style="padding: 16px;">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 8px 0 !important; text-align: center;">{% if lang == 'ge' %}{{ site_settings.label_program_ge }}{% else %}{{ site_settings.label_program_en }}{% endif %}</h3>
-        <div class="program-container" style="max-height: 65vh;">
-          {% if days %}
-            {% for day in days %}
-            <div class="program-day">
-              <span class="day-label">{% if lang == 'ge' %}{{ day.date_label }}{% else %}{{ day.date_label_en|default:day.date_label }}{% endif %}</span>
-              <div class="day-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</div>
-            </div>
-            {% endfor %}
-          {% else %}
-            {% if lang == 'ge' %}
-              <div class="program-day"><span class="day-label">მალე</span><div class="day-title">პროგრამა დაემატება მალე</div></div>
-            {% else %}
-              <div class="program-day"><span class="day-label">Soon</span><div class="day-title">Program will be announced soon</div></div>
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-    </main>
+ <!-- CENTER: Program -->
+ <main class="dash-col-main" style="margin-top: 0 !important;">
+ <div class="dash-block" style="padding: 16px;">
+ <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 8px 0 !important; text-align: center;">{% if lang == 'ge' %}{{ site_settings.label_program_ge }}{% else %}{{ site_settings.label_program_en }}{% endif %}</h3>
+ <div class="program-container" style="max-height: 65vh;">
+ {% if days %}
+ {% for day in days %}
+ <div class="program-day">
+ <span class="day-label">{% if lang == 'ge' %}{{ day.date_label }}{% else %}{{ day.date_label_en|default:day.date_label }}{% endif %}</span>
+ <div class="day-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</div>
+ </div>
+ {% endfor %}
+ {% else %}
+ {% if lang == 'ge' %}
+ <div class="program-day"><span class="day-label">მალე</span><div class="day-title">პროგრამა დაემატება მალე</div></div>
+ {% else %}
+ <div class="program-day"><span class="day-label">Soon</span><div class="day-title">Program will be announced soon</div></div>
+ {% endif %}
+ {% endif %}
+ </div>
+ </div>
+ </main>
 
-    <!-- RIGHT: Action Block -->
-    <aside class="dash-col">
-      <div class="dash-block action-block" style="padding: 16px;">
-        <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">{% if lang == 'ge' %}{{ site_settings.label_booking_ge }}{% else %}{{ site_settings.label_booking_en }}{% endif %}</h3>
-        
-        <div class="price-strip">
-          {% if retreat.early_bird_price %}
-          <div class="price-card-small">
-            <div class="label">{% if lang == 'ge' %}{{ site_settings.label_early_bird_ge }}{% else %}{{ site_settings.label_early_bird_en }}{% endif %}</div>
-            <div class="value">{{ retreat.early_bird_price }}</div>
-          </div>
-          <div class="price-card-small active">
-            <div class="label">{% if lang == 'ge' %}{{ site_settings.label_regular_price_ge }}{% else %}{{ site_settings.label_regular_price_en }}{% endif %}</div>
-            <div class="value">{{ retreat.price }}</div>
-          </div>
-          {% else %}
-          <div class="price-card-small active" style="border: none; background: transparent; padding: 0; text-align: left;">
-            <div class="value" style="font-size: 1.8rem; color: var(--gold);">{{ retreat.price }}</div>
-          </div>
-          {% endif %}
-        </div>
+ <!-- RIGHT: Action Block -->
+ <aside class="dash-col">
+ <div class="dash-block action-block" style="padding: 16px;">
+ <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 10px 0 !important;">{% if lang == 'ge' %}{{ site_settings.label_booking_ge }}{% else %}{{ site_settings.label_booking_en }}{% endif %}</h3>
+ 
+ <div class="price-strip">
+ {% if retreat.early_bird_price %}
+ <div class="price-card-small">
+ <div class="label">{% if lang == 'ge' %}{{ site_settings.label_early_bird_ge }}{% else %}{{ site_settings.label_early_bird_en }}{% endif %}</div>
+ <div class="value">{{ retreat.early_bird_price }}</div>
+ </div>
+ <div class="price-card-small active">
+ <div class="label">{% if lang == 'ge' %}{{ site_settings.label_regular_price_ge }}{% else %}{{ site_settings.label_regular_price_en }}{% endif %}</div>
+ <div class="value">{{ retreat.price }}</div>
+ </div>
+ {% else %}
+ <div class="price-card-small active" style="border: none; background: transparent; padding: 0; text-align: left;">
+ <div class="value" style="font-size: 1.8rem; color: var(--gold);">{{ retreat.price }}</div>
+ </div>
+ {% endif %}
+ </div>
 
-        <div id="retreat-form-container">
-          <form hx-post="{% url 'submit_lead' %}" hx-target="#retreat-form-container" hx-swap="innerHTML" class="contact-form">
-            {% csrf_token %}
-            <div class="form-group">
-              <input type="text" name="name" class="form-input" 
-                placeholder="{% if lang == 'ge' %}სახელი და გვარი{% else %}Full Name{% endif %}" required id="id_name">
-            </div>
-            <div class="form-group">
-              <input type="text" name="phone" class="form-input" 
-                placeholder="{% if lang == 'ge' %}+995 5XX XX XX XX{% else %}+995 5XX XX XX XX{% endif %}" 
-                pattern="^\+?[0-9\s\-]{9,20}$" 
-                title="{% if lang == 'ge' %}შეიყვანეთ ვალიდური ტელეფონის ნომერი (+ ნიშანი და ციფრები){% else %}Enter a valid phone number (+ sign and digits){% endif %}" required id="id_phone">
-            </div>
-            <div class="form-group">
-              <input type="email" name="email" class="form-input" 
-                placeholder="Email" id="id_email">
-            </div>
-            <div class="form-group" style="display:none;">
-              <select name="purpose" class="form-input" required id="id_purpose">
-                <option value="retreat" selected>{% if lang == 'ge' %}{{ retreat.title_ge }}{% else %}{{ retreat.title_en }}{% endif %}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <textarea name="message" class="form-input" rows="3" 
-                placeholder="{% if lang == 'ge' %}შეტყობინება (არასავალდებულო){% else %}Message (optional){% endif %}" id="id_message"></textarea>
-            </div>
-            <button type="submit" class="btn dash-btn-bali">
-              {% if lang == 'ge' %}{{ site_settings.label_submit_app_ge }}{% else %}{{ site_settings.label_submit_app_en }}{% endif %}
-            </button>
-          </form>
-        </div>
+ <div id="retreat-form-container">
+ <form hx-post="{% url 'submit_lead' %}" hx-target="#retreat-form-container" hx-swap="innerHTML" class="contact-form">
+ {% csrf_token %}
+ <div class="form-group">
+ <input type="text" name="name" class="form-input" 
+ placeholder="{% if lang == 'ge' %}სახელი და გვარი{% else %}Full Name{% endif %}" required id="id_name">
+ </div>
+ <div class="form-group">
+ <input type="text" name="phone" class="form-input" 
+ placeholder="{% if lang == 'ge' %}+995 5XX XX XX XX{% else %}+995 5XX XX XX XX{% endif %}" 
+ pattern="^\+?[0-9\s\-]{9,20}$" 
+ title="{% if lang == 'ge' %}შეიყვანეთ ვალიდური ტელეფონის ნომერი (+ ნიშანი და ციფრები){% else %}Enter a valid phone number (+ sign and digits){% endif %}" required id="id_phone">
+ </div>
+ <div class="form-group">
+ <input type="email" name="email" class="form-input" 
+ placeholder="Email" id="id_email">
+ </div>
+ <div class="form-group" style="display:none;">
+ <select name="purpose" class="form-input" required id="id_purpose">
+ <option value="retreat" selected>{% if lang == 'ge' %}{{ retreat.title_ge }}{% else %}{{ retreat.title_en }}{% endif %}</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <textarea name="message" class="form-input" rows="3" 
+ placeholder="{% if lang == 'ge' %}შეტყობინება (არასავალდებულო){% else %}Message (optional){% endif %}" id="id_message"></textarea>
+ </div>
+ <button type="submit" class="btn dash-btn-bali">
+ {% if lang == 'ge' %}{{ site_settings.label_submit_app_ge }}{% else %}{{ site_settings.label_submit_app_en }}{% endif %}
+ </button>
+ </form>
+ </div>
 
-        <p style="font-size: 0.75rem; color: #666; text-align: center; margin-top: auto; padding-top: 15px;">
-          {% if lang == 'ge' %}{{ retreat.disclaimer_ge }}{% else %}{{ retreat.disclaimer_en }}{% endif %}
-        </p>
-      </div>
-    </aside>
-  </div>
+ <p style="font-size: 0.75rem; color: #666; text-align: center; margin-top: auto; padding-top: 15px;">
+ {% if lang == 'ge' %}{{ retreat.disclaimer_ge }}{% else %}{{ retreat.disclaimer_en }}{% endif %}
+ </p>
+ </div>
+ </aside>
+ </div>
 </div>
 {% endblock %}

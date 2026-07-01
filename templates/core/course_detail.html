@@ -4,350 +4,350 @@
 {% block content %}
 <div class="course-dashboard fade-in">
 
-  <!-- BREADCRUMB -->
-  <div class="course-breadcrumb">
-    <a href="{% url 'course' %}">{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}{{ site_settings.nav_course_en }}{% endif %}</a>
-    <span class="breadcrumb-sep">›</span>
-    <span>{% if lang == 'ge' %}{{ course.title_ge }}{% else %}{{ course.title_en }}{% endif %}</span>
-  </div>
+ <!-- BREADCRUMB -->
+ <div class="course-breadcrumb">
+ <a href="{% url 'course' %}">{% if lang == 'ge' %}{{ site_settings.nav_course_ge }}{% else %}{{ site_settings.nav_course_en }}{% endif %}</a>
+ <span class="breadcrumb-sep">›</span>
+ <span>{% if lang == 'ge' %}{{ course.title_ge }}{% else %}{{ course.title_en }}{% endif %}</span>
+ </div>
 
-  <!-- MAIN DASHBOARD GRID -->
-  <div class="dash-grid">
+ <!-- MAIN DASHBOARD GRID -->
+ <div class="dash-grid">
 
-    <!-- LEFT: Feeling + What You'll Learn -->
-    <aside class="dash-col">
-      <div class="dash-block">
-        <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.label_course_ge }}{% else %}{{ site_settings.label_course_en }}{% endif %}</div>
-        <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_you_feel_ge }}{% else %}{{ site_settings.label_you_feel_en }}{% endif %}</h3>
-        <div class="course-desc-text">
-          {% if lang == 'ge' %}{{ course.description_ge|linebreaksbr }}{% else %}{{ course.description_en|linebreaksbr }}{% endif %}
-        </div>
-      </div>
+ <!-- LEFT: Feeling + What You'll Learn -->
+ <aside class="dash-col">
+ <div class="dash-block">
+ <div class="dash-badge-mini">{% if lang == 'ge' %}{{ site_settings.label_course_ge }}{% else %}{{ site_settings.label_course_en }}{% endif %}</div>
+ <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_you_feel_ge }}{% else %}{{ site_settings.label_you_feel_en }}{% endif %}</h3>
+ <div class="course-desc-text">
+ {% if lang == 'ge' %}{{ course.description_ge|linebreaksbr }}{% else %}{{ course.description_en|linebreaksbr }}{% endif %}
+ </div>
+ </div>
 
-      {% if course.what_you_learn_ge or course.what_you_learn_en %}
-      <div class="dash-block">
-        <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_what_learn_ge }}{% else %}{{ site_settings.label_what_learn_en }}{% endif %}</h3>
-        <div class="dash-learn-items">
-          {% if lang == 'ge' %}
-            {% for item in course.what_you_learn_ge.splitlines %}
-              {% if item %}<div class="mini-learn">{{ item }}</div>{% endif %}
-            {% endfor %}
-          {% else %}
-            {% for item in course.what_you_learn_en.splitlines %}
-              {% if item %}<div class="mini-learn">{{ item }}</div>{% endif %}
-            {% endfor %}
-          {% endif %}
-        </div>
-      </div>
-      {% endif %}
-    </aside>
+ {% if course.what_you_learn_ge or course.what_you_learn_en %}
+ <div class="dash-block">
+ <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_what_learn_ge }}{% else %}{{ site_settings.label_what_learn_en }}{% endif %}</h3>
+ <div class="dash-learn-items">
+ {% if lang == 'ge' %}
+ {% for item in course.what_you_learn_ge.splitlines %}
+ {% if item %}<div class="mini-learn">{{ item }}</div>{% endif %}
+ {% endfor %}
+ {% else %}
+ {% for item in course.what_you_learn_en.splitlines %}
+ {% if item %}<div class="mini-learn">{{ item }}</div>{% endif %}
+ {% endfor %}
+ {% endif %}
+ </div>
+ </div>
+ {% endif %}
+ </aside>
 
-    <!-- CENTER: Packages -->
-    <main class="dash-col-main">
-      <div class="dash-badge-mini" style="text-align:center; margin-bottom:8px; font-size:1.2rem; margin-top:0;">
-        {% if lang == 'ge' %}{{ course.packages_title_ge }}{% else %}{{ course.packages_title_en }}{% endif %}
-      </div>
-      <div class="packages-compact">
-        {% for pkg in course.packages.all %}
-        <div class="package-card-mini {% if pkg.is_featured %}featured{% endif %}">
-          {% if pkg.is_featured %}
-          <div class="dash-badge">{% if lang == 'ge' %}{{ site_settings.label_popular_ge }}{% else %}{{ site_settings.label_popular_en }}{% endif %}</div>
-          {% endif %}
-          <div>
-            <h3>{% if lang == 'ge' %}{{ pkg.name_ge }}{% else %}{{ pkg.name_en }}{% endif %}</h3>
-            <div class="pkg-price {% if pkg.is_featured %}gold{% endif %}">{{ pkg.price }}</div>
-            <ul class="pkg-features-mini">
-              {% if lang == 'ge' %}
-                {% for line in pkg.features_ge.splitlines %}
-                  {% if line %}<li>{{ line }}</li>{% endif %}
-                {% endfor %}
-              {% else %}
-                {% for line in pkg.features_en.splitlines %}
-                  {% if line %}<li>{{ line }}</li>{% endif %}
-                {% endfor %}
-              {% endif %}
-            </ul>
-          </div>
-          <a href="{% url 'contact' %}?course={{ course.pk }}&pkg={{ pkg.pk }}" class="btn {% if pkg.is_featured %}btn-primary{% else %}btn-outline{% endif %} btn-sm btn-full">
-            {% if lang == 'ge' %}{{ site_settings.label_select_ge }}{% else %}{{ site_settings.label_select_en }}{% endif %}
-          </a>
-        </div>
-        {% endfor %}
-      </div>
-    </main>
+ <!-- CENTER: Packages -->
+ <main class="dash-col-main">
+ <div class="dash-badge-mini" style="text-align:center; margin-bottom:8px; font-size:1.2rem; margin-top:0;">
+ {% if lang == 'ge' %}{{ course.packages_title_ge }}{% else %}{{ course.packages_title_en }}{% endif %}
+ </div>
+ <div class="packages-compact">
+ {% for pkg in course.packages.all %}
+ <div class="package-card-mini {% if pkg.is_featured %}featured{% endif %}">
+ {% if pkg.is_featured %}
+ <div class="dash-badge">{% if lang == 'ge' %}{{ site_settings.label_popular_ge }}{% else %}{{ site_settings.label_popular_en }}{% endif %}</div>
+ {% endif %}
+ <div>
+ <h3>{% if lang == 'ge' %}{{ pkg.name_ge }}{% else %}{{ pkg.name_en }}{% endif %}</h3>
+ <div class="pkg-price {% if pkg.is_featured %}gold{% endif %}">{{ pkg.price }}</div>
+ <ul class="pkg-features-mini">
+ {% if lang == 'ge' %}
+ {% for line in pkg.features_ge.splitlines %}
+ {% if line %}<li>{{ line }}</li>{% endif %}
+ {% endfor %}
+ {% else %}
+ {% for line in pkg.features_en.splitlines %}
+ {% if line %}<li>{{ line }}</li>{% endif %}
+ {% endfor %}
+ {% endif %}
+ </ul>
+ </div>
+ <a href="{% url 'contact' %}?course={{ course.pk }}&pkg={{ pkg.pk }}" class="btn {% if pkg.is_featured %}btn-primary{% else %}btn-outline{% endif %} btn-sm btn-full">
+ {% if lang == 'ge' %}{{ site_settings.label_select_ge }}{% else %}{{ site_settings.label_select_en }}{% endif %}
+ </a>
+ </div>
+ {% endfor %}
+ </div>
+ </main>
 
-    <!-- RIGHT: Bonuses + CTA -->
-    <aside class="dash-col">
-      <div class="dash-block">
-        <div class="dash-countdown-mini">
-          <span id="cd-h">24</span>:<span id="cd-m">00</span>:<span id="cd-s">00</span>
-        </div>
-        <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_bonuses_ge }}{% else %}{{ site_settings.label_bonuses_en }}{% endif %}</h3>
-        {% if course.bonuses_ge or course.bonuses_en %}
-        <div class="dash-bonuses">
-          {% if lang == 'ge' %}
-            {% for line in course.bonuses_ge.splitlines %}
-              {% if line %}<div class="bonus-item">{{ line }}</div>{% endif %}
-            {% endfor %}
-          {% else %}
-            {% for line in course.bonuses_en.splitlines %}
-              {% if line %}<div class="bonus-item">{{ line }}</div>{% endif %}
-            {% endfor %}
-          {% endif %}
-        </div>
-        {% endif %}
-      </div>
+ <!-- RIGHT: Bonuses + CTA -->
+ <aside class="dash-col">
+ <div class="dash-block">
+ <div class="dash-countdown-mini">
+ <span id="cd-h">24</span>:<span id="cd-m">00</span>:<span id="cd-s">00</span>
+ </div>
+ <h3 class="dash-block-title">{% if lang == 'ge' %}{{ site_settings.label_bonuses_ge }}{% else %}{{ site_settings.label_bonuses_en }}{% endif %}</h3>
+ {% if course.bonuses_ge or course.bonuses_en %}
+ <div class="dash-bonuses">
+ {% if lang == 'ge' %}
+ {% for line in course.bonuses_ge.splitlines %}
+ {% if line %}<div class="bonus-item">{{ line }}</div>{% endif %}
+ {% endfor %}
+ {% else %}
+ {% for line in course.bonuses_en.splitlines %}
+ {% if line %}<div class="bonus-item">{{ line }}</div>{% endif %}
+ {% endfor %}
+ {% endif %}
+ </div>
+ {% endif %}
+ </div>
 
-      <div class="dash-cta-block">
-        <div class="dash-total">
-          <small>{% if lang == 'ge' %}{{ site_settings.label_total_value_ge }}{% else %}{{ site_settings.label_total_value_en }}{% endif %}</small>
-          <strong>{% if lang == 'ge' %}{{ course.total_value_ge }}{% else %}{{ course.total_value_en }}{% endif %}</strong>
-        </div>
-        <div class="guarantee-tiny">
-          {% if lang == 'ge' %}{{ site_settings.label_guarantee_ge }}{% else %}{{ site_settings.label_guarantee_en }}{% endif %}
-        </div>
-        <a href="{% url 'contact' %}?course={{ course.pk }}" class="btn btn-primary btn-lg btn-full dash-btn">
-          {% if lang == 'ge' %}{{ site_settings.label_let_start_ge }}{% else %}{{ site_settings.label_let_start_en }}{% endif %}
-        </a>
-      </div>
-    </aside>
+ <div class="dash-cta-block">
+ <div class="dash-total">
+ <small>{% if lang == 'ge' %}{{ site_settings.label_total_value_ge }}{% else %}{{ site_settings.label_total_value_en }}{% endif %}</small>
+ <strong>{% if lang == 'ge' %}{{ course.total_value_ge }}{% else %}{{ course.total_value_en }}{% endif %}</strong>
+ </div>
+ <div class="guarantee-tiny">
+ {% if lang == 'ge' %}{{ site_settings.label_guarantee_ge }}{% else %}{{ site_settings.label_guarantee_en }}{% endif %}
+ </div>
+ <a href="{% url 'contact' %}?course={{ course.pk }}" class="btn btn-primary btn-lg btn-full dash-btn">
+ {% if lang == 'ge' %}{{ site_settings.label_let_start_ge }}{% else %}{{ site_settings.label_let_start_en }}{% endif %}
+ </a>
+ </div>
+ </aside>
 
-  </div><!-- /dash-grid -->
+ </div><!-- /dash-grid -->
 </div><!-- /course-dashboard -->
 {% endblock %}
 
 {% block extra_head %}
 <style>
-  html, body { background: #050505; margin: 0; padding: 0; }
+ html, body { background: #050505; margin: 0; padding: 0; }
 
-  /* ── BREADCRUMB ── */
-  .course-breadcrumb {
-    padding: 0px 24px 0;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.82rem;
-    color: #666;
-  }
-  .course-breadcrumb a {
-    color: var(--gold);
-    text-decoration: none;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-  }
-  .course-breadcrumb a:hover { opacity: 1; }
-  .breadcrumb-sep { color: #444; }
+ /* ── BREADCRUMB ── */
+ .course-breadcrumb {
+ padding: 0px 24px 0;
+ max-width: 1400px;
+ margin: 0 auto;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ font-size: 0.82rem;
+ color: #666;
+ }
+ .course-breadcrumb a {
+ color: var(--gold);
+ text-decoration: none;
+ opacity: 0.8;
+ transition: opacity 0.2s;
+ }
+ .course-breadcrumb a:hover { opacity: 1; }
+ .breadcrumb-sep { color: #444; }
 
-  /* ── HEADER ── */
-  .course-detail-header {
-    max-width: 1400px;
-    margin: 10px auto 0;
-    padding: 0 24px;
-    text-align: center;
-  }
-  .course-detail-title {
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    color: var(--gold);
-    font-family: 'Playfair Display', serif;
-    margin: 4px 0 4px;
-    line-height: 1.25;
-  }
-  .course-detail-subtitle {
-    font-size: 0.95rem;
-    color: #bbb;
-    margin: 4px 0 0;
-    font-style: italic;
-  }
+ /* ── HEADER ── */
+ .course-detail-header {
+ max-width: 1400px;
+ margin: 10px auto 0;
+ padding: 0 24px;
+ text-align: center;
+ }
+ .course-detail-title {
+ font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+ color: var(--gold);
+ font-family: 'Playfair Display', serif;
+ margin: 4px 0 4px;
+ line-height: 1.25;
+ }
+ .course-detail-subtitle {
+ font-size: 0.95rem;
+ color: #bbb;
+ margin: 4px 0 0;
+ font-style: italic;
+ }
 
-  /* ── DASHBOARD GRID ── */
-  .course-dashboard {
-    padding: 0 24px 40px;
-  }
-  .dash-grid {
-    width: 100%;
-    max-width: 1400px;
-    margin: -25px auto 0;
-    display: grid;
-    grid-template-columns: 1fr 1.8fr 1fr;
-    gap: 20px;
-    align-items: start;
-  }
-  .dash-col { display: flex; flex-direction: column; gap: 16px; }
-  .dash-col-main {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
-    z-index: 10;
-  }
-  .dash-block {
-    background: #0a0a0a;
-    border: 1px solid rgba(197,160,89,0.15);
-    border-radius: 12px;
-    padding: 20px;
-  }
-  .dash-block-title {
-    font-size: 0.9rem;
-    color: #ddd;
-    margin: 0 0 12px;
-    font-weight: 500;
-  }
+ /* ── DASHBOARD GRID ── */
+ .course-dashboard {
+ padding: 0 24px 40px;
+ }
+ .dash-grid {
+ width: 100%;
+ max-width: 1400px;
+ margin: -25px auto 0;
+ display: grid;
+ grid-template-columns: 1fr 1.8fr 1fr;
+ gap: 20px;
+ align-items: start;
+ }
+ .dash-col { display: flex; flex-direction: column; gap: 16px; }
+ .dash-col-main {
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ position: relative;
+ z-index: 10;
+ }
+ .dash-block {
+ background: #0a0a0a;
+ border: 1px solid rgba(197,160,89,0.15);
+ border-radius: 12px;
+ padding: 20px;
+ }
+ .dash-block-title {
+ font-size: 0.9rem;
+ color: #ddd;
+ margin: 0 0 12px;
+ font-weight: 500;
+ }
 
-  /* ── DESCRIPTION ── */
-  .course-desc-text {
-    font-size: 0.85rem;
-    color: #bbb;
-    line-height: 1.8;
-  }
+ /* ── DESCRIPTION ── */
+ .course-desc-text {
+ font-size: 0.85rem;
+ color: #bbb;
+ line-height: 1.8;
+ }
 
-  /* ── LEARN ITEMS ── */
-  .mini-learn {
-    font-size: 0.82rem;
-    color: #ccc;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-  .mini-learn:last-child { border-bottom: none; }
+ /* ── LEARN ITEMS ── */
+ .mini-learn {
+ font-size: 0.82rem;
+ color: #ccc;
+ padding: 6px 0;
+ border-bottom: 1px solid rgba(255,255,255,0.04);
+ }
+ .mini-learn:last-child { border-bottom: none; }
 
-  /* ── PACKAGES ── */
-  .packages-compact {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-  }
-  .package-card-mini {
-    background: #0d0d0d;
-    border: 1px solid rgba(197,160,89,0.2);
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 12px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  .package-card-mini:hover {
-    border-color: var(--gold);
-    box-shadow: 0 8px 30px rgba(197,160,89,0.1);
-  }
-  .package-card-mini.featured {
-    border-color: var(--gold);
-    background: rgba(197,160,89,0.04);
-  }
-  .package-card-mini h3 { font-size: 1.05rem; color: var(--gold); margin: 0; }
-  .pkg-price { font-size: 1.8rem; font-weight: 700; color: #fff; margin: 8px 0; }
-  .pkg-price.gold { color: var(--gold); }
-  .pkg-features-mini {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 12px;
-    text-align: left;
-  }
-  .pkg-features-mini li {
-    font-size: 0.82rem;
-    color: #aaa;
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    line-height: 1.5;
-  }
-  .pkg-features-mini li:last-child { border-bottom: none; }
-  .btn-full { width: 100%; display: block; }
-  .dash-badge {
-    background: rgba(197,160,89,0.15);
-    color: var(--gold);
-    border: 1px solid var(--gold);
-    border-radius: 50px;
-    padding: 3px 12px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    display: inline-block;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
+ /* ── PACKAGES ── */
+ .packages-compact {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+ gap: 16px;
+ }
+ .package-card-mini {
+ background: #0d0d0d;
+ border: 1px solid rgba(197,160,89,0.2);
+ border-radius: 16px;
+ padding: 24px;
+ text-align: center;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ gap: 12px;
+ transition: border-color 0.3s ease, box-shadow 0.3s ease;
+ }
+ .package-card-mini:hover {
+ border-color: var(--gold);
+ box-shadow: 0 8px 30px rgba(197,160,89,0.1);
+ }
+ .package-card-mini.featured {
+ border-color: var(--gold);
+ background: rgba(197,160,89,0.04);
+ }
+ .package-card-mini h3 { font-size: 1.05rem; color: var(--gold); margin: 0; }
+ .pkg-price { font-size: 1.8rem; font-weight: 700; color: #fff; margin: 8px 0; }
+ .pkg-price.gold { color: var(--gold); }
+ .pkg-features-mini {
+ list-style: none;
+ padding: 0;
+ margin: 0 0 12px;
+ text-align: left;
+ }
+ .pkg-features-mini li {
+ font-size: 0.82rem;
+ color: #aaa;
+ padding: 5px 0;
+ border-bottom: 1px solid rgba(255,255,255,0.04);
+ line-height: 1.5;
+ }
+ .pkg-features-mini li:last-child { border-bottom: none; }
+ .btn-full { width: 100%; display: block; }
+ .dash-badge {
+ background: rgba(197,160,89,0.15);
+ color: var(--gold);
+ border: 1px solid var(--gold);
+ border-radius: 50px;
+ padding: 3px 12px;
+ font-size: 0.72rem;
+ font-weight: 700;
+ display: inline-block;
+ margin-bottom: 8px;
+ text-transform: uppercase;
+ letter-spacing: 0.1em;
+ }
 
-  /* ── BONUSES ── */
-  .dash-countdown-mini {
-    font-size: 1rem;
-    color: var(--gold);
-    font-family: monospace;
-    margin-bottom: 8px;
-    text-align: center;
-    letter-spacing: 0.1em;
-  }
-  .bonus-item {
-    font-size: 0.82rem;
-    color: #ccc;
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    line-height: 1.5;
-  }
-  .bonus-item:last-child { border-bottom: none; }
+ /* ── BONUSES ── */
+ .dash-countdown-mini {
+ font-size: 1rem;
+ color: var(--gold);
+ font-family: monospace;
+ margin-bottom: 8px;
+ text-align: center;
+ letter-spacing: 0.1em;
+ }
+ .bonus-item {
+ font-size: 0.82rem;
+ color: #ccc;
+ padding: 5px 0;
+ border-bottom: 1px solid rgba(255,255,255,0.04);
+ line-height: 1.5;
+ }
+ .bonus-item:last-child { border-bottom: none; }
 
-  /* ── CTA BLOCK ── */
-  .dash-cta-block {
-    background: rgba(197,160,89,0.05);
-    border: 1px solid var(--gold);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-  }
-  .dash-total small { font-size: 0.78rem; color: #888; display: block; }
-  .dash-total strong { font-size: 1.6rem; color: var(--gold); display: block; margin: 4px 0 8px; }
-  .guarantee-tiny { font-size: 0.75rem; color: #888; margin: 10px 0; line-height: 1.5; }
-  .dash-btn {
-    margin-top: 8px;
-    display: block;
-    width: 100%;
-    padding: 13px 20px !important;
-    font-size: 0.9rem !important;
-  }
+ /* ── CTA BLOCK ── */
+ .dash-cta-block {
+ background: rgba(197,160,89,0.05);
+ border: 1px solid var(--gold);
+ border-radius: 12px;
+ padding: 20px;
+ text-align: center;
+ }
+ .dash-total small { font-size: 0.78rem; color: #888; display: block; }
+ .dash-total strong { font-size: 1.6rem; color: var(--gold); display: block; margin: 4px 0 8px; }
+ .guarantee-tiny { font-size: 0.75rem; color: #888; margin: 10px 0; line-height: 1.5; }
+ .dash-btn {
+ margin-top: 8px;
+ display: block;
+ width: 100%;
+ padding: 13px 20px !important;
+ font-size: 0.9rem !important;
+ }
 
-  /* ── BADGE MINI (shared) ── */
-  .dash-badge-mini {
-    font-size: 0.72rem;
-    color: var(--gold);
-    opacity: 0.9;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 700;
-  }
+ /* ── BADGE MINI (shared) ── */
+ .dash-badge-mini {
+ font-size: 0.72rem;
+ color: var(--gold);
+ opacity: 0.9;
+ margin-bottom: 10px;
+ text-transform: uppercase;
+ letter-spacing: 0.15em;
+ font-weight: 700;
+ }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 1024px) {
-    .dash-grid { grid-template-columns: 1fr; }
-    .course-hero { min-height: 180px; }
-  }
-  @media (max-width: 600px) {
-    .packages-compact { grid-template-columns: 1fr; }
-    .course-hero-content { padding: 24px 20px; }
-    .course-dashboard { padding: 0 16px 60px; }
-  }
+ /* ── RESPONSIVE ── */
+ @media (max-width: 1024px) {
+ .dash-grid { grid-template-columns: 1fr; }
+ .course-hero { min-height: 180px; }
+ }
+ @media (max-width: 600px) {
+ .packages-compact { grid-template-columns: 1fr; }
+ .course-hero-content { padding: 24px 20px; }
+ .course-dashboard { padding: 0 16px 60px; }
+ }
 </style>
 
 <script>
 (function(){
-  var end = new Date();
-  end.setHours(end.getHours() + 24);
-  function tick(){
-    var diff = end - new Date();
-    if(diff <= 0){ clearInterval(t); return; }
-    var h = Math.floor(diff/3600000);
-    var m = Math.floor((diff%3600000)/60000);
-    var s = Math.floor((diff%60000)/1000);
-    var elH = document.getElementById('cd-h');
-    var elM = document.getElementById('cd-m');
-    var elS = document.getElementById('cd-s');
-    if(elH) elH.textContent = String(h).padStart(2,'0');
-    if(elM) elM.textContent = String(m).padStart(2,'0');
-    if(elS) elS.textContent = String(s).padStart(2,'0');
-  }
-  tick();
-  var t = setInterval(tick, 1000);
+ var end = new Date();
+ end.setHours(end.getHours() + 24);
+ function tick(){
+ var diff = end - new Date();
+ if(diff <= 0){ clearInterval(t); return; }
+ var h = Math.floor(diff/3600000);
+ var m = Math.floor((diff%3600000)/60000);
+ var s = Math.floor((diff%60000)/1000);
+ var elH = document.getElementById('cd-h');
+ var elM = document.getElementById('cd-m');
+ var elS = document.getElementById('cd-s');
+ if(elH) elH.textContent = String(h).padStart(2,'0');
+ if(elM) elM.textContent = String(m).padStart(2,'0');
+ if(elS) elS.textContent = String(s).padStart(2,'0');
+ }
+ tick();
+ var t = setInterval(tick, 1000);
 })();
 </script>
 {% endblock %}

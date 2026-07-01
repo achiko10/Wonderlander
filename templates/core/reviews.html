@@ -2,50 +2,50 @@
 {% load static %}
 
 {% block title %}
-  {% if lang == 'ge' %}{{ site_settings.nav_review_ge }} | {{ site_settings.site_title_ge }}
-  {% else %}{{ site_settings.nav_review_en }} | {{ site_settings.site_title_en }}{% endif %}
+ {% if lang == 'ge' %}{{ site_settings.nav_review_ge }} | {{ site_settings.site_title_ge }}
+ {% else %}{{ site_settings.nav_review_en }} | {{ site_settings.site_title_en }}{% endif %}
 {% endblock %}
 
 {% block content %}
 <section class="section">
-  <div class="container">
-    <div class="section-header text-center">
-      <h2 class="section-title">
-        {% if lang == 'ge' %}{{ site_settings.reviews_title_ge }}{% else %}{{ site_settings.reviews_title_en }}{% endif %}
-      </h2>
-    </div>
+ <div class="container">
+ <div class="section-header text-center">
+ <h2 class="section-title">
+ {% if lang == 'ge' %}{{ site_settings.reviews_title_ge }}{% else %}{{ site_settings.reviews_title_en }}{% endif %}
+ </h2>
+ </div>
 
-    {% if reviews %}
-      <div class="reviews-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
-        {% for review in reviews %}
-          <div class="review-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 25px;">
-            {% if review.image %}
-              <div style="text-align: center; margin-bottom: 15px;">
-                <img src="{{ review.image.url }}" alt="{{ review.name_ge }}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
-              </div>
-            {% endif %}
-            
-            <div class="review-stars" style="color: #ffd700; font-size: 20px; text-align: center; margin-bottom: 15px;">
-              {% for i in "12345"|make_list %}
-                {% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}
-              {% endfor %}
-            </div>
-            
-            <h4 style="text-align: center; margin-bottom: 15px; font-weight: 600;">
-              {% if lang == 'ge' %}{{ review.name_ge }}{% else %}{{ review.name_en|default:review.name_ge }}{% endif %}
-            </h4>
-            
-            <p style="text-align: center; color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.6;">
-              {% if lang == 'ge' %}{{ review.text_ge }}{% else %}{{ review.text_en|default:review.text_ge }}{% endif %}
-            </p>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p class="text-center" style="margin-top: 40px; color: rgba(255,255,255,0.7);">
-        {% if lang == 'ge' %}{{ site_settings.reviews_empty_text_ge }}{% else %}{{ site_settings.reviews_empty_text_en }}{% endif %}
-      </p>
-    {% endif %}
-  </div>
+ {% if reviews %}
+ <div class="reviews-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+ {% for review in reviews %}
+ <div class="review-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 25px;">
+ {% if review.image %}
+ <div style="text-align: center; margin-bottom: 15px;">
+ <img src="{{ review.image.url }}" alt="{{ review.name_ge }}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+ </div>
+ {% endif %}
+ 
+ <div class="review-stars" style="color: #ffd700; font-size: 20px; text-align: center; margin-bottom: 15px;">
+ {% for i in "12345"|make_list %}
+ {% if forloop.counter <= review.rating %}{% else %}{% endif %}
+ {% endfor %}
+ </div>
+ 
+ <h4 style="text-align: center; margin-bottom: 15px; font-weight: 600;">
+ {% if lang == 'ge' %}{{ review.name_ge }}{% else %}{{ review.name_en|default:review.name_ge }}{% endif %}
+ </h4>
+ 
+ <p style="text-align: center; color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.6;">
+ {% if lang == 'ge' %}{{ review.text_ge }}{% else %}{{ review.text_en|default:review.text_ge }}{% endif %}
+ </p>
+ </div>
+ {% endfor %}
+ </div>
+ {% else %}
+ <p class="text-center" style="margin-top: 40px; color: rgba(255,255,255,0.7);">
+ {% if lang == 'ge' %}{{ site_settings.reviews_empty_text_ge }}{% else %}{{ site_settings.reviews_empty_text_en }}{% endif %}
+ </p>
+ {% endif %}
+ </div>
 </section>
 {% endblock %}
