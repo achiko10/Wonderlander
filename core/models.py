@@ -123,6 +123,11 @@ class SiteSettings(models.Model):
     label_early_bird_en = models.CharField(max_length=50, default="Early Bird", verbose_name="Title 'Early Bird' (EN)")
     label_regular_price_ge = models.CharField(max_length=50, default="რეგულარული", verbose_name="სათაური 'რეგულარული ფასი' (GE)")
     label_regular_price_en = models.CharField(max_length=50, default="Regular", verbose_name="Title 'Regular Price' (EN)")
+    label_energy_centers_ge = models.CharField(max_length=100, default="ენერგეტიკული ცენტრები", verbose_name="ბეიჯი 'ენერგეტიკული ცენტრები' (GE)")
+    label_energy_centers_en = models.CharField(max_length=100, default="Energy Centers", verbose_name="Badge 'Energy Centers' (EN)")
+    label_choose_chakra_ge = models.CharField(max_length=255, default="დააჭირეთ ჩაკრას, რომელშიც პრობლემას გრძნობთ", verbose_name="ქვესათაური 'აირჩიეთ ჩაკრა' (GE)")
+    label_choose_chakra_en = models.CharField(max_length=255, default="Click on the chakra where you feel the issue", verbose_name="Subtitle 'Choose Chakra' (EN)")
+
 
 
     class Meta:

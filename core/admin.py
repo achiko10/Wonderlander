@@ -12,7 +12,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'nav_home_ge', 'nav_home_en',
                 'nav_course_ge', 'nav_course_en',
                 'nav_retreat_ge', 'nav_retreat_en',
-                'nav_contact_ge', 'nav_contact_en'
+                'nav_contact_ge', 'nav_contact_en',
+                'nav_review_ge', 'nav_review_en'
             )
         }),
         ('Hero Section', {
@@ -70,6 +71,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'label_program_ge', 'label_program_en',
                 'label_early_bird_ge', 'label_early_bird_en',
                 'label_regular_price_ge', 'label_regular_price_en',
+                'label_energy_centers_ge', 'label_energy_centers_en',
+                'label_choose_chakra_ge', 'label_choose_chakra_en',
             ),
             'classes': ('collapse',),
             'description': 'აქედან შეგიძლიათ შეცვალოთ საიტზე არსებული ყველა პატარა ტექსტი და ღილაკი.'
@@ -184,6 +187,20 @@ class RetreatDayInline(admin.TabularInline):
 class RetreatAdmin(admin.ModelAdmin):
     list_display = ('title_ge', 'price')
     inlines = [RetreatDayInline]
+    fieldsets = (
+        ('ძირითადი ინფორმაცია', {
+            'fields': ('title_ge', 'title_en', 'date_range_ge', 'date_range_en', 'location_ge', 'location_en', 'is_active', 'image')
+        }),
+        ('💰 ფასები', {
+            'fields': ('price', 'early_bird_price', 'disclaimer_ge', 'disclaimer_en')
+        }),
+        ('📄 აღწერა და დეტალები', {
+            'fields': ('description_ge', 'description_en', 'includes_ge', 'includes_en')
+        }),
+        ('🔗 რეკვიზიტები', {
+            'fields': ('bank_accounts',)
+        }),
+    )
 
 @admin.register(Lead)
 class LeadAdmin(admin.ModelAdmin):
