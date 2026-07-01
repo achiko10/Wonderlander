@@ -300,6 +300,22 @@ class RetreatDay(models.Model):
         return f"დღე {self.day_number}: {self.title_ge}"
 
 
+class RetreatActivity(models.Model):
+    day = models.ForeignKey(RetreatDay, related_name='activities', on_delete=models.CASCADE, verbose_name="დღე")
+    time = models.CharField(max_length=10, blank=True, verbose_name="საათი (მაგ: 09:00)")
+    title_ge = models.CharField(max_length=255, verbose_name="აქტივობა (GE)")
+    title_en = models.CharField(max_length=255, blank=True, verbose_name="Activity (EN)")
+    order = models.PositiveIntegerField(default=0, verbose_name="თანმიმდევრობა")
+
+    class Meta:
+        ordering = ['order', 'time']
+        verbose_name = "აქტივობა"
+        verbose_name_plural = "აქტივობები"
+
+    def __str__(self):
+        return f"{self.time} — {self.title_ge}"
+
+
 class ContactInfo(models.Model):
     whatsapp = models.CharField(max_length=50, default="+995 597 71 84 67", blank=True, verbose_name="WhatsApp")
     telegram = models.CharField(max_length=100, default="@wonderlanderr", blank=True, verbose_name="Telegram")

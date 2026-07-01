@@ -88,8 +88,12 @@
  margin-bottom: 12px;
  transition: all 0.3s ease;
  }
- .day-label { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; display: block; opacity: 0.8; }
- .day-title { font-size: 1rem; color: #fff; line-height: 1.4; }
+  .day-label { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; display: block; opacity: 0.8; }
+  .day-title { font-size: 1rem; color: #fff; line-height: 1.4; margin-bottom: 8px; }
+  .day-activities { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .activity-row { display: flex; align-items: baseline; gap: 10px; padding: 6px 8px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+  .activity-time { font-size: 0.75rem; color: var(--gold); font-weight: 700; min-width: 42px; flex-shrink: 0; }
+  .activity-title { font-size: 0.88rem; color: #ccc; line-height: 1.4; }
 
  /* Combined Pricing & Form Block */
  .action-block { display: flex; flex-direction: column; gap: 20px; }
@@ -183,6 +187,16 @@
  <div class="program-day">
  <span class="day-label">{% if lang == 'ge' %}{{ day.date_label }}{% else %}{{ day.date_label_en|default:day.date_label }}{% endif %}</span>
  <div class="day-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</div>
+ {% if day.activities.all %}
+ <div class="day-activities">
+   {% for activity in day.activities.all %}
+   <div class="activity-row">
+     {% if activity.time %}<span class="activity-time">{{ activity.time }}</span>{% endif %}
+     <span class="activity-title">{% if lang == 'ge' %}{{ activity.title_ge }}{% else %}{{ activity.title_en|default:activity.title_ge }}{% endif %}</span>
+   </div>
+   {% endfor %}
+ </div>
+ {% endif %}
  </div>
  {% endfor %}
  {% else %}

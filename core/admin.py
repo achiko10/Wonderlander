@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import SiteSettings, Service, Chakra, Course, CoursePackage, Retreat, RetreatDay, Lead, ContactInfo, Review, BotSettings
+from .models import SiteSettings, Service, Chakra, Course, CoursePackage, Retreat, RetreatDay, RetreatActivity, Lead, ContactInfo, Review, BotSettings
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
@@ -193,9 +193,18 @@ class CourseAdmin(admin.ModelAdmin):
         return "—"
     image_preview.short_description = 'ფოტო'
 
-class RetreatDayInline(admin.TabularInline):
+class RetreatActivityInline(admin.TabularInline):
+    model = RetreatActivity
+    extra = 1
+    fields = ('time', 'title_ge', 'title_en', 'order')
+    verbose_name = "აქტივობა"
+    verbose_name_plural = "+ დაამატე აქტივობა"
+
+class RetreatDayInline(admin.StackedInline):
     model = RetreatDay
     extra = 1
+    fields = ('day_number', 'date_label', 'date_label_en', 'title_ge', 'title_en')
+    show_change_link = True
 
 @admin.register(Retreat)
 class RetreatAdmin(admin.ModelAdmin):
@@ -215,6 +224,15 @@ class RetreatAdmin(admin.ModelAdmin):
             'fields': ('bank_accounts',)
         }),
     )
+
+@admin.register(RetreatDay)
+class RetreatDayAdmin(admin.ModelAdmin):
+    list_display = ('retreat', 'day_number', 'date_label', 'title_ge')
+    list_filter = ('retreat',)
+    inlines = [RetreatActivityInline]
+    fields = ('retreat', 'day_number', 'date_label', 'date_label_en', 'title_ge', 'title_en')
+    verbose_name = "პროგრამის დღე"
+
 
 @admin.register(Lead)
 class LeadAdmin(admin.ModelAdmin):
