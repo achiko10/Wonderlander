@@ -36,7 +36,7 @@ def remove_emojis(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("core", "0019_alter_sitesettings_hero_btn1_en_and_more"),
+        ("core", "0018_sitesettings_home_cta_text_en_and_more"),
     ]
 
     operations = [
