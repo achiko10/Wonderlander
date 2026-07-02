@@ -80,7 +80,7 @@
  <!-- LEFT: Service Info -->
  <main class="dash-col">
  <div class="dash-block">
- <span class="service-icon">{{ service.icon }}</span>
+ {% if service.icon %}<span class="service-icon">{{ service.icon }}</span>{% endif %}
  <h1 class="service-title">{% if lang == 'ge' %}{{ service.title_ge }}{% else %}{{ service.title_en }}{% endif %}</h1>
  <div class="service-desc">
  {% if lang == 'ge' %}{{ service.description_ge|linebreaksbr }}{% else %}{{ service.description_en|linebreaksbr }}{% endif %}
