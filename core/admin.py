@@ -217,6 +217,19 @@ class CourseAdmin(admin.ModelAdmin):
         return "—"
     image_preview.short_description = 'ფოტო'
 
+class RetreatActivityInline(admin.TabularInline):
+    model = RetreatActivity
+    extra = 1
+    fields = ('time', 'title_ge', 'title_en', 'order')
+    verbose_name = "აქტივობა"
+    verbose_name_plural = "+ დაამატე აქტივობა"
+
+class RetreatDayInline(admin.StackedInline):
+    model = RetreatDay
+    extra = 1
+    fields = ('day_number', 'date_label', 'date_label_en', 'title_ge', 'title_en')
+    show_change_link = True
+
 @admin.register(Retreat)
 class RetreatAdmin(admin.ModelAdmin):
     list_display = ('title_ge', 'price', 'is_active')
