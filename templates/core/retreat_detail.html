@@ -80,17 +80,34 @@
  .program-container::-webkit-scrollbar { width: 4px; }
  .program-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
 
- .program-day { 
- background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
- border: 1px solid rgba(197,160,89,0.1);
- border-radius: 12px;
- padding: 16px;
- margin-bottom: 12px;
- transition: all 0.3s ease;
- }
+  .program-day { 
+  background: linear-gradient(90deg, rgba(197,160,89,0.05), transparent);
+  border: 1px solid rgba(197,160,89,0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  }
+  .program-day:hover { border-color: rgba(197,160,89,0.3); background: linear-gradient(90deg, rgba(197,160,89,0.08), transparent); }
+  
+  .day-header { display: flex; justify-content: space-between; align-items: center; }
   .day-label { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-bottom: 6px; display: block; opacity: 0.8; }
-  .day-title { font-size: 1rem; color: #fff; line-height: 1.4; margin-bottom: 8px; }
-  .day-activities { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .day-title { font-size: 1rem; color: #fff; line-height: 1.4; margin: 0; }
+  
+  .day-arrow { font-size: 0.8rem; color: var(--gold); transition: transform 0.3s ease; }
+  .program-day.active .day-arrow { transform: rotate(180deg); }
+
+  .day-activities { 
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, margin-top 0.3s ease;
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px;
+  }
+  .program-day.active .day-activities { max-height: 500px; margin-top: 15px; }
+
   .activity-row { display: flex; align-items: baseline; gap: 10px; padding: 6px 8px; background: rgba(255,255,255,0.03); border-radius: 6px; }
   .activity-time { font-size: 0.75rem; color: var(--gold); font-weight: 700; min-width: 42px; flex-shrink: 0; }
   .activity-title { font-size: 0.88rem; color: #ccc; line-height: 1.4; }
@@ -177,38 +194,43 @@
  </div>
  </aside>
 
- <!-- CENTER: Program -->
- <main class="dash-col-main" style="margin-top: 0 !important;">
- <div class="dash-block" style="padding: 16px;">
- <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 8px 0 !important; text-align: center;">{% if lang == 'ge' %}{{ site_settings.label_program_ge }}{% else %}{{ site_settings.label_program_en }}{% endif %}</h3>
- <div class="program-container" style="max-height: 65vh;">
- {% if days %}
- {% for day in days %}
- <div class="program-day">
- <span class="day-label">{% if lang == 'ge' %}{{ day.date_label }}{% else %}{{ day.date_label_en|default:day.date_label }}{% endif %}</span>
- <div class="day-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</div>
- {% if day.activities.all %}
- <div class="day-activities">
-   {% for activity in day.activities.all %}
-   <div class="activity-row">
-     {% if activity.time %}<span class="activity-time">{{ activity.time }}</span>{% endif %}
-     <span class="activity-title">{% if lang == 'ge' %}{{ activity.title_ge }}{% else %}{{ activity.title_en|default:activity.title_ge }}{% endif %}</span>
-   </div>
-   {% endfor %}
- </div>
- {% endif %}
- </div>
- {% endfor %}
- {% else %}
- {% if lang == 'ge' %}
- <div class="program-day"><span class="day-label">მალე</span><div class="day-title">პროგრამა დაემატება მალე</div></div>
- {% else %}
- <div class="program-day"><span class="day-label">Soon</span><div class="day-title">Program will be announced soon</div></div>
- {% endif %}
- {% endif %}
- </div>
- </div>
- </main>
+  <!-- CENTER: Program -->
+  <main class="dash-col-main" style="margin-top: 0 !important;">
+  <div class="dash-block" style="padding: 16px;">
+  <h3 style="font-size: 0.95rem; color: var(--gold); margin: 0 0 8px 0 !important; text-align: center;">{% if lang == 'ge' %}{{ site_settings.label_program_ge }}{% else %}{{ site_settings.label_program_en }}{% endif %}</h3>
+  <div class="program-container" style="max-height: 65vh;">
+  {% if days %}
+  {% for day in days %}
+  <div class="program-day" onclick="toggleDay(this)">
+    <div class="day-header">
+      <div>
+        <span class="day-label">{% if lang == 'ge' %}{{ day.date_label }}{% else %}{{ day.date_label_en|default:day.date_label }}{% endif %}</span>
+        <div class="day-title">{% if lang == 'ge' %}{{ day.title_ge }}{% else %}{{ day.title_en }}{% endif %}</div>
+      </div>
+      <div class="day-arrow">▼</div>
+    </div>
+    {% if day.activities.all %}
+    <div class="day-activities">
+      {% for activity in day.activities.all %}
+      <div class="activity-row">
+        {% if activity.time %}<span class="activity-time">{{ activity.time }}</span>{% endif %}
+        <span class="activity-title">{% if lang == 'ge' %}{{ activity.title_ge }}{% else %}{{ activity.title_en|default:activity.title_ge }}{% endif %}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+  {% else %}
+  {% if lang == 'ge' %}
+  <div class="program-day"><span class="day-label">მალე</span><div class="day-title">პროგრამა დაემატება მალე</div></div>
+  {% else %}
+  <div class="program-day"><span class="day-label">Soon</span><div class="day-title">Program will be announced soon</div></div>
+  {% endif %}
+  {% endif %}
+  </div>
+  </div>
+  </main>
 
  <!-- RIGHT: Action Block -->
  <aside class="dash-col">
@@ -260,4 +282,21 @@
  </aside>
  </div>
 </div>
+<script>
+function toggleDay(element) {
+  // Toggle the active class on clicked day
+  element.classList.toggle('active');
+  
+  const activities = element.querySelector('.day-activities');
+  if (activities) {
+    if (element.classList.contains('active')) {
+      // Calculate real height to animate
+      activities.style.maxHeight = activities.scrollHeight + "px";
+    } else {
+      activities.style.maxHeight = null;
+    }
+  }
+}
+</script>
 {% endblock %}
+
