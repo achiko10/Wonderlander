@@ -5,7 +5,7 @@ from .models import SiteSettings, Service, Chakra, Course, CoursePackage, Retrea
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Global & Navbar', {
+        ('🌐 საიტის მთავარი პარამეტრები & მენიუ', {
             'fields': (
                 'site_title_ge', 'site_title_en',
                 'navbar_cta_ge', 'navbar_cta_en',
@@ -14,9 +14,10 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'nav_retreat_ge', 'nav_retreat_en',
                 'nav_contact_ge', 'nav_contact_en',
                 'nav_review_ge', 'nav_review_en'
-            )
+            ),
+            'description': 'საიტის ძირითადი სათაურები, ლოგოს ტექსტი და მენიუს ღილაკების სახელები.'
         }),
-        ('Hero Section', {
+        ('✨ მთავარი სექცია (Hero Section)', {
             'fields': (
                 'hero_badge_ge', 'hero_badge_en',
                 'hero_title_ge', 'hero_title_en',
@@ -25,42 +26,45 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'hero_btn2_ge', 'hero_btn2_en',
                 'hero_creds_ge', 'hero_creds_en',
                 'hero_image'
-            )
+            ),
+            'description': 'მთავარი გვერდის პირველი ბლოკი - დიდი სურათი, მთავარი სათაურები და ღილაკები.'
         }),
-        ('Intro & Stats', {
+        ('📊 სტატისტიკა & ტეგები (Stats & Tags)', {
             'fields': (
                 'stat1_num', 'stat1_label_ge', 'stat1_label_en',
                 'stat2_num', 'stat2_label_ge', 'stat2_label_en',
                 'stat3_num', 'stat3_label_ge', 'stat3_label_en',
                 'stat4_num', 'stat4_label_ge', 'stat4_label_en',
                 'intro_tags_ge', 'intro_tags_en'
-            )
+            ),
+            'description': 'საიტზე არსებული ციფრები/სტატისტიკა და ტეგების ჩამონათვალი.'
         }),
-        ('Section Titles', {
+        ('📄 სექციების სათაურები (Section Titles)', {
             'fields': (
                 'services_title_ge', 'services_title_en',
                 'chakras_title_ge', 'chakras_title_en',
                 'about_title_ge', 'about_title_en',
                 'reviews_title_ge', 'reviews_title_en',
                 'reviews_empty_text_ge', 'reviews_empty_text_en'
-            )
+            ),
+            'description': 'სხვადასხვა სექციის სათაურები მთავარ გვერდზე.',
+            'classes': ('collapse',),
         }),
-        ('About Me', {
-            'fields': ('about_text_ge', 'about_text_en', 'about_image')
+        ('👤 ჩემს შესახებ (About Me)', {
+            'fields': ('about_text_ge', 'about_text_en', 'about_image'),
+            'description': 'თქვენი ბიოგრაფია, ფოტო და აღწერა.'
         }),
-        ('Footer', {
-            'fields': ('footer_copy_ge', 'footer_copy_en')
-        }),
-        ('Why Work with Me & CTA Banner', {
+        ('🛡️ რატომ ჩემთან? & ქვედა ბანერი (CTA)', {
             'fields': (
                 'home_why_title_ge', 'home_why_title_en',
                 'home_why_text1_ge', 'home_why_text1_en',
                 'home_why_text2_ge', 'home_why_text2_en',
                 'home_cta_title_ge', 'home_cta_title_en',
                 'home_cta_text_ge', 'home_cta_text_en'
-            )
+            ),
+            'description': 'ტექსტები, სადაც განმარტავთ რატომ უნდა აგირჩიონ თქვენ და მთავარი გვერდის ბოლო სარეგისტრაციო ბლოკი.'
         }),
-        ('UI Labels', {
+        ('🏷️ საიტის პატარა ტექსტები და ღილაკები (UI Labels)', {
             'fields': (
                 'label_details_ge', 'label_details_en',
                 'label_popular_ge', 'label_popular_en',
@@ -89,7 +93,11 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 'label_whatsapp_btn_ge', 'label_whatsapp_btn_en',
             ),
             'classes': ('collapse',),
-            'description': 'აქედან შეგიძლიათ შეცვალოთ საიტზე არსებული ყველა პატარა ტექსტი და ღილაკი.'
+            'description': '⚠️ ყურადღება: ამ სექციაში მოცემულია საიტის პატარა ღილაკების და წარწერების თარგმანები. ჩვეულებრივ რეჟიმში მათი შეცვლა საჭირო არ არის.'
+        }),
+        ('👣 საიტის ქვედა ნაწილი (Footer)', {
+            'fields': ('footer_copy_ge', 'footer_copy_en'),
+            'classes': ('collapse',),
         }),
     )
 
@@ -116,17 +124,18 @@ class ContactInfoAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title_ge', 'price', 'duration', 'is_active', 'order', 'image_preview')
     list_editable = ('order', 'is_active')
+    
     fieldsets = (
-        ('სათაური და ძირითადი', {
-            'fields': ('icon', 'title_ge', 'title_en', 'price', 'duration', 'order', 'is_active', 'image')
+        ('⚙️ ძირითადი პარამეტრები', {
+            'fields': ('is_active', 'order', 'price', 'duration', 'icon', 'image')
         }),
-        ('📋 მოკლე ტექსტი — კარტზე (ჩამოთვლის გვერდი)', {
-            'fields': ('short_description_ge', 'short_description_en'),
-            'description': '⚠️ ეს ტექსტი გამოჩნდება სერვისების ბარათებზე მთავარ გვერდზე. შეავსეთ 1-2 წინადადება. ცარიელია = ავტომატური შემოკლება.'
+        ('🇬🇪 ქართული ვერსია (Georgian)', {
+            'fields': ('title_ge', 'short_description_ge', 'description_ge')
         }),
-        ('📄 სრული ტექსტი — დეტალების გვერდი', {
-            'fields': ('description_ge', 'description_en'),
-            'description': 'სრული ტექსტი ჩანს მხოლოდ "დეტალურად" ღილაკზე დაჭერის შემდეგ.'
+        ('🇬🇧 ინგლისური ვერსია (English)', {
+            'fields': ('title_en', 'short_description_en', 'description_en'),
+            'classes': ('collapse',),
+            'description': 'შეავსეთ ინგლისური ვერსიისთვის (არასავალდებულო).'
         }),
     )
 
@@ -136,27 +145,42 @@ class ServiceAdmin(admin.ModelAdmin):
         return "—"
     image_preview.short_description = 'ფოტო'
 
+from django import forms
+class ChakraAdminForm(forms.ModelForm):
+    class Meta:
+        model = Chakra
+        fields = '__all__'
+        widgets = {
+            'color': forms.TextInput(attrs={'type': 'color', 'style': 'height: 40px; width: 80px; cursor: pointer;'}),
+        }
+
 @admin.register(Chakra)
 class ChakraAdmin(admin.ModelAdmin):
-    list_display = ('number', 'name_ge', 'image_preview')
+    form = ChakraAdminForm
+    list_display = ('number', 'name_ge', 'color_preview', 'image_preview')
+    
     fieldsets = (
-        ('ძირითადი ინფორმაცია', {
-            'fields': ('number', 'icon', 'name_ge', 'name_en', 'theme_ge', 'theme_en', 'color', 'image')
+        ('⚙️ ძირითადი პარამეტრები', {
+            'fields': ('number', 'color', 'icon', 'image')
         }),
-        ('📋 მოკლე ჩამონათვალი — კარტზე (რა მდგომარეობის დროს?)', {
-            'fields': ('conditions_ge', 'conditions_en'),
-            'description': 'ეს ტექსტი გამოჩნდება მთავარ გვერდზე, ჩაკრის ბარათზე (ავტომატურად შემოკლდება).'
+        ('🇬🇪 ქართული ვერსია (Georgian)', {
+            'fields': ('name_ge', 'theme_ge', 'conditions_ge', 'description_ge')
         }),
-        ('📄 სრული აღწერა — დეტალების გვერდი', {
-            'fields': ('description_ge', 'description_en'),
-            'description': 'სრული ტექსტი, რომელიც გამოჩნდება მხოლოდ ჩაკრის დეტალურ გვერდზე.'
+        ('🇬🇧 ინგლისური ვერსია (English)', {
+            'fields': ('name_en', 'theme_en', 'conditions_en', 'description_en'),
+            'classes': ('collapse',),
+            'description': 'შეავსეთ ინგლისური ვერსიისთვის (არასავალდებულო).'
         }),
     )
+
+    def color_preview(self, obj):
+        return mark_safe(f'<div style="width: 25px; height: 25px; border-radius: 50%; background-color: {obj.color}; border: 1px solid #ccc;"></div>')
+    color_preview.short_description = 'ფერი'
 
     def image_preview(self, obj):
         if obj.image:
             return mark_safe(f'<img src="{obj.image.url}" width="50" style="border-radius:5px;" />')
-        return "No Image"
+        return "—"
     image_preview.short_description = 'ფოტო'
 
 class CoursePackageInline(admin.TabularInline):
@@ -169,21 +193,21 @@ class CourseAdmin(admin.ModelAdmin):
     inlines = [CoursePackageInline]
     
     fieldsets = (
-        ('ძირითადი ინფორმაცია', {
-            'fields': ('title_ge', 'title_en', 'subtitle_ge', 'subtitle_en', 'is_active', 'image')
+        ('⚙️ ძირითადი პარამეტრები', {
+            'fields': ('is_active', 'image', 'discount_code', 'registration_form_url')
         }),
-        ('📄 აღწერა და სწავლება', {
-            'fields': ('description_ge', 'description_en', 'what_you_learn_ge', 'what_you_learn_en')
+        ('🇬🇪 ქართული ვერსია (Georgian)', {
+            'fields': ('title_ge', 'subtitle_ge', 'description_ge', 'what_you_learn_ge', 'bonuses_ge', 'packages_title_ge', 'total_value_ge')
         }),
-        ('🎁 ბონუსები და ღირებულება', {
-            'fields': ('bonuses_ge', 'bonuses_en', 'total_value_ge', 'total_value_en', 'discount_code')
+        ('🇬🇧 ინგლისური ვერსია (English)', {
+            'fields': ('title_en', 'subtitle_en', 'description_en', 'what_you_learn_en', 'bonuses_en', 'packages_title_en', 'total_value_en'),
+            'classes': ('collapse',),
+            'description': 'შეავსეთ ინგლისური ვერსიისთვის (არასავალდებულო).'
         }),
-        ('🏷️ პაკეტების სექცია', {
-            'fields': ('packages_title_ge', 'packages_title_en'),
-            'description': 'სათაური, რომელიც გამოჩნდება პაკეტების (პრაისინგის) სექციაში.'
-        }),
-        ('🔗 ბმულები და რეკვიზიტები', {
-            'fields': ('bank_accounts', 'registration_form_url')
+        ('🔗 რეკვიზიტები', {
+            'fields': ('bank_accounts',),
+            'classes': ('collapse',),
+            'description': 'საბანკო რეკვიზიტები სპეციალურად ამ კურსისთვის.'
         }),
     )
 
@@ -193,35 +217,27 @@ class CourseAdmin(admin.ModelAdmin):
         return "—"
     image_preview.short_description = 'ფოტო'
 
-class RetreatActivityInline(admin.TabularInline):
-    model = RetreatActivity
-    extra = 1
-    fields = ('time', 'title_ge', 'title_en', 'order')
-    verbose_name = "აქტივობა"
-    verbose_name_plural = "+ დაამატე აქტივობა"
-
-class RetreatDayInline(admin.StackedInline):
-    model = RetreatDay
-    extra = 1
-    fields = ('day_number', 'date_label', 'date_label_en', 'title_ge', 'title_en')
-    show_change_link = True
-
 @admin.register(Retreat)
 class RetreatAdmin(admin.ModelAdmin):
-    list_display = ('title_ge', 'price')
+    list_display = ('title_ge', 'price', 'is_active')
     inlines = [RetreatDayInline]
+    
     fieldsets = (
-        ('ძირითადი ინფორმაცია', {
-            'fields': ('title_ge', 'title_en', 'date_range_ge', 'date_range_en', 'location_ge', 'location_en', 'is_active', 'image')
+        ('⚙️ ძირითადი პარამეტრები', {
+            'fields': ('is_active', 'price', 'early_bird_price', 'image')
         }),
-        ('💰 ფასები', {
-            'fields': ('price', 'early_bird_price', 'disclaimer_ge', 'disclaimer_en')
+        ('🇬🇪 ქართული ვერსია (Georgian)', {
+            'fields': ('title_ge', 'date_range_ge', 'location_ge', 'description_ge', 'includes_ge', 'disclaimer_ge')
         }),
-        ('📄 აღწერა და დეტალები', {
-            'fields': ('description_ge', 'description_en', 'includes_ge', 'includes_en')
+        ('🇬🇧 ინგლისური ვერსია (English)', {
+            'fields': ('title_en', 'date_range_en', 'location_en', 'description_en', 'includes_en', 'disclaimer_en'),
+            'classes': ('collapse',),
+            'description': 'შეავსეთ ინგლისური ვერსიისთვის (არასავალდებულო).'
         }),
         ('🔗 რეკვიზიტები', {
-            'fields': ('bank_accounts',)
+            'fields': ('bank_accounts',),
+            'classes': ('collapse',),
+            'description': 'საბანკო რეკვიზიტები სპეციალურად ამ რიტრიტისთვის.'
         }),
     )
 
@@ -230,38 +246,73 @@ class RetreatDayAdmin(admin.ModelAdmin):
     list_display = ('retreat', 'day_number', 'date_label', 'title_ge')
     list_filter = ('retreat',)
     inlines = [RetreatActivityInline]
-    fields = ('retreat', 'day_number', 'date_label', 'date_label_en', 'title_ge', 'title_en')
-    verbose_name = "პროგრამის დღე"
-
+    
+    fieldsets = (
+        ('⚙️ ძირითადი პარამეტრები', {
+            'fields': ('retreat', 'day_number')
+        }),
+        ('🇬🇪 ქართული ვერსია (Georgian)', {
+            'fields': ('date_label', 'title_ge', 'content_ge')
+        }),
+        ('🇬🇧 ინგლისური ვერსია (English)', {
+            'fields': ('date_label_en', 'title_en', 'content_en'),
+            'classes': ('collapse',),
+            'description': 'შეავსეთ ინგლისური ვერსიისთვის (არასავალდებულო).'
+        }),
+    )
 
 @admin.register(Lead)
 class LeadAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'purpose', 'created_at')
     list_filter = ('purpose', 'created_at')
+    readonly_fields = ('name', 'phone', 'email', 'purpose', 'message', 'created_at')
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('name_ge', 'rating', 'is_active', 'order')
     list_editable = ('is_active', 'order')
+    
+    fieldsets = (
+        ('⚙️ პარამეტრები', {
+            'fields': ('is_active', 'order', 'rating', 'image')
+        }),
+        ('🇬🇪 ქართული ვერსია (Georgian)', {
+            'fields': ('name_ge', 'text_ge')
+        }),
+        ('🇬🇧 ინგლისური ვერსია (English)', {
+            'fields': ('name_en', 'text_en'),
+            'classes': ('collapse',),
+            'description': 'შეავსეთ ინგლისური ვერსიისთვის (არასავალდებულო).'
+        }),
+    )
 
 @admin.register(BotSettings)
 class BotSettingsAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('🔑 ტექნიკური პარამეტრები', {
+        ('🔑 ტექნიკური პარამეტრები (ბოტის კავშირი)', {
             'fields': ('bot_token', 'admin_chat_id'),
-            'description': '⚠️ ბოტის ტოკენი და ადმინის Chat ID. ეს ველები შეცვალეთ მხოლოდ ბოტის შეცვლის შემთხვევაში.'
+            'description': '⚠️ ყურადღება: ბოტის ტოკენი და ადმინისტრატორის ID. არ შეცვალოთ მფლობელის გარეშე.'
         }),
-        ('👋 მისალმება და მენიუს ტექსტები', {
+        ('💬 მისალმება და ძირითადი ტექსტები', {
             'fields': (
                 'welcome_text_ge',
                 'services_menu_text_ge',
                 'courses_menu_text_ge',
                 'contact_text_ge',
+                'booking_success_text_ge',
                 'language_choice_text',
             ),
-            'description': 'ეს ტექსტები ჩანს მომხმარებელს, როდესაც ის ხსნის ბოტს ან ირჩევს კატეგორიას.'
+            'description': 'ტელეგრამ ბოტში გამოსაჩენი მისალმებები და განმარტებითი ტექსტები.'
         }),
-        ('🔘 მთავარი მენიუს ღილაკები', {
+        ('📅 ჩაწერის პროცესი (Booking)', {
+            'fields': (
+                'booking_ask_name',
+                'booking_ask_phone',
+                'booking_admin_notify',
+            ),
+            'description': 'ტექსტები, რომლებიც ბოტში ჩაწერის დროს იგზავნება.'
+        }),
+        ('🔘 ბოტის მენიუს ღილაკები', {
             'fields': (
                 'btn_services',
                 'btn_courses',
@@ -273,25 +324,15 @@ class BotSettingsAdmin(admin.ModelAdmin):
                 'btn_language_ge',
                 'btn_language_en',
             ),
-            'description': 'ბოტის ყველა ღილაკის ტექსტი. შეიძლება შეიცვალოს ემოჯი ან სიტყვა.',
+            'description': 'ღილაკების სახელები. შეგიძლიათ ჩასვათ ემოჯები.',
             'classes': ('collapse',),
         }),
-        ('📅 ჩაწერის პროცესი (Booking)', {
-            'fields': (
-                'booking_ask_name',
-                'booking_ask_phone',
-                'booking_success_text_ge',
-                'booking_admin_notify',
-            ),
-            'description': 'ეს ტექსტები გამოჩნდება, როდესაც მომხმარებელი იწყებს ჩაწერის პროცესს.'
-        }),
-        ('⚙️ სხვა შეტყობინებები', {
+        ('⚙️ დამხმარე შეტყობინებები', {
             'fields': (
                 'payment_soon_text',
                 'not_found_text',
                 'bot_started_text',
             ),
-            'description': 'დამხმარე შეტყობინებები სხვადასხვა სიტუაციებისთვის.',
             'classes': ('collapse',),
         }),
     )
